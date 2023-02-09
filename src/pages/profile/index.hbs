@@ -1,0 +1,49 @@
+---
+inputs: [
+    { 
+      name: "login", 
+      lableTitle: "Логин", 
+      type: "text" 
+    },
+    { 
+      name: "email", 
+      lableTitle: "Почта", 
+      type: "text" 
+    },
+    { 
+      name: "firstName", 
+      lableTitle: "Имя", 
+      type: "text" 
+    },
+    { 
+      name: "lastName", 
+      lableTitle: "Фамилия", 
+      type: "text" 
+    },
+    { 
+      name: "phone", 
+      lableTitle: "Телефон", 
+      type: "tel" 
+    },
+  ]
+---
+<html>
+  <head>
+    <link rel="stylesheet" href="../../styles/main.scss" />
+    <link rel="stylesheet" href="./style.scss" />
+  </head>
+  <body>
+    <section class="content-section">
+        <h2>Профиль</h2>
+        <form>
+          <div class="profile-photo">
+          </div>
+          {{#each inputs as |input|}}
+            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
+          {{/each}}
+          {{> button/button type="submit" contentValue="Сохранить изменения"}}
+          {{> button/button type="submit" contentValue="Изменить пароль"}}
+        </form>
+    </section>
+  </body>
+</html>

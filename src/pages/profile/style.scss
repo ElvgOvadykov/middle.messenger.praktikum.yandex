@@ -1,0 +1,19 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+$profile-photo-width: 150px;
+
+h2 { 
+  margin-bottom: 50px;
+}
+
+.profile-photo {
+  height: $profile-photo-width;
+  width: $profile-photo-width;
+  background-color: $light-blue;
+  border-radius: calc($profile-photo-width * 0.5);
+  background-image: url("../../../static/icons/user-circle.svg") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: 80px 80px;
+}

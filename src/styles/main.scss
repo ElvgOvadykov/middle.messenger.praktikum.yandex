@@ -1,0 +1,59 @@
+@import "variables";
+@import "typography";
+@import "../components/input/input.scss";
+@import "../components/button/style.scss";
+@import "../components/aLink/style.scss";
+
+body {
+  background-color: $main-background-color;
+  font-family: $font-family-medium;
+  font-size: $step;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: calc($step * 3);
+  font-size: calc($step * 4);
+  font-weight: 500;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: calc($step * 3);
+  font-size: calc($step * 3);
+  font-weight: 500;
+}
+
+form {
+  margin: 0;
+  width: 254px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.content-section {
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: calc($step * 2.5);
+  font-size: calc($step * 2);
+  padding: calc($step * 4) calc($step * 5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1280px;
+  height: 880px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
