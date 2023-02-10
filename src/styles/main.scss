@@ -4,6 +4,52 @@
 @import "../components/button/style.scss";
 @import "../components/aLink/style.scss";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+@mixin centered-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: calc($step * 2.5);
+  font-size: calc($step * 2);
+  padding: calc($step * 4) calc($step * 5);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 body {
   background-color: $main-background-color;
   font-family: $font-family-medium;
@@ -41,19 +87,40 @@ form {
 }
 
 .content-section {
-  background-color: white;
-  box-sizing: border-box;
-  border-radius: calc($step * 2.5);
-  font-size: calc($step * 2);
-  padding: calc($step * 4) calc($step * 5);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include centered-block;
+
   width: 1280px;
   height: 880px;
-  overflow: auto;
+}
+
+.error-section {
+  @include centered-block;
+
+  width: 700px;
+  height: 500px;
+}
+
+.error-content {
+  width: 100%;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+
+  h1 {
+    font-size: 80px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  a {
+    font-size: 24px;
+  }
 }
+

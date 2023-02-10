@@ -31,6 +31,7 @@ inputs: [
   <head>
     <link rel="stylesheet" href="../../styles/main.scss" />
     <link rel="stylesheet" href="./style.scss" />
+    <script src="./index.js" type="module"></script>
   </head>
   <body>
     <section class="content-section">
@@ -42,7 +43,7 @@ inputs: [
             {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
           {{/each}}
           {{> button/button type="submit" contentValue="Сохранить изменения"}}
-          {{> button/button type="submit" contentValue="Изменить пароль"}}
+          {{> button/button type="button" contentValue="Изменить пароль"}}
         </form>
     </section>
   </body>
