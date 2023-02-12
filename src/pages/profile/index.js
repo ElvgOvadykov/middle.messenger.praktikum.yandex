@@ -1,13 +1,7 @@
 import { closeModal, openModal } from "../../utils/modal";
+import goToHomeEvent from "../../utils/goToHomeEvent";
 
-const button = document.querySelector("#saveChangesButton");
-
-button.onclick = function (event) {
-  event.preventDefault();
-  const a = document.createElement("a");
-  a.setAttribute("href", "/");
-  a.click();
-};
+document.querySelector("#saveChangesButton").onclick = goToHomeEvent;
 
 const profileBlockAvatar = document.querySelector(".profile-avatar-block");
 const uploadAvatarModal = document.querySelector("#uploadAvatarModal");

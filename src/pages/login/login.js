@@ -1,8 +1,3 @@
-const button = document.querySelector("button[type='submit']");
+import goToHomeEvent from "../../utils/goToHomeEvent";
 
-button.onclick = function (event) {
-  event.preventDefault();
-  const a = document.createElement("a");
-  a.setAttribute("href", "/");
-  a.click();
-};
+document.querySelector("button[type='submit']").onclick = goToHomeEvent;
