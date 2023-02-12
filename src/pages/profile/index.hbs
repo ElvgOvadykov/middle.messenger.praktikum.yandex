@@ -11,13 +11,18 @@ inputs: [
       type: "text" 
     },
     { 
-      name: "firstName", 
+      name: "first_name", 
       lableTitle: "Имя", 
       type: "text" 
     },
     { 
-      name: "lastName", 
+      name: "second_name", 
       lableTitle: "Фамилия", 
+      type: "text" 
+    },
+    { 
+      name: "display_name", 
+      lableTitle: "Имя в чате", 
       type: "text" 
     },
     { 
@@ -37,14 +42,33 @@ inputs: [
     <section class="content-section">
         <h2>Профиль</h2>
         <form>
-          <div class="profile-photo">
+          <div class="profile-avatar-block">
+            <div class="profile-avatar-block__overlay">
+              <span class="profile-avatar-block__overlay__text">Изменить</br>аватар</span>
+            </div>
           </div>
           {{#each inputs as |input|}}
             {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
           {{/each}}
-          {{> button/button type="submit" contentValue="Сохранить изменения"}}
-          {{> button/button type="button" contentValue="Изменить пароль"}}
+          {{> button/button id="saveChangesButton" type="submit" contentValue="Сохранить изменения"}}
+          {{> button/button id="changePasswordButton" type="button" contentValue="Изменить пароль"}}
         </form>
     </section>
+
+    {{#> modal/modal id="uploadAvatarModal" }}
+      <h2>Загрузите файл</h2>
+      {{> aLink/a aLintHref="" aLinkTitle="Выберите файл" }}
+      {{> button/button id="saveAvatarButton" type="button" contentValue="Сохранить изменения"}}
+    {{/modal/modal}}
+
+    {{#> modal/modal id="changePasswordModal" }}
+      <h2>Изменить пароль</h2>
+      <form id="changePasswordForm">
+        {{> input/input name="oldPassword" lableTitle="Прежний пароль" type="password" }}
+        {{> input/input name="newPassword" lableTitle="Новый пароль" type="password" }}
+        {{> input/input name="repeatNewPassword" lableTitle="Повторите пароль" type="password" }}
+        {{> button/button id="savePasswordButton" type="submit" contentValue="Изменить пароль"}}
+      </form>
+    {{/modal/modal}}
   </body>
 </html>

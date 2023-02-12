@@ -1,8 +1,10 @@
 @import "variables";
 @import "typography";
+@import "mixins";
 @import "../components/input/input.scss";
 @import "../components/button/style.scss";
 @import "../components/aLink/style.scss";
+@import "../components/modal/style.scss";
 
 *,
 *::before,
@@ -32,22 +34,6 @@ blockquote,
 dl,
 dd {
   margin: 0;
-}
-
-@mixin centered-block {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  box-sizing: border-box;
-  border-radius: calc($step * 2.5);
-  font-size: calc($step * 2);
-  padding: calc($step * 4) calc($step * 5);
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 body {
