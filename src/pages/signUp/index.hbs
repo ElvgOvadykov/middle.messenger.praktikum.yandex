@@ -11,13 +11,18 @@ inputs: [
       type: "text" 
     },
     { 
-      name: "firstName", 
+      name: "first_name", 
       lableTitle: "Имя", 
       type: "text" 
     },
     { 
-      name: "lastName", 
+      name: "second_name", 
       lableTitle: "Фамилия", 
+      type: "text" 
+    },
+    { 
+      name: "display_name", 
+      lableTitle: "Имя в чате", 
       type: "text" 
     },
     { 
@@ -44,15 +49,17 @@ inputs: [
     <script src="./signUp.js" type="module"></script>
   </head>
   <body>
-    <section class="sign-up">
-      <form>
-        <h3>Регистрация</h3>
-        {{#each inputs as |input|}}
-          {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
-        {{/each}}
-        {{> button/button type="submit" contentValue="Регистрация"}}
-        {{> aLink/a aLintHref="../login/index.hbs" aLinkTitle="Уже есть профиль?" }}
-      </form>
-    </section>
+    <main>
+      <section class="sign-up">
+        <form>
+          <h3>Регистрация</h3>
+          {{#each inputs as |input|}}
+            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
+          {{/each}}
+          {{> button/button type="submit" contentValue="Регистрация"}}
+          {{> aLink/a aLintHref="../login/index.hbs" aLinkTitle="Уже есть профиль?" }}
+        </form>
+      </section>
+    </main>
   </body>
 </html>

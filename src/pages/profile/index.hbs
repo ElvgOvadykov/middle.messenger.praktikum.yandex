@@ -39,7 +39,8 @@ inputs: [
     <script src="./index.js" type="module"></script>
   </head>
   <body>
-    <section class="content-section">
+    <main>
+      <section class="content-section">
         <h2>Профиль</h2>
         <form>
           <div class="profile-avatar-block">
@@ -53,22 +54,23 @@ inputs: [
           {{> button/button id="saveChangesButton" type="submit" contentValue="Сохранить изменения"}}
           {{> button/button id="changePasswordButton" type="button" contentValue="Изменить пароль"}}
         </form>
-    </section>
+      </section>
 
-    {{#> modal/modal id="uploadAvatarModal" }}
-      <h2>Загрузите файл</h2>
-      {{> aLink/a aLintHref="" aLinkTitle="Выберите файл" }}
-      {{> button/button id="saveAvatarButton" type="button" contentValue="Сохранить изменения"}}
-    {{/modal/modal}}
+      {{#> modal/modal id="uploadAvatarModal" }}
+        <h2>Загрузите файл</h2>
+        {{> aLink/a aLintHref="" aLinkTitle="Выберите файл" }}
+        {{> button/button id="saveAvatarButton" type="button" contentValue="Сохранить изменения"}}
+      {{/modal/modal}}
 
-    {{#> modal/modal id="changePasswordModal" }}
-      <h2>Изменить пароль</h2>
-      <form id="changePasswordForm">
-        {{> input/input name="oldPassword" lableTitle="Прежний пароль" type="password" }}
-        {{> input/input name="newPassword" lableTitle="Новый пароль" type="password" }}
-        {{> input/input name="repeatNewPassword" lableTitle="Повторите пароль" type="password" }}
-        {{> button/button id="savePasswordButton" type="submit" contentValue="Изменить пароль"}}
-      </form>
-    {{/modal/modal}}
+      {{#> modal/modal id="changePasswordModal" }}
+        <h2>Изменить пароль</h2>
+        <form id="changePasswordForm">
+          {{> input/input name="oldPassword" lableTitle="Прежний пароль" type="password" }}
+          {{> input/input name="newPassword" lableTitle="Новый пароль" type="password" }}
+          {{> input/input name="repeatNewPassword" lableTitle="Повторите пароль" type="password" }}
+          {{> button/button id="savePasswordButton" type="submit" contentValue="Изменить пароль"}}
+        </form>
+      {{/modal/modal}}
+    </main>
   </body>
 </html>

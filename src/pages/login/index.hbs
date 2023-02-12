@@ -19,15 +19,17 @@ inputs: [
     <script src="./login.js" type="module"></script>
   </head>
   <body>
-    <section class="login">
-      <form>
-        <h3>Авторизация</h3>
-        {{#each inputs as |input|}}
-          {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
-        {{/each}}
-        {{> button/button type="submit" contentValue="Вход" }}
-        {{> aLink/a aLintHref="../signUp/index.hbs" aLinkTitle="Регистрация" }}
-      </form>
-    </section>
+    <main>
+      <section class="login">
+        <form>
+          <h3>Авторизация</h3>
+          {{#each inputs as |input|}}
+            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
+          {{/each}}
+          {{> button/button type="submit" contentValue="Вход" }}
+          {{> aLink/a aLintHref="../signUp/index.hbs" aLinkTitle="Регистрация" }}
+        </form>
+      </section>
+    </main>
   </body>
 </html>
