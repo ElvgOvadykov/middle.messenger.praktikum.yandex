@@ -4,7 +4,7 @@
   "description": "chat",
   "scripts": {
     "build": "parcel build ./src/pages/home/index.hbs",
-    "start": "parcel ./src/pages/home/index.hbs --no-cache --port 3000"
+    "start": "parcel ./src/pages/home/index.hbs --no-cache --port 3000 --open"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "sass": "1.58.0"
   },
   "dependencies": {
+    "dotenv": "16.0.3",
     "handlebars": "4.7.7"
   }
 }
