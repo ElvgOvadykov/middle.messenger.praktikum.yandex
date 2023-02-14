@@ -1,0 +1,66 @@
+---
+inputs: [
+    { 
+      name: "login", 
+      lableTitle: "Логин", 
+      type: "text" 
+    },
+    { 
+      name: "email", 
+      lableTitle: "Почта", 
+      type: "text" 
+    },
+    { 
+      name: "first_name", 
+      lableTitle: "Имя", 
+      type: "text" 
+    },
+    { 
+      name: "second_name", 
+      lableTitle: "Фамилия", 
+      type: "text" 
+    },
+    { 
+      name: "display_name", 
+      lableTitle: "Имя в чате", 
+      type: "text" 
+    },
+    { 
+      name: "phone", 
+      lableTitle: "Телефон", 
+      type: "tel" 
+    },
+    { 
+      name: "password", 
+      lableTitle: "Пароль", 
+      type: "password" 
+    },
+    { 
+      name: "repeatPassword", 
+      lableTitle: "Повторите пароль", 
+      type: "password" 
+    },
+  ]
+---
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="../../styles/main.scss" />
+    <link rel="stylesheet" href="./style.scss" />
+    <script src="./signUp.js" type="module"></script>
+  </head>
+  <body>
+    <main>
+      <section class="sign-up">
+        <form>
+          <h3>Регистрация</h3>
+          {{#each inputs as |input|}}
+            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
+          {{/each}}
+          {{> button/button type="submit" contentValue="Регистрация"}}
+          {{> aLink/a aLintHref="../login/index.hbs" aLinkTitle="Уже есть профиль?" }}
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+.button {
+  background-color: $green-color;
+  border-radius: 18px;
+  font-size: calc($step * 2);
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}

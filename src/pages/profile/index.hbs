@@ -1,0 +1,77 @@
+---
+inputs: [
+    { 
+      name: "login", 
+      lableTitle: "Логин", 
+      type: "text" 
+    },
+    { 
+      name: "email", 
+      lableTitle: "Почта", 
+      type: "text" 
+    },
+    { 
+      name: "first_name", 
+      lableTitle: "Имя", 
+      type: "text" 
+    },
+    { 
+      name: "second_name", 
+      lableTitle: "Фамилия", 
+      type: "text" 
+    },
+    { 
+      name: "display_name", 
+      lableTitle: "Имя в чате", 
+      type: "text" 
+    },
+    { 
+      name: "phone", 
+      lableTitle: "Телефон", 
+      type: "tel" 
+    },
+  ]
+---
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="../../styles/main.scss" />
+    <link rel="stylesheet" href="./style.scss" />
+    <script src="./index.js" type="module"></script>
+  </head>
+  <body>
+    <main>
+      <section class="content-section">
+        <h2>Профиль</h2>
+        <form>
+          <div class="profile-avatar-block">
+            <div class="profile-avatar-block__overlay">
+              <span class="profile-avatar-block__overlay__text">Изменить</br>аватар</span>
+            </div>
+          </div>
+          {{#each inputs as |input|}}
+            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
+          {{/each}}
+          {{> button/button id="saveChangesButton" type="submit" contentValue="Сохранить изменения"}}
+          {{> button/button id="changePasswordButton" type="button" contentValue="Изменить пароль"}}
+        </form>
+      </section>
+
+      {{#> modal/modal id="uploadAvatarModal" }}
+        <h2>Загрузите файл</h2>
+        {{> aLink/a aLintHref="" aLinkTitle="Выберите файл" }}
+        {{> button/button id="saveAvatarButton" type="button" contentValue="Сохранить изменения"}}
+      {{/modal/modal}}
+
+      {{#> modal/modal id="changePasswordModal" }}
+        <h2>Изменить пароль</h2>
+        <form id="changePasswordForm">
+          {{> input/input name="oldPassword" lableTitle="Прежний пароль" type="password" }}
+          {{> input/input name="newPassword" lableTitle="Новый пароль" type="password" }}
+          {{> input/input name="repeatNewPassword" lableTitle="Повторите пароль" type="password" }}
+          {{> button/button id="savePasswordButton" type="submit" contentValue="Изменить пароль"}}
+        </form>
+      {{/modal/modal}}
+    </main>
+  </body>
+</html>
