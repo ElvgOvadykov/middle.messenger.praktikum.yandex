@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "chat",
   "scripts": {
-    "build": "parcel build ./src/pages/home/index.hbs",
-    "start": "parcel ./src/pages/home/index.hbs --no-cache --port 3000 --open"
+    "build": "parcel build ./static/index.html",
+    "start": "parcel ./static/index.html --no-cache --port 3000 --open"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,12 @@
   },
   "dependencies": {
     "dotenv": "16.0.3",
-    "handlebars": "4.7.7"
+    "handlebars": "4.7.7",
+    "uuid": "9.0.0"
+  },
+  "alias": {
+    "@components/*": "./src/components/$1",
+    "@utils/*": "./src/utils/$1",
+    "@styles/*": "./src/styles/$1"
   }
 }

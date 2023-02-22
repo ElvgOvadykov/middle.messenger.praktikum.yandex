@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    /** убрать как только переедем полностью на TS */
+    "allowJs": true,
+    "checkJs": false,
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@styles/*": ["./src/styles/*"]
+    },
+    /** потом описать где будут типы */
+    // "typeRoots": ["./app/utils/types"],
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["./src"],
+  "exclude": [
+    "./node_modules",
+    "./dist",
+    "./parcel-cache",
+    "./.github",
+    "./static"
+  ]
+}
