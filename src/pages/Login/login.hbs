@@ -1,36 +1,9 @@
----
-inputs: [
-    { 
-      name: "login", 
-      lableTitle: "Логин", 
-      type: "text" 
-    },
-    { 
-      name: "password", 
-      lableTitle: "Пароль", 
-      type: "password" 
-    },
-  ]
----
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="stylesheet" href="../../styles/main.scss" />
-    <link rel="stylesheet" href="./style.scss" />
-    <script src="./login.js" type="module"></script>
-  </head>
-  <body>
-    <main>
-      <section class="login">
-        <form>
-          <h3>Авторизация</h3>
-          {{#each inputs as |input|}}
-            {{> input/input name=input.name lableTitle=input.lableTitle type=input.type }}
-          {{/each}}
-          {{> button/button type="submit" contentValue="Вход" }}
-          {{> aLink/a aLintHref="../signUp/index.hbs" aLinkTitle="Регистрация" }}
-        </form>
-      </section>
-    </main>
-  </body>
-</html>
+<section class="login">
+  <form>
+    <h3>Авторизация</h3>
+    {{{inputLogin}}}
+    {{{inputPassword}}}
+    {{{buttonSubmit}}}
+    {{{linkToSignUp}}}
+  </form>
+</section>
