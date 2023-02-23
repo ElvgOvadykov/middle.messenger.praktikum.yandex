@@ -31,6 +31,7 @@
   },
   "alias": {
     "@components/*": "./src/components/$1",
+    "@pages/*": "./src/pages/$1",
     "@utils/*": "./src/utils/$1",
     "@styles/*": "./src/styles/$1"
   }
