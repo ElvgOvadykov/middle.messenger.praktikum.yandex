@@ -3,6 +3,8 @@ import Button from "@components/Button";
 import Input from "@components/Input";
 import Link from "@components/Link";
 
+import getGoToPageFunction from "@utils/getGoToPageFunction";
+
 import template from "./login.hbs";
 
 export default class LoginPage extends Block {
@@ -30,6 +32,9 @@ export default class LoginPage extends Block {
     this.childrens.linkToSignUp = new Link({
       linkHref: "",
       linkTitle: "Регистрация",
+      events: {
+        click: getGoToPageFunction("signUp"),
+      }
     });
   }
 
