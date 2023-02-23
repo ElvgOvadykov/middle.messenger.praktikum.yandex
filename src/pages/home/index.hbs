@@ -1,29 +1,17 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="stylesheet" href="../../styles/main.scss" />
-    <link rel="stylesheet" href="./style.scss" />
-  </head>
-  <body>
-    <main>
-      <section class="content-section">
-        <div class="parking-page-content">
-          <h2>Страница заглушка</h2>
-          <span class="description">
-            Вы находитесь на странице заглушке чатов
-            </br>
-            для навигации используйте ссылки ниже
-            </br>
-          </span>
-          <div class="links">
-            {{> aLink/a aLintHref="../signUp/index.hbs" aLinkTitle="Регистрация" }}
-            {{> aLink/a aLintHref="../login/index.hbs" aLinkTitle="Авторизация" }}
-            {{> aLink/a aLintHref="../profile/index.hbs" aLinkTitle="Профиль" }}
-            {{> aLink/a aLintHref="../404/index.hbs" aLinkTitle="404 ошибка" }}
-            {{> aLink/a aLintHref="../500/index.hbs" aLinkTitle="5XX ошибка" }}
-          </div>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+<section class="content-section">
+  <div class="parking-page-content">
+    <h2>Страница заглушка</h2>
+    <span class="description">
+      Вы находитесь на странице заглушке чатов
+      </br>
+      для навигации используйте ссылки ниже
+      </br>
+    </span>
+    <div class="links">
+      {{{signUpPageLink}}}
+      {{{loginPageLink}}}
+      {{{notFoundPageLink}}}
+      {{{serverErrorPageLink}}}
+    </div>
+  </div>
+</section>
