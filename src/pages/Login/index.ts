@@ -1,9 +1,9 @@
 import Block from "@utils/Block";
 import Button from "@components/Button";
 import Input from "@components/Input";
+import Link from "@components/Link";
 
 import template from "./login.hbs";
-import Link from "@components/Link";
 
 export default class LoginPage extends Block {
   init() {
@@ -22,7 +22,6 @@ export default class LoginPage extends Block {
     this.childrens.buttonSubmit = new Button({
       type: "submit",
       contentValue: "Вход",
-      id: "login",
       events: {
         click: () => console.log(),
       },

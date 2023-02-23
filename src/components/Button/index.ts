@@ -2,7 +2,6 @@ import Block from "@utils/Block";
 import template from "./button.hbs";
 
 interface ButtonProps {
-  id: string;
   type: string;
   contentValue: string;
   events: {
