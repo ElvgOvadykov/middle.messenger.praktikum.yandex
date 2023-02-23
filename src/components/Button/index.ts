@@ -4,9 +4,7 @@ import template from "./button.hbs";
 interface ButtonProps {
   type: string;
   contentValue: string;
-  events: {
-    click: () => void;
-  };
+  events?: Record<string, Function>
 }
 
 export default class Button extends Block<ButtonProps> {
