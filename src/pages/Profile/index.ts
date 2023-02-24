@@ -1,15 +1,16 @@
 import Block from "@utils/Block";
 import Input from "@components/Input";
-import Link from "@components/Link";
 import Button from "@components/Button";
+import ChangePasswordModal from "@components/ChangePasswordModal";
+import UploadAvatarModal from "@components/UploadAvatarModal";
 
 import getGoToPageFunction from "@utils/getGoToPageFunction";
 
-import template from "./signUp.hbs";
+import template from "./profile.hbs";
 
 import "./style.scss";
 
-export default class SignUpPage extends Block {
+export default class ProfilePage extends Block {
   init() {
     this.childrens.login = new Input({
       name: "login",
@@ -47,36 +48,38 @@ export default class SignUpPage extends Block {
       type: "tel",
     });
 
-    this.childrens.password = new Input({
-      name: "password",
-      lableTitle: "Пароль",
-      type: "password",
-    });
-
-    this.childrens.repeatPassword = new Input({
-      name: "repeatPassword",
-      lableTitle: "Повторите пароль",
-      type: "password",
-    });
-
-    this.childrens.buttonSubmit = new Button({
+    this.childrens.submitButton = new Button({
       type: "submit",
-      contentValue: "Регистрация",
+      contentValue: "Сохранить изменения",
       events: {
-        click: () => console.log(),
+        click: getGoToPageFunction("home"),
       },
     });
 
-    this.childrens.linkToLogin = new Link({
-      linkHref: "",
-      linkTitle: "Уже есть профиль?",
+    this.childrens.changePasswordModal = new ChangePasswordModal({});
+
+    this.childrens.uploadAvatarModal = new UploadAvatarModal({});
+
+    this.childrens.toggleChangePasswordModuleButton = new Button({
+      type: "button",
+      contentValue: "Изменить пароль",
       events: {
-        click: getGoToPageFunction("login"),
+        click: () => {
+          (this.childrens.changePasswordModal as ChangePasswordModal).show();
+        },
       },
     });
   }
 
-  protected render() {
+  componentDidMount(): void {
+    const avatarBlock = document.querySelector(".profile-avatar-block");
+
+    avatarBlock?.addEventListener("click", () =>
+      (this.childrens.uploadAvatarModal as ChangePasswordModal).show()
+    );
+  }
+
+  render() {
     return this.compile(template, this.props);
   }
 }

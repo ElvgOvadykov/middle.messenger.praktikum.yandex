@@ -5,6 +5,8 @@ import getGoToPageFunction from "@utils/getGoToPageFunction";
 
 import template from "./index.hbs";
 
+import "./style.scss";
+
 export default class HomePage extends Block {
   init() {
     this.childrens.signUpPageLink = new Link({
@@ -23,13 +25,13 @@ export default class HomePage extends Block {
       },
     });
 
-    // this.childrens.profilePageLink = new Link({
-    //   linkHref: "",
-    //   linkTitle: "Профиль",
-    //   events: {
-    //     click: getGoToPageFunction("profile"),
-    //   },
-    // });
+    this.childrens.profilePageLink = new Link({
+      linkHref: "",
+      linkTitle: "Профиль",
+      events: {
+        click: getGoToPageFunction("profile"),
+      },
+    });
 
     this.childrens.notFoundPageLink = new Link({
       linkHref: "",

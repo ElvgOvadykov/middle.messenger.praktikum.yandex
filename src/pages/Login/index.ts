@@ -7,6 +7,8 @@ import getGoToPageFunction from "@utils/getGoToPageFunction";
 
 import template from "./login.hbs";
 
+import "./style.scss";
+
 export default class LoginPage extends Block {
   init() {
     this.childrens.inputLogin = new Input({

@@ -2,7 +2,7 @@ import Block from "@utils/Block";
 import template from "./link.hbs";
 
 interface LinkProps {
-  linkHref: string;
+  linkHref?: string;
   linkTitle: string;
   /** Временное решение для реализации переключения страниц без роутера */
   events?: Record<string, Function>;
