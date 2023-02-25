@@ -1,0 +1,24 @@
+@import "@styles/variables.scss";
+
+.chats {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .chats__list {
+    display: flex;
+    flex-direction: column;
+    order: -1;
+    width: 380px;
+  }
+
+  .chats__messages {
+    flex: 1;
+  }
+}
+
+.chats::before {
+  content: "";
+  border: 1px solid $grey-blue;
+  align-self: stretch;
+}

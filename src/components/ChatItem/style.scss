@@ -1,0 +1,40 @@
+@import "@styles/variables.scss";
+
+$chat_avatar_width: 60px;
+
+.chat-item {
+  height: 80px;
+  padding: 10px 20px;
+  border-bottom: 1px solid $grey-blue;
+
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+  gap: 15px;
+
+  &__avatar {
+    width: $chat_avatar_width;
+    height: $chat_avatar_width;
+    border-radius: calc($chat_avatar_width * 0.5);
+    background-image: url("../../../static/image/test_avatar.png") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: 60px 60px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  &__info {
+    justify-self: end;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+  }
+}
