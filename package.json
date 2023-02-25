@@ -33,6 +33,8 @@
     "@components/*": "./src/components/$1",
     "@pages/*": "./src/pages/$1",
     "@utils/*": "./src/utils/$1",
-    "@styles/*": "./src/styles/$1"
+    "@styles/*": "./src/styles/$1",
+    "@icons/*": "./static/icons/$1",
+    "@images/*": "./static/image/$1"
   }
 }

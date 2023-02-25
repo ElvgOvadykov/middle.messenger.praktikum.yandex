@@ -12,7 +12,9 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@utils/*": ["./src/utils/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@icons/*": ["./static/icons/*"],
+      "@images/*": ["./static/image/*"],
     },
     /** потом описать где будут типы */
     // "typeRoots": ["./app/utils/types"],
