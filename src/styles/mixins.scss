@@ -7,9 +7,7 @@
   box-sizing: border-box;
   border-radius: calc($step * 2.5);
   font-size: calc($step * 2);
-  padding: calc($step * 4) calc($step * 5);
   overflow: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }

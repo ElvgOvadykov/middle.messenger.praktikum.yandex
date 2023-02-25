@@ -1,10 +1,10 @@
 @import "variables";
 @import "typography";
 @import "mixins";
-@import "../components/Input/input.scss";
-@import "../components/Button/style.scss";
-@import "../components/Link/style.scss";
-@import "../components/Modal/style.scss";
+@import "@components/Input/input.scss";
+@import "@components/Button/style.scss";
+@import "@components/Link/style.scss";
+@import "@components/Modal/style.scss";
 
 *,
 *::before,

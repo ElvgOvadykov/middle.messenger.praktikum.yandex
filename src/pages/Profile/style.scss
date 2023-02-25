@@ -7,6 +7,11 @@ h2 {
   margin-bottom: 24px;
 }
 
+.profile {
+  align-items: center;
+  padding: calc($step * 4) calc($step * 5);
+}
+
 .profile-avatar-block {
   height: $profile-avatar-width;
   width: $profile-avatar-width;
