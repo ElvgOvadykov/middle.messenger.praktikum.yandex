@@ -129,7 +129,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
     Object.entries(this.childrens).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`)
+        contextAndStubs[name] = component.reduce((acc, child) => acc.concat(`<div data-id="${child.id}"></div>`), "")
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
