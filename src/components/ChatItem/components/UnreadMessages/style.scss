@@ -1,0 +1,12 @@
+@import "@styles/variables.scss";
+
+$unread-messages-count-width: 20px;
+
+.unread-messages-count {
+  background-color: $green;
+  width: $unread-messages-count-width;
+  height: $unread-messages-count-width;
+  color: white;
+  text-align: center;
+  border-radius: calc($unread-messages-count-width * 0.5);
+}
