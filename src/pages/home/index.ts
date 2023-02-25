@@ -48,6 +48,14 @@ export default class HomePage extends Block {
         click: getGoToPageFunction("serverError"),
       },
     });
+
+    this.childrens.chatsPageLink = new Link({
+      linkHref: "",
+      linkTitle: "Чаты",
+      events: {
+        click: getGoToPageFunction("chats"),
+      },
+    });
   }
 
   protected render() {
