@@ -5,6 +5,7 @@ interface InputProps {
   name: string;
   lableTitle: string;
   type: string;
+  placeholder?: string;
 }
 
 export default class Input extends Block<InputProps> {

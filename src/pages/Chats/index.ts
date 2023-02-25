@@ -1,5 +1,6 @@
 import Block from "@utils/Block";
 import ChatItem, { IChatItemProps } from "@components/ChatItem";
+import Input from "@components/Input";
 
 import template from "./chats.hbs";
 
@@ -28,6 +29,13 @@ const chats: Array<{ chatItem: IChatItemProps }> = [
 
 export default class ChatsPage extends Block {
   protected init(): void {
+    this.childrens.searchInput = new Input({
+      lableTitle: "",
+      name: "seatchChat",
+      type: "text",
+      placeholder: "Поиск..."
+    })
+
     this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
   }
 
