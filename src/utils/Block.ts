@@ -125,7 +125,11 @@ abstract class Block<TProps extends Record<string, any> = any> {
       stub.replaceWith(component.getContent()!);
     }
 
-    const contextAndStubs = {...context};
+    function getClasses(classes: Array<string>) {
+      return classes.join(" ");
+    }
+
+    const contextAndStubs = {...context, classes: this.props.classes ? getClasses(this.props.classes) : ""};
 
     Object.entries(this.childrens).forEach(([name, component]) => {
       if (Array.isArray(component)) {
