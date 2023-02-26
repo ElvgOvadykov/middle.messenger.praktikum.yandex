@@ -1,11 +1,31 @@
+@import "@styles/variables.scss";
+
 .button {
-  background-color: $green;
   border-radius: 18px;
   font-size: calc($step * 2);
-  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
   border: none;
   color: white;
   cursor: pointer;
+
+  &__size-full-width {
+    width: 100%;
+  }
+
+  &__size-medium-width {
+    width: 100px;
+  }
+
+  &__size-small-width {
+    width: 55px;
+  }
+
+  &__color-green {
+    background-color: $green;
+  }
+
+  &__color-white {
+    background-color: white;
+  }
 }
