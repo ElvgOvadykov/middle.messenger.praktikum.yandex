@@ -18,6 +18,7 @@ interface IButtonProps {
   size?: ButtonSize;
   color?: ButtonColor;
   events?: Record<string, Function>;
+  id?: string;
 }
 
 type TButtonExtendedProps = IButtonProps & {

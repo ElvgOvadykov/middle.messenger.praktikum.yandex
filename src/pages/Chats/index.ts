@@ -1,6 +1,7 @@
 import Block from "@utils/Block";
 import ChatItem, { IChatItemProps } from "@components/ChatItem";
 import Input from "@components/Input";
+import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import ProfileBlock from "@components/ProfileBlock";
 
 import template from "./chats.hbs";
@@ -45,9 +46,38 @@ export default class ChatsPage extends Block {
         secondName: "Овадыков",
       },
     });
+
+    this.childrens.chatOptionsButton = new Button({
+      type: "button",
+      contentValue: "",
+      color: ButtonColor.White,
+      size: ButtonSize.Small,
+    });
+
+    this.childrens.attachButton = new Button({
+      type: "button",
+      contentValue: "",
+      color: ButtonColor.White,
+      size: ButtonSize.Small,
+      id: "attachButton",
+    });
+
+    this.childrens.messageInput = new Input({
+      name: "message",
+      lableTitle: "",
+      type: "text",
+      placeholder: "Сообщение",
+    });
+
+    this.childrens.sendMessageButton = new Button({
+      type: "button",
+      contentValue: "",
+      size: ButtonSize.Small,
+      id: "sendMessage",
+    });
   }
 
   render() {
-    return this.compile(template, this.props);
+    return this.compile(template, { ...this.props });
   }
 }

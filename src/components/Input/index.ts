@@ -3,7 +3,7 @@ import template from "./input.hbs";
 
 interface InputProps {
   name: string;
-  lableTitle: string;
+  lableTitle?: string;
   type: string;
   placeholder?: string;
 }

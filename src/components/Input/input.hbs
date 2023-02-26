@@ -1,4 +1,6 @@
 <div class="input">
-  <lable for="{{name}}">{{lableTitle}}</lable>
+  {{#if lableTitle}}
+    <lable class="input__label" for="{{name}}">{{lableTitle}}</lable>
+  {{/if}}
   <input id="{{name}}" name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" />
 </div>
