@@ -1,6 +1,7 @@
 import Block from "@utils/Block";
 import ChatItem, { IChatItemProps } from "@components/ChatItem";
 import Input from "@components/Input";
+import ProfileBlock from "@components/ProfileBlock";
 
 import template from "./chats.hbs";
 
@@ -33,10 +34,17 @@ export default class ChatsPage extends Block {
       lableTitle: "",
       name: "seatchChat",
       type: "text",
-      placeholder: "Поиск..."
-    })
+      placeholder: "Поиск...",
+    });
 
     this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
+
+    this.childrens.profileBlock = new ProfileBlock({
+      profile: {
+        firstName: "Элвг",
+        secondName: "Овадыков",
+      },
+    });
   }
 
   render() {

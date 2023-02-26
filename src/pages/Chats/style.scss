@@ -1,5 +1,7 @@
 @import "@styles/variables.scss";
 
+$profile_avatar_width: 60px;
+
 .chats {
   display: flex;
   flex-direction: row;
@@ -16,6 +18,19 @@
       padding: 20px 10px;
       display: flex;
       border-bottom: 1px solid $grey-blue;
+    }
+
+    &__profile-block {
+      height: 80px;
+      padding: 10px 20px;
+      display: flex;
+
+      &__avatar {
+        height: $profile_avatar_width;
+        width: $profile_avatar_width;
+        border-radius: calc($profile_avatar_width * 0.5);
+        background-image: url("../../../static/image/test_avatar.png") !important;
+      }
     }
   }
 
