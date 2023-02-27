@@ -4,6 +4,8 @@ import Input from "@components/Input";
 import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import ProfileBlock from "@components/ProfileBlock";
 import Message from "@components/Message";
+import ChatOptionsPopup from "@components/ChatOptionsPopup";
+import AttachPopup from "@components/AttachPopup";
 
 import template from "./chats.hbs";
 
@@ -42,6 +44,12 @@ const messages = [
 ];
 
 export default class ChatsPage extends Block {
+  constructor() {
+    super({
+      state: { isChatOptionsPopupVisible: false, isAttachPopupVisible: false },
+    });
+  }
+
   protected init(): void {
     this.childrens.searchInput = new Input({
       lableTitle: "",
@@ -64,6 +72,17 @@ export default class ChatsPage extends Block {
       contentValue: "",
       color: ButtonColor.White,
       size: ButtonSize.Small,
+      id: "toggleIsChatOptionsVisibleButton",
+      events: {
+        click: () => {
+          const isChatOptionsPopupVisible =
+            this.props.state.isChatOptionsPopupVisible;
+
+          this.setProps({
+            state: { isChatOptionsPopupVisible: !isChatOptionsPopupVisible },
+          });
+        },
+      },
     });
 
     this.childrens.attachButton = new Button({
@@ -72,6 +91,15 @@ export default class ChatsPage extends Block {
       color: ButtonColor.White,
       size: ButtonSize.Small,
       id: "attachButton",
+      events: {
+        click: () => {
+          const isAttachPopupVisible = this.props.state.isAttachPopupVisible;
+
+          this.setProps({
+            state: { isAttachPopupVisible: !isAttachPopupVisible },
+          });
+        },
+      },
     });
 
     this.childrens.messageInput = new Input({
@@ -92,6 +120,10 @@ export default class ChatsPage extends Block {
       (message) =>
         new Message({ content: message.content, isMine: message.isMine })
     );
+
+    this.childrens.chatOptionsPopup = new ChatOptionsPopup({});
+
+    this.childrens.attachPopup = new AttachPopup({});
   }
 
   render() {

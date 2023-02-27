@@ -63,7 +63,7 @@ $selected_chat_avatar-width: 40px;
         }
       }
 
-      button {
+      button#toggleIsChatOptionsVisibleButton {
         margin-left: auto;
         background-image: url("../../../static/icons/dots_vertical.svg") !important;
         background-position: center !important;

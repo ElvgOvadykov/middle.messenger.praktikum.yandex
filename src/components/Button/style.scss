@@ -8,6 +8,7 @@
   border: none;
   color: white;
   cursor: pointer;
+  font-family: $font-family-regular;
 
   &__size-full-width {
     width: 100%;
@@ -27,5 +28,6 @@
 
   &__color-white {
     background-color: white;
+    color: black;
   }
 }

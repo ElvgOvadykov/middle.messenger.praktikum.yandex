@@ -16,12 +16,18 @@
           </div>
         </div>
         {{{chatOptionsButton}}}
+        {{#if state.isChatOptionsPopupVisible}}
+          {{{chatOptionsPopup}}}
+        {{/if}}
       </div>
       <div class="chats__messages__list">
         {{{messages}}}
       </div>
       <div class="chat-footer">
         {{{attachButton}}}
+        {{#if state.isAttachPopupVisible}}
+          {{{attachPopup}}}
+        {{/if}}
         {{{messageInput}}}
         {{{sendMessageButton}}}
       </div>
