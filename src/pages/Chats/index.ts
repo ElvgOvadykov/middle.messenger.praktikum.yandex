@@ -3,6 +3,7 @@ import ChatItem, { IChatItemProps } from "@components/ChatItem";
 import Input from "@components/Input";
 import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import ProfileBlock from "@components/ProfileBlock";
+import Message from "@components/Message";
 
 import template from "./chats.hbs";
 
@@ -26,6 +27,17 @@ const chats: Array<{ chatItem: IChatItemProps }> = [
       lastMessageDate: new Date(),
       unreadMessagesCount: 2,
     },
+  },
+];
+
+const messages = [
+  {
+    content: "Привет как дела!",
+    isMine: false,
+  },
+  {
+    content: "Привет все норм!",
+    isMine: true,
   },
 ];
 
@@ -75,6 +87,11 @@ export default class ChatsPage extends Block {
       size: ButtonSize.Small,
       id: "sendMessage",
     });
+
+    this.childrens.messages = messages.map(
+      (message) =>
+        new Message({ content: message.content, isMine: message.isMine })
+    );
   }
 
   render() {

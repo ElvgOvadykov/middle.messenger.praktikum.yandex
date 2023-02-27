@@ -1,0 +1,25 @@
+@import "@styles/variables.scss";
+
+$border-radius: 15px;
+
+.message {
+  padding: 10px;
+  margin: 15px 0;
+
+  max-width: 400px;
+
+  background-color: $ligth-grey;
+
+  border-top-right-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+
+  &__is-mine {
+    align-self: flex-end;
+    background-color: $light-blue;
+
+    border-top-right-radius: 0;
+    border-top-left-radius: $border-radius;;
+  }
+}
+
