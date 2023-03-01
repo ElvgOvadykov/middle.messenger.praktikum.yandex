@@ -1,6 +1,8 @@
 import Block from "@utils/Block";
 import template from "./button.hbs";
 
+import "./style.scss";
+
 export enum ButtonSize {
   FullWith = "button__size-full-width",
   Medium = "button__size-medium-width",
@@ -17,7 +19,7 @@ interface IButtonProps {
   contentValue: string;
   size?: ButtonSize;
   color?: ButtonColor;
-  events?: Record<string, Function>;
+  events?: Record<string, (event: Event) => void>;
   id?: string;
 }
 
@@ -39,6 +41,7 @@ export default class Button extends Block<TButtonExtendedProps> {
   }
 
   protected render(): DocumentFragment {
+    console.log("button render");
     return this.compile(template, this.props);
   }
 }

@@ -1,6 +1,8 @@
 import Block from "@utils/Block";
 import template from "./link.hbs";
 
+import "./style.scss";
+
 interface LinkProps {
   linkHref?: string;
   linkTitle: string;

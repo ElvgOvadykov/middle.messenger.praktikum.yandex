@@ -1,5 +1,6 @@
 import EventBus from "./EventBus";
 import { v4 as uuidv4 } from "uuid";
+import { deepEqual } from "./helpers";
 
 const enum BlockEvents {
   INIT = "init",
@@ -18,7 +19,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
   constructor(propsWithChildrens: TProps) {
     const eventBus = new EventBus();
 
-    const {props, childrens} = this._getChildrenAndProps(propsWithChildrens);
+    const { props, childrens } = this._getChildrenAndProps(propsWithChildrens);
 
     this.childrens = childrens;
     this.props = this._makePropsProxy(props);
@@ -29,20 +30,29 @@ abstract class Block<TProps extends Record<string, any> = any> {
     this.eventBus().emit(BlockEvents.INIT);
   }
 
-  private _addEvents() {
-    const {events = {}} = this.props as TProps & { events: Record<string, () => void> };
+  protected addEvents() {
+    const { events = {} } = this.props as TProps & {
+      events: Record<string, () => void>;
+    };
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
-  private _getChildrenAndProps(childrensAndProps: TProps): { props: TProps, childrens: Record<string, Block | Block[]> } {
+  private _getChildrenAndProps(childrensAndProps: TProps): {
+    props: TProps;
+    childrens: Record<string, Block | Block[]>;
+  } {
     const props: Record<string, unknown> = {};
     const childrens: Record<string, Block | Block[]> = {};
 
     Object.entries(childrensAndProps).forEach(([key, value]) => {
-      if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
+      if (
+        Array.isArray(value) &&
+        value.length > 0 &&
+        value.every((v) => v instanceof Block)
+      ) {
         childrens[key as string] = value;
       } else if (value instanceof Block) {
         childrens[key as string] = value;
@@ -51,7 +61,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
       }
     });
 
-    return {props: props as TProps, childrens};
+    return { props: props as TProps, childrens };
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -67,8 +77,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
     this.eventBus().emit(BlockEvents.FLOW_RENDER);
   }
 
-  protected init() {
-  }
+  protected init() {}
 
   private _componentDidMount() {
     this.componentDidMount();
@@ -79,9 +88,9 @@ abstract class Block<TProps extends Record<string, any> = any> {
   dispatchComponentDidMount() {
     this.eventBus().emit(BlockEvents.FLOW_CDM);
 
-    Object.values(this.childrens).forEach(children => {
+    Object.values(this.childrens).forEach((children) => {
       if (Array.isArray(children)) {
-        children.forEach(item => item.dispatchComponentDidMount());
+        children.forEach((item) => item.dispatchComponentDidMount());
       } else {
         children.dispatchComponentDidMount();
       }
@@ -97,7 +106,9 @@ abstract class Block<TProps extends Record<string, any> = any> {
   }
 
   componentDidUpdate(oldProps: TProps, newProps: TProps) {
-    return true;
+    const bool = deepEqual(oldProps, newProps);
+
+    return !bool;
   }
 
   setProps = (nextProps: Partial<TProps>) => {
@@ -129,11 +140,17 @@ abstract class Block<TProps extends Record<string, any> = any> {
       return classes.join(" ");
     }
 
-    const contextAndStubs = {...context, classes: this.props.classes ? getClasses(this.props.classes) : ""};
+    const contextAndStubs = {
+      ...context,
+      classes: this.props.classes ? getClasses(this.props.classes) : "",
+    };
 
     Object.entries(this.childrens).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.reduce((acc, child) => acc.concat(`<div data-id="${child.id}"></div>`), "")
+        contextAndStubs[name] = component.reduce(
+          (acc, child) => acc.concat(`<div data-id="${child.id}"></div>`),
+          ""
+        );
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -141,7 +158,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
     const html = template(contextAndStubs);
 
-    const temp = document.createElement('template');
+    const temp = document.createElement("template");
 
     temp.innerHTML = html;
 
@@ -167,7 +184,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
     this._element = newElement;
 
-    this._addEvents();
+    this.addEvents();
   }
 
   protected render(): DocumentFragment {
@@ -189,11 +206,13 @@ abstract class Block<TProps extends Record<string, any> = any> {
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
+        const oldTarget = Object.assign({}, target);
+
         target[prop as keyof TProps] = value;
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(BlockEvents.FLOW_CDU, { ...target }, target);
+        self.eventBus().emit(BlockEvents.FLOW_CDU, oldTarget, target);
         return true;
       },
       deleteProperty() {

@@ -1,11 +1,9 @@
+@import "@styles/variables.scss";
+
 .input {
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  &__input {
-    margin-bottom: calc($step + 2px);
-  }
 
   input {
     font-size: calc($step * 2);
@@ -20,5 +18,10 @@
   input:focus {
     border-color: $green;
     box-shadow: $green 0px 0px 0px 1px;
+  }
+
+  &__error {
+    color: $red;
+    font-size: 12px;
   }
 }
