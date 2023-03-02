@@ -7,9 +7,18 @@ import Message from "@components/Message";
 import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
 
+import getErrors from "@utils/validation";
+import { messageValidation } from "@utils/validation/validations";
+
 import template from "./chats.hbs";
 
 import "./style.scss";
+
+interface IChatsPageProps {
+  isChatOptionsPopupVisible: boolean;
+  isAttachPopupVisible: boolean;
+  errors: { [key: string]: string };
+}
 
 const chats: Array<{ chatItem: IChatItemProps }> = [
   {
@@ -43,10 +52,12 @@ const messages = [
   },
 ];
 
-export default class ChatsPage extends Block {
+export default class ChatsPage extends Block<IChatsPageProps> {
   constructor() {
     super({
-      state: { isChatOptionsPopupVisible: false, isAttachPopupVisible: false },
+      isChatOptionsPopupVisible: false,
+      isAttachPopupVisible: false,
+      errors: {},
     });
   }
 
@@ -76,10 +87,10 @@ export default class ChatsPage extends Block {
       events: {
         click: () => {
           const isChatOptionsPopupVisible =
-            this.props.state.isChatOptionsPopupVisible;
+            this.props.isChatOptionsPopupVisible;
 
           this.setProps({
-            state: { isChatOptionsPopupVisible: !isChatOptionsPopupVisible },
+            isChatOptionsPopupVisible: !isChatOptionsPopupVisible,
           });
         },
       },
@@ -93,16 +104,16 @@ export default class ChatsPage extends Block {
       id: "attachButton",
       events: {
         click: () => {
-          const isAttachPopupVisible = this.props.state.isAttachPopupVisible;
+          const isAttachPopupVisible = this.props.isAttachPopupVisible;
 
           this.setProps({
-            state: { isAttachPopupVisible: !isAttachPopupVisible },
+            isAttachPopupVisible: !isAttachPopupVisible,
           });
         },
       },
     });
 
-    this.childrens.messageInput = new Input({
+    this.childrens.message = new Input({
       name: "message",
       lableTitle: "",
       type: "text",
@@ -114,6 +125,11 @@ export default class ChatsPage extends Block {
       contentValue: "",
       size: ButtonSize.Small,
       id: "sendMessage",
+      events: {
+        click: () => {
+          this.sendMessageHandler();
+        },
+      },
     });
 
     this.childrens.messages = messages.map(
@@ -124,6 +140,20 @@ export default class ChatsPage extends Block {
     this.childrens.chatOptionsPopup = new ChatOptionsPopup({});
 
     this.childrens.attachPopup = new AttachPopup({});
+  }
+
+  sendMessageHandler() {
+    const input = this.childrens.message as Input;
+
+    const data = { message: input.value };
+
+    const errors = getErrors(data, { message: messageValidation });
+
+    if (!errors.message) {
+      console.log(data);
+    }
+
+    input.setProps({ error: errors.message });
   }
 
   render() {

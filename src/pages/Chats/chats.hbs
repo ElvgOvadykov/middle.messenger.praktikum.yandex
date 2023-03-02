@@ -16,7 +16,7 @@
           </div>
         </div>
         {{{chatOptionsButton}}}
-        {{#if state.isChatOptionsPopupVisible}}
+        {{#if isChatOptionsPopupVisible}}
           {{{chatOptionsPopup}}}
         {{/if}}
       </div>
@@ -25,10 +25,10 @@
       </div>
       <div class="chat-footer">
         {{{attachButton}}}
-        {{#if state.isAttachPopupVisible}}
+        {{#if isAttachPopupVisible}}
           {{{attachPopup}}}
         {{/if}}
-        {{{messageInput}}}
+        {{{message}}}
         {{{sendMessageButton}}}
       </div>
     </div>
