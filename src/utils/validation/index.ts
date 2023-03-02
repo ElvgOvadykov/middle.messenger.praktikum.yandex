@@ -4,7 +4,7 @@ export default function getErrors(
 ): Record<string, string> {
   return Object.entries(data).reduce((acc, [key, value]) => {
     if (validationSchema[key]) {
-      return Object.assign(acc, validationSchema[key](value));
+      return Object.assign(acc, validationSchema[key](value, key));
     }
 
     return acc;

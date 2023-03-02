@@ -5,25 +5,25 @@ import Link from "@components/Link";
 
 import getGoToPageFunction from "@utils/getGoToPageFunction";
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
+import {
+  loginValidation,
+  passwordValidation,
+} from "@utils/validation/validations";
 import getErrors from "@utils/validation";
+import renderDOM from "@utils/renderDom";
 
 import template from "./login.hbs";
 
 import "./style.scss";
 
 interface ILoginPageProps {
-  state: {
-    /** Массив ошибок */
-    error: Record<string, string>;
-  };
+  errors: { [key: string]: string };
 }
 
 export default class LoginPage extends Block {
   constructor() {
     const props: ILoginPageProps = {
-      state: {
-        error: {},
-      },
+      errors: {},
     };
 
     super(props);
@@ -35,9 +35,7 @@ export default class LoginPage extends Block {
       lableTitle: "Логин",
       type: "text",
       events: {
-        blur: () => {
-          this.validation();
-        },
+        blur: this.getCheckInputValidationFunction(loginValidation),
       },
     });
 
@@ -46,9 +44,7 @@ export default class LoginPage extends Block {
       lableTitle: "Пароль",
       type: "password",
       events: {
-        blur: () => {
-          this.validation();
-        },
+        blur: this.getCheckInputValidationFunction(passwordValidation),
       },
     });
 
@@ -70,6 +66,26 @@ export default class LoginPage extends Block {
         click: getGoToPageFunction("signUp"),
       },
     });
+  }
+
+  getCheckInputValidationFunction(validationFunction: TValidationFunction) {
+    return (event: Event) => {
+      const { target } = event;
+
+      const name = (target as HTMLInputElement).getAttribute("name") ?? "";
+
+      const error = validationFunction(
+        (target as HTMLInputElement).value,
+        name
+      );
+
+      this.setProps({ errors: Object.assign(this.props.errors, error) });
+
+      const input = this.childrens[name] as Input;
+
+      input.setProps({ error: error[name] });
+      input.setValue((target as HTMLInputElement).value);
+    };
   }
 
   getInputsData(): Record<string, string> {
@@ -99,29 +115,17 @@ export default class LoginPage extends Block {
     });
   }
 
-  validation() {
-    const data = this.getInputsData();
-
-    const errors = getErrors(data, loginPageValidationSchema);
-
-    this.setProps({ state: { errors } });
-
-    this.updateInputErrorsMessage(data, errors);
-  }
-
-  hasErrors() {
-    if (!this.props.state?.errors) {
-      return false;
-    }
-
-    return Object.keys(this.props.state.errors).length > 0;
-  }
-
   submitHandler() {
-    if (!this.hasErrors()) {
-      const data = this.getInputsData();
+    const data = this.getInputsData();
+    const errors = getErrors(data, loginPageValidationSchema);
+    this.updateInputErrorsMessage(data, errors);
 
+    const hasErrors = Object.values(errors).some((error) => error.length);
+
+    if (!hasErrors) {
       console.log(data);
+
+      renderDOM("chats");
     }
   }
 

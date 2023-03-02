@@ -41,7 +41,6 @@ export default class Button extends Block<TButtonExtendedProps> {
   }
 
   protected render(): DocumentFragment {
-    console.log("button render");
     return this.compile(template, this.props);
   }
 }

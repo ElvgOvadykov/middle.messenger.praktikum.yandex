@@ -1,4 +1,8 @@
-type TValidationsSchema = Record<
-  string,
-  (value: string) => {} | { [key: string]: string }
->;
+type TValidationsSchema = Record<string, TValidationFunction>;
+
+type TValidationFunction = (
+  value: string,
+  fieldName: string
+) => TValidationResult;
+
+type TValidationResult = { [key: string]: string };

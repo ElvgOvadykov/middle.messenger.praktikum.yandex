@@ -1,83 +1,84 @@
 import {
   requeredError,
   loginError,
-  firstNameError,
+  nameError,
   passwordError,
-  secondNameError,
   emailError,
   phoneError,
 } from "./errorsText";
 
-export function firstNameValidation(
-  first_name: string
-): { first_name: string } | {} {
-  if (first_name.length === 0) {
-    return { first_name: requeredError };
+export function nameValidation(
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { [fieldName]: requeredError };
   }
 
-  return /^[A-ZА-Я][A-ZА-Яa-zа-я-]+$/.test(first_name)
-    ? {}
-    : { first_name: firstNameError };
+  return /^[A-ZА-Я][A-ZА-Яa-zа-я-]+$/.test(value)
+    ? { [fieldName]: "" }
+    : { [fieldName]: nameError };
 }
 
-export function secondNameValidation(
-  second_name: string
-): { second_name: string } | {} {
-  if (second_name.length === 0) {
-    return { second_name: requeredError };
+export function loginValidation(
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { [fieldName]: requeredError };
   }
 
-  return /^[A-ZА-Я][A-ZА-Яa-zа-я-]+$/.test(second_name)
-    ? {}
-    : { second_name: secondNameError };
-}
-
-export function loginValidation(login: string): { login: string } | {} {
-  if (login.length === 0) {
-    return { login: requeredError };
-  }
-
-  return /^(?=.*[A-z])[A-z0-9-_]{3,20}$/.test(login)
-    ? {}
-    : { login: loginError };
+  return /^(?=.*[A-z])[A-z0-9-_]{3,20}$/.test(value)
+    ? { [fieldName]: "" }
+    : { [fieldName]: loginError };
 }
 
 export function passwordValidation(
-  password: string
-): { password: string } | {} {
-  if (password.length === 0) {
-    return { password: requeredError };
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { fieldName: requeredError };
   }
 
-  return /^(?=.*[A-Z])(?=.*[0-9])[A-z0-9!@#$%^&*]{8,40}$/.test(password)
-    ? {}
-    : { password: passwordError };
+  return /^(?=.*[A-Z])(?=.*[0-9])[A-z0-9!@#$%^&*]{8,40}$/.test(value)
+    ? { [fieldName]: "" }
+    : { [fieldName]: passwordError };
 }
 
-export function email(email: string): { email: string } | {} {
-  if (email.length === 0) {
-    return { email: requeredError };
+export function emailValidation(
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { [fieldName]: requeredError };
   }
 
-  return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)
-    ? {}
-    : { email: emailError };
+  return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
+    ? { [fieldName]: "" }
+    : { [fieldName]: emailError };
 }
 
-export function phone(phone: string): { phone: string } | {} {
-  if (phone.length === 0) {
-    return { phone: requeredError };
+export function phoneValidation(
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { [fieldName]: requeredError };
   }
 
-  return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(phone)
-    ? {}
-    : { phone: phoneError };
+  return /^[+]*[0-9\-\+]{10,15}$/.test(value)
+    ? { [fieldName]: "" }
+    : { [fieldName]: phoneError };
 }
 
-export function message(message: string): { message: string } | {} {
-  if (message.length === 0) {
-    return { message: requeredError };
+export function messageValidation(
+  value: string,
+  fieldName: string
+): TValidationResult {
+  if (value.length === 0) {
+    return { [fieldName]: requeredError };
   }
 
-  return {};
+  return { [fieldName]: "" };
 }

@@ -9,7 +9,7 @@ interface InputProps {
   type: string;
   placeholder?: string;
   error?: string;
-  events?: Record<string, (event: Event) => void>;
+  events?: Record<string, EventListener>;
 }
 
 export default class Input extends Block<InputProps> {
@@ -44,8 +44,6 @@ export default class Input extends Block<InputProps> {
   }
 
   protected render(): DocumentFragment {
-    console.log("input render");
-
     return this.compile(template, this.props);
   }
 }

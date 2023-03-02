@@ -4,79 +4,193 @@ import Button from "@components/Button";
 import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
+import renderDOM from "@utils/renderDom";
+import { profilePageValidationSchema } from "@utils/validation/validationSchems";
+import {
+  loginValidation,
+  emailValidation,
+  nameValidation,
+  phoneValidation,
+} from "@utils/validation/validations";
+import getErrors from "@utils/validation";
 
 import template from "./profile.hbs";
 
 import "./style.scss";
 
-export default class ProfilePage extends Block {
+interface IProfilePageProps {
+  isChangePasswordModalVisible: boolean;
+  isUploadAvatarModalVisible: boolean;
+  errors: {
+    [key: string]: string;
+  };
+  events?: Record<string, EventListener>;
+}
+
+export default class ProfilePage extends Block<IProfilePageProps> {
+  constructor() {
+    const props: IProfilePageProps = {
+      isChangePasswordModalVisible: false,
+      isUploadAvatarModalVisible: false,
+      errors: {},
+    };
+
+    super(props);
+  }
+
+  protected addEvents(): void {
+    const avatarBlock = this.element?.querySelector(".profile-avatar-block");
+
+    avatarBlock?.addEventListener("click", () => {
+      this.setProps({ isUploadAvatarModalVisible: true });
+    });
+  }
+
   init() {
     this.childrens.login = new Input({
       name: "login",
       lableTitle: "Логин",
       type: "text",
+      events: {
+        blur: this.getCheckInputValidationFunction(loginValidation),
+      },
     });
 
     this.childrens.email = new Input({
       name: "email",
       lableTitle: "Почта",
       type: "text",
+      events: {
+        blur: this.getCheckInputValidationFunction(emailValidation),
+      },
     });
 
-    this.childrens.firstName = new Input({
+    this.childrens.first_name = new Input({
       name: "first_name",
       lableTitle: "Имя",
       type: "text",
+      events: {
+        blur: this.getCheckInputValidationFunction(nameValidation),
+      },
     });
 
-    this.childrens.secondName = new Input({
+    this.childrens.second_name = new Input({
       name: "second_name",
       lableTitle: "Фамилия",
       type: "text",
+      events: {
+        blur: this.getCheckInputValidationFunction(nameValidation),
+      },
     });
 
-    this.childrens.displayName = new Input({
+    this.childrens.display_name = new Input({
       name: "display_name",
       lableTitle: "Имя в чате",
       type: "text",
+      events: {
+        blur: this.getCheckInputValidationFunction(nameValidation),
+      },
     });
 
     this.childrens.phone = new Input({
       name: "phone",
       lableTitle: "Телефон",
       type: "tel",
+      events: {
+        blur: this.getCheckInputValidationFunction(phoneValidation),
+      },
     });
 
     this.childrens.submitButton = new Button({
       type: "submit",
       contentValue: "Сохранить изменения",
       events: {
-        click: getGoToPageFunction("home"),
+        click: (event: Event) => {
+          event.preventDefault();
+          this.submitHandler();
+        },
       },
     });
 
-    this.childrens.changePasswordModal = new ChangePasswordModal({});
+    this.childrens.changePasswordModal = new ChangePasswordModal({
+      onCloseModal: () =>
+        this.setProps({ isChangePasswordModalVisible: false }),
+    });
 
-    this.childrens.uploadAvatarModal = new UploadAvatarModal({});
+    this.childrens.uploadAvatarModal = new UploadAvatarModal({
+      onCloseModal: () => this.setProps({ isUploadAvatarModalVisible: false }),
+    });
 
     this.childrens.toggleChangePasswordModuleButton = new Button({
       type: "button",
       contentValue: "Изменить пароль",
       events: {
         click: () => {
-          (this.childrens.changePasswordModal as ChangePasswordModal).show();
+          this.setProps({ isChangePasswordModalVisible: true });
         },
       },
     });
   }
 
-  componentDidMount(): void {
-    const avatarBlock = document.querySelector(".profile-avatar-block");
+  getCheckInputValidationFunction(validationFunction: TValidationFunction) {
+    return (event: Event) => {
+      const { target } = event;
 
-    avatarBlock?.addEventListener("click", () =>
-      (this.childrens.uploadAvatarModal as ChangePasswordModal).show()
-    );
+      const name = (target as HTMLInputElement).getAttribute("name") ?? "";
+
+      const error = validationFunction(
+        (target as HTMLInputElement).value,
+        name
+      );
+
+      this.setProps({ errors: Object.assign(this.props.errors, error) });
+
+      const input = this.childrens[name] as Input;
+
+      input.setProps({ error: error[name] });
+      input.setValue((target as HTMLInputElement).value);
+    };
+  }
+
+  getInputsData(): Record<string, string> {
+    return Object.values(this.childrens).reduce((acc, current) => {
+      if (current instanceof Input) {
+        return Object.assign(acc, { [current.name]: current.value });
+      }
+
+      return acc;
+    }, {});
+  }
+
+  updateInputErrorsMessage(
+    data: ReturnType<typeof this.getInputsData>,
+    errors: ReturnType<typeof getErrors>
+  ) {
+    Object.keys(data).forEach((key) => {
+      const input = this.childrens[key] as Input;
+
+      if (errors[key]) {
+        input.setProps({ error: errors[key] });
+      } else {
+        input.setProps({ error: undefined });
+      }
+
+      input.setValue(data[key]);
+    });
+  }
+
+  submitHandler() {
+    const data = this.getInputsData();
+    const errors = getErrors(data, profilePageValidationSchema);
+    this.updateInputErrorsMessage(data, errors);
+
+    const hasErrors = Object.values(errors).some((error) => error.length);
+
+    if (!hasErrors) {
+      console.log(data);
+
+      renderDOM("chats");
+    }
   }
 
   render() {

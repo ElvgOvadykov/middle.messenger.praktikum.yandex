@@ -1,6 +1,22 @@
-import { loginValidation, passwordValidation } from "./validations";
+import {
+  loginValidation,
+  passwordValidation,
+  emailValidation,
+  messageValidation,
+  phoneValidation,
+  nameValidation,
+} from "./validations";
 
 export const loginPageValidationSchema: TValidationsSchema = {
   login: loginValidation,
   password: passwordValidation,
+};
+
+export const profilePageValidationSchema: TValidationsSchema = {
+  login: loginValidation,
+  email: emailValidation,
+  first_name: nameValidation,
+  second_name: nameValidation,
+  display_name: nameValidation,
+  phone: phoneValidation,
 };

@@ -8,13 +8,17 @@
     </div>
     {{{login}}}
     {{{email}}}
-    {{{firstName}}}
-    {{{secondName}}}
-    {{{displayName}}}
+    {{{first_name}}}
+    {{{second_name}}}
+    {{{display_name}}}
     {{{phone}}}
     {{{submitButton}}}
     {{{toggleChangePasswordModuleButton}}}
   </form>
-  {{{changePasswordModal}}}
-  {{{uploadAvatarModal}}}
+  {{#if isChangePasswordModalVisible}}
+    {{{changePasswordModal}}}
+  {{/if}}
+  {{#if isUploadAvatarModalVisible}}
+    {{{uploadAvatarModal}}}
+  {{/if}}
 </section>

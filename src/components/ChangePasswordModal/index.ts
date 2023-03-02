@@ -4,7 +4,25 @@ import Button from "@components/Button";
 
 import template from "./index.hbs";
 
+interface IChangePasswordModalProps {
+  onCloseModal: () => void;
+}
+
 export default class ChangePasswordModal extends Block {
+  constructor(props: IChangePasswordModalProps) {
+    super(props);
+  }
+
+  protected addEvents(): void {
+    this.element?.addEventListener("click", (event: Event) => {
+      const { target } = event;
+
+      if ((target as HTMLDivElement).matches("#changePasswordModal")) {
+        this.props.onCloseModal();
+      }
+    });
+  }
+
   init() {
     this.childrens.oldPassword = new Input({
       name: "oldPassword",
@@ -38,15 +56,5 @@ export default class ChangePasswordModal extends Block {
 
   render() {
     return this.compile(template, this.props);
-  }
-
-  componentDidMount(): void {
-    this.element?.addEventListener("click", (event: Event) => {
-      const { target } = event;
-
-      if ((target as HTMLDivElement).matches("#changePasswordModal")) {
-        this.hide();
-      }
-    });
   }
 }
