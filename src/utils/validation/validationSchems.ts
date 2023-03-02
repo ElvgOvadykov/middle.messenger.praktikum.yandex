@@ -20,3 +20,18 @@ export const profilePageValidationSchema: TValidationsSchema = {
   display_name: nameValidation,
   phone: phoneValidation,
 };
+
+export const changePasswordModalValidationSchema: TValidationsSchema = {
+  oldPassword: passwordValidation,
+  newPassword: passwordValidation,
+};
+
+export const signUpPageValidationSchema: TValidationsSchema = {
+  login: loginValidation,
+  email: emailValidation,
+  first_name: nameValidation,
+  second_name: nameValidation,
+  display_name: nameValidation,
+  phone: phoneValidation,
+  password: passwordValidation
+}

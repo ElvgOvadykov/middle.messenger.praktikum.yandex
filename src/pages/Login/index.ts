@@ -20,7 +20,7 @@ interface ILoginPageProps {
   errors: { [key: string]: string };
 }
 
-export default class LoginPage extends Block {
+export default class LoginPage extends Block<ILoginPageProps> {
   constructor() {
     const props: ILoginPageProps = {
       errors: {},
