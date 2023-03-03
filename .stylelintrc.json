@@ -12,7 +12,8 @@
 			{
 				"message": "Expected id selector to be camelCase"
 			}
-		]
+		],
+		"import-notation": "string"
 	},
 	"ignoreFiles": ["dist/*", "node_modules/*"],
 	"plugins": ["stylelint-scss"]
