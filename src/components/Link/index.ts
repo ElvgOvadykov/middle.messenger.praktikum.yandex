@@ -7,7 +7,7 @@ interface LinkProps {
 	linkHref?: string;
 	linkTitle: string;
 	/** Временное решение для реализации переключения страниц без роутера */
-	events?: Record<string, Function>;
+	events?: Record<string, () => void>;
 }
 
 export default class Link extends Block<LinkProps> {

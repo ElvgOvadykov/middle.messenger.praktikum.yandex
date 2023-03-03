@@ -9,6 +9,7 @@ import AttachPopup from "@components/AttachPopup";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
+import renderDOM from "@utils/renderDom";
 
 import template from "./chats.hbs";
 
@@ -76,6 +77,11 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 				firstName: "Элвг",
 				secondName: "Овадыков",
 			},
+			events: {
+				click: () => {
+					renderDOM("profile");
+				},
+			},
 		});
 
 		this.childrens.chatOptionsButton = new Button({
@@ -86,8 +92,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			id: "toggleIsChatOptionsVisibleButton",
 			events: {
 				click: () => {
-					const isChatOptionsPopupVisible =
-						this.props.isChatOptionsPopupVisible;
+					const { isChatOptionsPopupVisible } = this.props;
 
 					this.setProps({
 						isChatOptionsPopupVisible: !isChatOptionsPopupVisible,
@@ -104,7 +109,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			id: "attachButton",
 			events: {
 				click: () => {
-					const isAttachPopupVisible = this.props.isAttachPopupVisible;
+					const { isAttachPopupVisible } = this.props;
 
 					this.setProps({
 						isAttachPopupVisible: !isAttachPopupVisible,
@@ -133,8 +138,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 		});
 
 		this.childrens.messages = messages.map(
-			(message) =>
-				new Message({ content: message.content, isMine: message.isMine })
+			(message) => new Message({ content: message.content, isMine: message.isMine }),
 		);
 
 		this.childrens.chatOptionsPopup = new ChatOptionsPopup({});

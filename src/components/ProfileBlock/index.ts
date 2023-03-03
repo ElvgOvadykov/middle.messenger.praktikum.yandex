@@ -2,7 +2,6 @@ import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
 
 import getGoToPageFunction from "@utils/getGoToPageFunction";
-import renderDOM from "@utils/renderDom";
 
 import template from "./profileBlock.hbs";
 
@@ -13,11 +12,22 @@ interface IProfileBlockProps {
 		firstName: string;
 		secondName: string;
 	};
+	events?: Record<string, (event: Event) => void>;
 }
 
 export default class ProfileBlock extends Block<IProfileBlockProps> {
 	constructor(props: IProfileBlockProps) {
 		super(props);
+	}
+
+	protected addEvents(): void {
+		const { events = {} } = this.props as IProfileBlockProps;
+
+		const block = this.element?.querySelector(".profile-block__info");
+
+		Object.keys(events).forEach((eventName) => {
+			block?.addEventListener(eventName, events[eventName]);
+		});
 	}
 
 	protected init(): void {
@@ -29,14 +39,6 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 			events: {
 				click: getGoToPageFunction("login"),
 			},
-		});
-	}
-
-	componentDidMount(): void {
-		const block = document.querySelector(".profile-block__info");
-
-		block?.addEventListener("click", (event: Event) => {
-			renderDOM("profile");
 		});
 	}
 

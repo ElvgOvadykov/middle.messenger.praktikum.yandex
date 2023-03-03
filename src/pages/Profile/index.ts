@@ -125,8 +125,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		});
 
 		this.childrens.changePasswordModal = new ChangePasswordModal({
-			onCloseModal: () =>
-				this.setProps({ isChangePasswordModalVisible: false }),
+			onCloseModal: () => this.setProps({ isChangePasswordModalVisible: false }),
 		});
 
 		this.childrens.uploadAvatarModal = new UploadAvatarModal({
@@ -152,7 +151,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 			const error = validationFunction(
 				(target as HTMLInputElement).value,
-				name
+				name,
 			);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
@@ -176,7 +175,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 	updateInputErrorsMessage(
 		data: ReturnType<typeof this.getInputsData>,
-		errors: ReturnType<typeof getErrors>
+		errors: ReturnType<typeof getErrors>,
 	) {
 		Object.keys(data).forEach((key) => {
 			const input = this.childrens[key] as Input;

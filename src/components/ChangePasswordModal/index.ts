@@ -38,7 +38,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 		});
 	}
 
-	init() {
+	protected init(): void {
 		this.childrens.oldPassword = new Input({
 			name: "oldPassword",
 			lableTitle: "Прежний пароль",
@@ -77,7 +77,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 
 			const error = validationFunction(
 				(target as HTMLInputElement).value,
-				name
+				name,
 			);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
@@ -101,7 +101,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 
 	updateInputErrorsMessage(
 		data: ReturnType<typeof this.getInputsData>,
-		errors: ReturnType<typeof getErrors>
+		errors: ReturnType<typeof getErrors>,
 	) {
 		Object.keys(data).forEach((key) => {
 			const input = this.childrens[key] as Input;
@@ -130,7 +130,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 		}
 	}
 
-	render() {
+	protected render(): DocumentFragment {
 		return this.compile(template, this.props);
 	}
 }

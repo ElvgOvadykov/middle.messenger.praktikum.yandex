@@ -9,7 +9,7 @@ import {
 
 export function nameValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { [fieldName]: requeredError };
@@ -22,7 +22,7 @@ export function nameValidation(
 
 export function loginValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { [fieldName]: requeredError };
@@ -35,7 +35,7 @@ export function loginValidation(
 
 export function passwordValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { fieldName: requeredError };
@@ -48,12 +48,13 @@ export function passwordValidation(
 
 export function emailValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { [fieldName]: requeredError };
 	}
 
+	// eslint-disable-next-line no-useless-escape
 	return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)
 		? { [fieldName]: "" }
 		: { [fieldName]: emailError };
@@ -61,12 +62,13 @@ export function emailValidation(
 
 export function phoneValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { [fieldName]: requeredError };
 	}
 
+	// eslint-disable-next-line no-useless-escape
 	return /^[+]*[0-9\-\+]{10,15}$/.test(value)
 		? { [fieldName]: "" }
 		: { [fieldName]: phoneError };
@@ -74,7 +76,7 @@ export function phoneValidation(
 
 export function messageValidation(
 	value: string,
-	fieldName: string
+	fieldName: string,
 ): TValidationResult {
 	if (value.length === 0) {
 		return { [fieldName]: requeredError };

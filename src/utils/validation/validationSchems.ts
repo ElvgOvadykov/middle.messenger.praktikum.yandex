@@ -2,7 +2,6 @@ import {
 	loginValidation,
 	passwordValidation,
 	emailValidation,
-	messageValidation,
 	phoneValidation,
 	nameValidation,
 } from "./validations";

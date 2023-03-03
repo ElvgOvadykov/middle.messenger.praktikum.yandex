@@ -76,7 +76,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 
 			const error = validationFunction(
 				(target as HTMLInputElement).value,
-				name
+				name,
 			);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
@@ -100,7 +100,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 
 	updateInputErrorsMessage(
 		data: ReturnType<typeof this.getInputsData>,
-		errors: ReturnType<typeof getErrors>
+		errors: ReturnType<typeof getErrors>,
 	) {
 		Object.keys(data).forEach((key) => {
 			const input = this.childrens[key] as Input;
