@@ -7,7 +7,14 @@ h2 {
   margin-bottom: 24px;
 }
 
+button#buttonBack {
+  position: absolute;
+  height: 100%;
+}
+
 .profile {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   padding: calc($step * 3) calc($step * 5);
 }

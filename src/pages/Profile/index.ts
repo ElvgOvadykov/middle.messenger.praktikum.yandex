@@ -1,6 +1,6 @@
 import Block from "@utils/Block";
 import Input from "@components/Input";
-import Button from "@components/Button";
+import Button, { ButtonSize } from "@components/Button";
 import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 
@@ -47,6 +47,18 @@ export default class ProfilePage extends Block<IProfilePageProps> {
   }
 
   init() {
+    this.childrens.buttonBack = new Button({
+      contentValue: "Назад",
+      type: "button",
+      id: "buttonBack",
+      size: ButtonSize.Medium,
+      events: {
+        click: () => {
+          renderDOM("chats");
+        },
+      },
+    });
+
     this.childrens.login = new Input({
       name: "login",
       lableTitle: "Логин",

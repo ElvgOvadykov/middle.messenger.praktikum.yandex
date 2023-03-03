@@ -1,20 +1,23 @@
-<section class="content-section profile">
-  <h2>Профиль</h2>
-  <form>
-    <div class="profile-avatar-block">
-      <div class="profile-avatar-block__overlay">
-        <span class="profile-avatar-block__overlay__text">Изменить</br>аватар</span>
+<section class="content-section">
+  {{{buttonBack}}}
+  <div class="profile">
+    <h2>Профиль</h2>
+    <form id="profileForm">
+      <div class="profile-avatar-block">
+        <div class="profile-avatar-block__overlay">
+          <span class="profile-avatar-block__overlay__text">Изменить</br>аватар</span>
+        </div>
       </div>
-    </div>
-    {{{login}}}
-    {{{email}}}
-    {{{first_name}}}
-    {{{second_name}}}
-    {{{display_name}}}
-    {{{phone}}}
-    {{{submitButton}}}
-    {{{toggleChangePasswordModuleButton}}}
-  </form>
+      {{{login}}}
+      {{{email}}}
+      {{{first_name}}}
+      {{{second_name}}}
+      {{{display_name}}}
+      {{{phone}}}
+      {{{submitButton}}}
+      {{{toggleChangePasswordModuleButton}}}
+    </form>
+  </div>
   {{#if isChangePasswordModalVisible}}
     {{{changePasswordModal}}}
   {{/if}}
