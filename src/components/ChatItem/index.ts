@@ -1,7 +1,5 @@
 import Block from "@utils/Block";
-import LastMessage from "./components/LastMessage";
 import LastMessageDate from "./components/LastMessageDate";
-import UnreadMessages from "./components/UnreadMessages";
 
 import template from "./chatItem.hbs";
 
@@ -24,12 +22,6 @@ export default class ChatItem extends Block<IChatItemProps> {
     this.childrens.lastMessageDate = new LastMessageDate({
       date: this.props.lastMessageDate,
     });
-
-    if (this.props.unreadMessagesCount) {
-      this.childrens.unreadMessages = new UnreadMessages({
-        count: this.props.unreadMessagesCount,
-      });
-    }
   }
 
   protected render(): DocumentFragment {
