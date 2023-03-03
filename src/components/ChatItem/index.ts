@@ -21,11 +21,6 @@ export default class ChatItem extends Block<IChatItemProps> {
   }
 
   protected init(): void {
-    this.childrens.lastMessage = new LastMessage({
-      isMyLastMessage: this.props.isMyLastMessage,
-      lastMessage: this.props.lastMessage,
-    });
-
     this.childrens.lastMessageDate = new LastMessageDate({
       date: this.props.lastMessageDate,
     });

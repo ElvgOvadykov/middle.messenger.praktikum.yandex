@@ -1,6 +1,7 @@
 @import "@styles/variables.scss";
 
 $chat_avatar_width: 60px;
+$unread-messages-count-width: 20px;
 
 .chat-item {
   height: 80px;
@@ -27,6 +28,19 @@ $chat_avatar_width: 60px;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+
+    .chat-item__content__last-message {
+      color: $grey;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 20px;
+      width: 205px;
+
+      b {
+        color: black;
+      }
+    }
   }
 
   &__info {
@@ -36,5 +50,14 @@ $chat_avatar_width: 60px;
     justify-content: space-between;
     height: 100%;
     align-items: center;
+
+    .unread-messages-count {
+      background-color: $green;
+      width: $unread-messages-count-width;
+      height: $unread-messages-count-width;
+      color: white;
+      text-align: center;
+      border-radius: calc($unread-messages-count-width * 0.5);
+    }
   }
 }
