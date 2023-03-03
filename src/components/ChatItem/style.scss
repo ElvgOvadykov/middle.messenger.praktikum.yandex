@@ -1,4 +1,4 @@
-@import "@styles/variables.scss";
+@import url("@styles/variables.scss");
 
 $chat_avatar_width: 60px;
 $unread-messages-count-width: 20px;
@@ -7,7 +7,6 @@ $unread-messages-count-width: 20px;
 	height: 80px;
 	padding: 10px 20px;
 	border-bottom: 1px solid $grey-blue;
-
 	display: grid;
 	grid-template-columns: min-content 1fr min-content;
 	align-items: center;

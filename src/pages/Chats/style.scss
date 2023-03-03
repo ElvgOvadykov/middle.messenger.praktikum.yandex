@@ -1,4 +1,4 @@
-@import "@styles/variables.scss";
+@import url("@styles/variables.scss");
 
 $profile_avatar_width: 60px;
 $selected_chat_avatar-width: 40px;
@@ -37,7 +37,7 @@ $selected_chat_avatar-width: 40px;
 
 	.chats__messages {
 		flex: 1;
-		padding: 0px 32px;
+		padding: 0 32px;
 		display: flex;
 		flex-direction: column;
 
@@ -96,6 +96,7 @@ $selected_chat_avatar-width: 40px;
 
 			button#sendMessage {
 				$send-message-button-width: 40px;
+				
 				width: $send-message-button-width;
 				height: calc($send-message-button-width - 4px);
 				border-radius: calc($send-message-button-width / 2);

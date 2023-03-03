@@ -1,7 +1,6 @@
-@import "../../styles/variables.scss";
+@import url("../../styles/variables.scss");
 
 .sign-up {
-	width: 100%;
 	background-color: white;
 	box-sizing: border-box;
 	border-radius: calc($step * 2.5);
