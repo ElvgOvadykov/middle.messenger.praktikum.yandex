@@ -5,13 +5,13 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* Убираем внутренние отступы */
 ul[class],
 ol[class] {
-  padding: 0;
+	padding: 0;
 }
 
 /* Убираем внешние отступы */
@@ -29,106 +29,106 @@ figcaption,
 blockquote,
 dl,
 dd {
-  margin: 0;
+	margin: 0;
 }
 
 body {
-  background-color: $main-background-color;
-  font-family: $font-family-medium;
-  font-size: $step;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: auto;
+	background-color: $main-background-color;
+	font-family: $font-family-medium;
+	font-size: $step;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: auto;
 }
 
 h2 {
-  margin-top: 0;
-  margin-bottom: calc($step * 3);
-  font-size: calc($step * 4);
-  font-weight: 500;
+	margin-top: 0;
+	margin-bottom: calc($step * 3);
+	font-size: calc($step * 4);
+	font-weight: 500;
 }
 
 h3 {
-  margin-top: 0;
-  margin-bottom: calc($step * 3);
-  font-size: calc($step * 3);
-  font-weight: 500;
+	margin-top: 0;
+	margin-bottom: calc($step * 3);
+	font-size: calc($step * 3);
+	font-weight: 500;
 }
 
 form {
-  margin: 0;
-  width: 254px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+	margin: 0;
+	width: 254px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 24px;
 }
 
 .content-section {
-  @include centered-block;
+	@include centered-block;
 
-  width: 1280px;
-  height: 900px;
+	width: 1280px;
+	height: 900px;
 }
 
 .error-section {
-  @include centered-block;
+	@include centered-block;
 
-  width: 700px;
-  height: 500px;
+	width: 700px;
+	height: 500px;
 }
 
 .error-content {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 
-  h1 {
-    font-size: 80px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
+	h1 {
+		font-size: 80px;
+		font-weight: 500;
+		margin-bottom: 20px;
+	}
 
-  h2 {
-    margin-bottom: 50px;
-  }
+	h2 {
+		margin-bottom: 50px;
+	}
 
-  a {
-    font-size: 24px;
-  }
+	a {
+		font-size: 24px;
+	}
 }
 
 .popup {
-  border-radius: 12px;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+	border-radius: 12px;
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
 
-  position: absolute;
-  z-index: 8000;
+	position: absolute;
+	z-index: 8000;
 }
 
 .modal {
-  display: block;
-  position: fixed;
-  z-index: 8000;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+	display: block;
+	position: fixed;
+	z-index: 8000;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0, 0, 0);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-  @include centered-block;
-  padding: 50px 125px;
+	@include centered-block;
+	padding: 50px 125px;
 }

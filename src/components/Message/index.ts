@@ -5,16 +5,16 @@ import template from "./message.hbs";
 import "./style.scss";
 
 interface IMessageProps {
-  content: string;
-  isMine: boolean;
+	content: string;
+	isMine: boolean;
 }
 
 export default class Message extends Block<IMessageProps> {
-  constructor(props: IMessageProps) {
-    super(props);
-  }
+	constructor(props: IMessageProps) {
+		super(props);
+	}
 
-  protected render(): DocumentFragment {
-    return this.compile(template, this.props);
-  }
+	protected render(): DocumentFragment {
+		return this.compile(template, this.props);
+	}
 }

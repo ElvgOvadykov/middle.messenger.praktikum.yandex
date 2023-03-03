@@ -1,21 +1,21 @@
 <div class="chat-item">
-  <div class="chat-item__avatar">
-  </div>
-  <div class="chat-item__content">
-    <span class="chat-item__content__header">
-      {{chatHeader}}
-    </span>
-    <span class="chat-item__content__last-message">
-      {{#if isMyLastMessage}}
-        <b>Вы: </b>
-      {{/if}}
-      {{lastMessage}}
-    </span>
-  </div>
-  <div class="chat-item__info">
-    {{{lastMessageDate}}}
-    {{#if unreadMessagesCount}}
-      <div class="unread-messages-count">{{unreadMessagesCount}}</div>
-    {{/if}}
-  </div>
+	<div class="chat-item__avatar">
+	</div>
+	<div class="chat-item__content">
+		<span class="chat-item__content__header">
+			{{chatHeader}}
+		</span>
+		<span class="chat-item__content__last-message">
+			{{#if isMyLastMessage}}
+				<b>Вы: </b>
+			{{/if}}
+			{{lastMessage}}
+		</span>
+	</div>
+	<div class="chat-item__info">
+		{{{lastMessageDate}}}
+		{{#if unreadMessagesCount}}
+			<div class="unread-messages-count">{{unreadMessagesCount}}</div>
+		{{/if}}
+	</div>
 </div>

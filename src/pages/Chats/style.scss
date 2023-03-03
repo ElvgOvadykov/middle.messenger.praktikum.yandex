@@ -4,112 +4,112 @@ $profile_avatar_width: 60px;
 $selected_chat_avatar-width: 40px;
 
 .chats {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
 
-  .chats__list {
-    display: flex;
-    flex-direction: column;
-    order: -1;
-    width: 380px;
+	.chats__list {
+		display: flex;
+		flex-direction: column;
+		order: -1;
+		width: 380px;
 
-    &__search {
-      height: 80px;
-      padding: 20px 10px;
-      display: flex;
-      border-bottom: 1px solid $grey-blue;
-    }
+		&__search {
+			height: 80px;
+			padding: 20px 10px;
+			display: flex;
+			border-bottom: 1px solid $grey-blue;
+		}
 
-    &__profile-block {
-      height: 80px;
-      padding: 10px 20px;
-      display: flex;
+		&__profile-block {
+			height: 80px;
+			padding: 10px 20px;
+			display: flex;
 
-      &__avatar {
-        height: $profile_avatar_width;
-        width: $profile_avatar_width;
-        border-radius: calc($profile_avatar_width * 0.5);
-        background-image: url("../../../static/image/test_avatar.png") !important;
-      }
-    }
-  }
+			&__avatar {
+				height: $profile_avatar_width;
+				width: $profile_avatar_width;
+				border-radius: calc($profile_avatar_width * 0.5);
+				background-image: url("../../../static/image/test_avatar.png") !important;
+			}
+		}
+	}
 
-  .chats__messages {
-    flex: 1;
-    padding: 0px 32px;
-    display: flex;
-    flex-direction: column;
+	.chats__messages {
+		flex: 1;
+		padding: 0px 32px;
+		display: flex;
+		flex-direction: column;
 
-    .chat-header {
-      height: 80px;
-      border-bottom: 1px solid $grey-blue;
-      display: flex;
+		.chat-header {
+			height: 80px;
+			border-bottom: 1px solid $grey-blue;
+			display: flex;
 
-      &__info-block {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
+			&__info-block {
+				height: 100%;
+				display: flex;
+				align-items: center;
+				gap: 20px;
 
-        .chat-header__avatar {
-          height: $selected_chat_avatar-width;
-          width: $selected_chat_avatar-width;
-          border-radius: calc($selected_chat_avatar-width * 0.5);
-          background-image: url("../../../static/image/test_avatar.png") !important;
-          background-position: center !important;
-          background-repeat: no-repeat !important;
-          background-size: 40px 40px;
-        }
-      }
+				.chat-header__avatar {
+					height: $selected_chat_avatar-width;
+					width: $selected_chat_avatar-width;
+					border-radius: calc($selected_chat_avatar-width * 0.5);
+					background-image: url("../../../static/image/test_avatar.png") !important;
+					background-position: center !important;
+					background-repeat: no-repeat !important;
+					background-size: 40px 40px;
+				}
+			}
 
-      button#toggleIsChatOptionsVisibleButton {
-        margin-left: auto;
-        background-image: url("../../../static/icons/dots_vertical.svg") !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-size: 35px 35px;
-      }
-    }
+			button#toggleIsChatOptionsVisibleButton {
+				margin-left: auto;
+				background-image: url("../../../static/icons/dots_vertical.svg") !important;
+				background-position: center !important;
+				background-repeat: no-repeat !important;
+				background-size: 35px 35px;
+			}
+		}
 
-    &__list {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-    }
+		&__list {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+		}
 
-    .chat-footer {
-      margin-top: auto;
-      height: 80px;
-      border-top: 1px solid $grey-blue;
-      display: flex;
-      align-items: center;
-      gap: 20px;
+		.chat-footer {
+			margin-top: auto;
+			height: 80px;
+			border-top: 1px solid $grey-blue;
+			display: flex;
+			align-items: center;
+			gap: 20px;
 
-      button#attachButton {
-        height: 100%;
-        background-image: url("../../../static/icons/attach.svg") !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-size: 35px 35px;
-      }
+			button#attachButton {
+				height: 100%;
+				background-image: url("../../../static/icons/attach.svg") !important;
+				background-position: center !important;
+				background-repeat: no-repeat !important;
+				background-size: 35px 35px;
+			}
 
-      button#sendMessage {
-        $send-message-button-width: 40px;
-        width: $send-message-button-width;
-        height: calc($send-message-button-width - 4px);
-        border-radius: calc($send-message-button-width / 2);
-        background-image: url("../../../static/icons/right-arrow.svg") !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-size: 30px 30px;
-      }
-    }
-  }
+			button#sendMessage {
+				$send-message-button-width: 40px;
+				width: $send-message-button-width;
+				height: calc($send-message-button-width - 4px);
+				border-radius: calc($send-message-button-width / 2);
+				background-image: url("../../../static/icons/right-arrow.svg") !important;
+				background-position: center !important;
+				background-repeat: no-repeat !important;
+				background-size: 30px 30px;
+			}
+		}
+	}
 }
 
 .chats::before {
-  content: "";
-  border: 1px solid $grey-blue;
-  align-self: stretch;
+	content: "";
+	border: 1px solid $grey-blue;
+	align-self: stretch;
 }

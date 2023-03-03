@@ -1,33 +1,33 @@
 @import "@styles/variables.scss";
 
 .button {
-  border-radius: 18px;
-  font-size: calc($step * 2);
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-family: $font-family-regular;
+	border-radius: 18px;
+	font-size: calc($step * 2);
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-family: $font-family-regular;
 
-  &__size-full-width {
-    width: 100%;
-  }
+	&__size-full-width {
+		width: 100%;
+	}
 
-  &__size-medium-width {
-    width: 100px;
-  }
+	&__size-medium-width {
+		width: 100px;
+	}
 
-  &__size-small-width {
-    width: 55px;
-  }
+	&__size-small-width {
+		width: 55px;
+	}
 
-  &__color-green {
-    background-color: $green;
-  }
+	&__color-green {
+		background-color: $green;
+	}
 
-  &__color-white {
-    background-color: white;
-    color: black;
-  }
+	&__color-white {
+		background-color: white;
+		color: black;
+	}
 }

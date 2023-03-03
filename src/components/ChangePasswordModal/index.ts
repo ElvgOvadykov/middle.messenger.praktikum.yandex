@@ -9,128 +9,128 @@ import { changePasswordModalValidationSchema } from "@utils/validation/validatio
 import template from "./index.hbs";
 
 interface IChangePasswordModalProps {
-  onCloseModal: () => void;
+	onCloseModal: () => void;
 }
 
 type TChangePasswordModalExtendedProps = IChangePasswordModalProps & {
-  errors: {
-    [key: string]: string;
-  };
+	errors: {
+		[key: string]: string;
+	};
 };
 
 export default class ChangePasswordModal extends Block<TChangePasswordModalExtendedProps> {
-  constructor(props: IChangePasswordModalProps) {
-    const extendedProps: TChangePasswordModalExtendedProps = {
-      ...props,
-      errors: {},
-    };
+	constructor(props: IChangePasswordModalProps) {
+		const extendedProps: TChangePasswordModalExtendedProps = {
+			...props,
+			errors: {},
+		};
 
-    super(extendedProps);
-  }
+		super(extendedProps);
+	}
 
-  protected addEvents(): void {
-    this.element?.addEventListener("click", (event: Event) => {
-      const { target } = event;
+	protected addEvents(): void {
+		this.element?.addEventListener("click", (event: Event) => {
+			const { target } = event;
 
-      if ((target as HTMLDivElement).matches("#changePasswordModal")) {
-        this.props.onCloseModal();
-      }
-    });
-  }
+			if ((target as HTMLDivElement).matches("#changePasswordModal")) {
+				this.props.onCloseModal();
+			}
+		});
+	}
 
-  init() {
-    this.childrens.oldPassword = new Input({
-      name: "oldPassword",
-      lableTitle: "Прежний пароль",
-      type: "password",
-      events: {
-        blur: this.getCheckInputValidationFunction(passwordValidation),
-      },
-    });
+	init() {
+		this.childrens.oldPassword = new Input({
+			name: "oldPassword",
+			lableTitle: "Прежний пароль",
+			type: "password",
+			events: {
+				blur: this.getCheckInputValidationFunction(passwordValidation),
+			},
+		});
 
-    this.childrens.newPassword = new Input({
-      name: "newPassword",
-      lableTitle: "Новый пароль",
-      type: "password",
-      events: {
-        blur: this.getCheckInputValidationFunction(passwordValidation),
-      },
-    });
+		this.childrens.newPassword = new Input({
+			name: "newPassword",
+			lableTitle: "Новый пароль",
+			type: "password",
+			events: {
+				blur: this.getCheckInputValidationFunction(passwordValidation),
+			},
+		});
 
-    this.childrens.savePasswordButton = new Button({
-      type: "submit",
-      contentValue: "Изменить пароль",
-      events: {
-        click: (event: Event) => {
-          event.preventDefault();
-          this.submitHandler();
-        },
-      },
-    });
-  }
+		this.childrens.savePasswordButton = new Button({
+			type: "submit",
+			contentValue: "Изменить пароль",
+			events: {
+				click: (event: Event) => {
+					event.preventDefault();
+					this.submitHandler();
+				},
+			},
+		});
+	}
 
-  getCheckInputValidationFunction(validationFunction: TValidationFunction) {
-    return (event: Event) => {
-      const { target } = event;
+	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
+		return (event: Event) => {
+			const { target } = event;
 
-      const name = (target as HTMLInputElement).getAttribute("name") ?? "";
+			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-      const error = validationFunction(
-        (target as HTMLInputElement).value,
-        name
-      );
+			const error = validationFunction(
+				(target as HTMLInputElement).value,
+				name
+			);
 
-      this.setProps({ errors: Object.assign(this.props.errors, error) });
+			this.setProps({ errors: Object.assign(this.props.errors, error) });
 
-      const input = this.childrens[name] as Input;
+			const input = this.childrens[name] as Input;
 
-      input.setProps({ error: error[name] });
-      input.setValue((target as HTMLInputElement).value);
-    };
-  }
+			input.setProps({ error: error[name] });
+			input.setValue((target as HTMLInputElement).value);
+		};
+	}
 
-  getInputsData(): Record<string, string> {
-    return Object.values(this.childrens).reduce((acc, current) => {
-      if (current instanceof Input) {
-        return Object.assign(acc, { [current.name]: current.value });
-      }
+	getInputsData(): Record<string, string> {
+		return Object.values(this.childrens).reduce((acc, current) => {
+			if (current instanceof Input) {
+				return Object.assign(acc, { [current.name]: current.value });
+			}
 
-      return acc;
-    }, {});
-  }
+			return acc;
+		}, {});
+	}
 
-  updateInputErrorsMessage(
-    data: ReturnType<typeof this.getInputsData>,
-    errors: ReturnType<typeof getErrors>
-  ) {
-    Object.keys(data).forEach((key) => {
-      const input = this.childrens[key] as Input;
+	updateInputErrorsMessage(
+		data: ReturnType<typeof this.getInputsData>,
+		errors: ReturnType<typeof getErrors>
+	) {
+		Object.keys(data).forEach((key) => {
+			const input = this.childrens[key] as Input;
 
-      if (errors[key]) {
-        input.setProps({ error: errors[key] });
-      } else {
-        input.setProps({ error: undefined });
-      }
+			if (errors[key]) {
+				input.setProps({ error: errors[key] });
+			} else {
+				input.setProps({ error: undefined });
+			}
 
-      input.setValue(data[key]);
-    });
-  }
+			input.setValue(data[key]);
+		});
+	}
 
-  submitHandler() {
-    const data = this.getInputsData();
-    const errors = getErrors(data, changePasswordModalValidationSchema);
-    this.updateInputErrorsMessage(data, errors);
+	submitHandler() {
+		const data = this.getInputsData();
+		const errors = getErrors(data, changePasswordModalValidationSchema);
+		this.updateInputErrorsMessage(data, errors);
 
-    const hasErrors = Object.values(errors).some((error) => error.length);
+		const hasErrors = Object.values(errors).some((error) => error.length);
 
-    if (!hasErrors) {
-      console.log(data);
+		if (!hasErrors) {
+			console.log(data);
 
-      this.props.onCloseModal();
-    }
-  }
+			this.props.onCloseModal();
+		}
+	}
 
-  render() {
-    return this.compile(template, this.props);
-  }
+	render() {
+		return this.compile(template, this.props);
+	}
 }

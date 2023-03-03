@@ -4,14 +4,14 @@ import Link from "@components/Link";
 import template from "./index.hbs";
 
 export default class ServerErrorPage extends Block {
-  init() {
-    this.childrens.goToChatLink = new Link({
-      linkHref: "",
-      linkTitle: "Вернуться к чатам",
-    })
-  }
+	init() {
+		this.childrens.goToChatLink = new Link({
+			linkHref: "",
+			linkTitle: "Вернуться к чатам",
+		});
+	}
 
-  protected render() {
-    return this.compile(template, this.props);
-  }
+	protected render() {
+		return this.compile(template, this.props);
+	}
 }

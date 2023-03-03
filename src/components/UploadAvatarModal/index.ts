@@ -5,41 +5,41 @@ import Button from "@components/Button";
 import template from "./index.hbs";
 
 interface IUploadAvatarModalProps {
-  onCloseModal: () => void;
+	onCloseModal: () => void;
 }
 
 export default class UploadAvatarModal extends Block<IUploadAvatarModalProps> {
-  constructor(props: IUploadAvatarModalProps) {
-    super(props);
-  }
+	constructor(props: IUploadAvatarModalProps) {
+		super(props);
+	}
 
-  protected addEvents(): void {
-    this.element?.addEventListener("click", (event: Event) => {
-      const { target } = event;
+	protected addEvents(): void {
+		this.element?.addEventListener("click", (event: Event) => {
+			const { target } = event;
 
-      if ((target as HTMLDivElement).matches("#uploadAvatarModal")) {
-        this.props.onCloseModal();
-      }
-    });
-  }
+			if ((target as HTMLDivElement).matches("#uploadAvatarModal")) {
+				this.props.onCloseModal();
+			}
+		});
+	}
 
-  init() {
-    this.childrens.takeFile = new Input({
-      lableTitle: "",
-      type: "file",
-      name: "avatar",
-    });
+	init() {
+		this.childrens.takeFile = new Input({
+			lableTitle: "",
+			type: "file",
+			name: "avatar",
+		});
 
-    this.childrens.saveAvatarButton = new Button({
-      contentValue: "Сохранить изменения",
-      type: "button",
-      events: {
-        click: this.props.onCloseModal,
-      },
-    });
-  }
+		this.childrens.saveAvatarButton = new Button({
+			contentValue: "Сохранить изменения",
+			type: "button",
+			events: {
+				click: this.props.onCloseModal,
+			},
+		});
+	}
 
-  render() {
-    return this.compile(template, this.props);
-  }
+	render() {
+		return this.compile(template, this.props);
+	}
 }

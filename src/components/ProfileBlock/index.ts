@@ -9,38 +9,38 @@ import template from "./profileBlock.hbs";
 import "./style.scss";
 
 interface IProfileBlockProps {
-  profile: {
-    firstName: string;
-    secondName: string;
-  };
+	profile: {
+		firstName: string;
+		secondName: string;
+	};
 }
 
 export default class ProfileBlock extends Block<IProfileBlockProps> {
-  constructor(props: IProfileBlockProps) {
-    super(props);
-  }
+	constructor(props: IProfileBlockProps) {
+		super(props);
+	}
 
-  protected init(): void {
-    this.childrens.buttonLogout = new Button({
-      contentValue: "",
-      type: "button",
-      size: ButtonSize.Small,
-      color: ButtonColor.White,
-      events: {
-        click: getGoToPageFunction("login"),
-      },
-    });
-  }
+	protected init(): void {
+		this.childrens.buttonLogout = new Button({
+			contentValue: "",
+			type: "button",
+			size: ButtonSize.Small,
+			color: ButtonColor.White,
+			events: {
+				click: getGoToPageFunction("login"),
+			},
+		});
+	}
 
-  componentDidMount(): void {
-    const block = document.querySelector(".profile-block__info");
+	componentDidMount(): void {
+		const block = document.querySelector(".profile-block__info");
 
-    block?.addEventListener("click", (event: Event) => {
-      renderDOM("profile");
-    });
-  }
+		block?.addEventListener("click", (event: Event) => {
+			renderDOM("profile");
+		});
+	}
 
-  protected render(): DocumentFragment {
-    return this.compile(template, this.props);
-  }
+	protected render(): DocumentFragment {
+		return this.compile(template, this.props);
+	}
 }
