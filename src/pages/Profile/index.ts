@@ -3,6 +3,7 @@ import Input from "@components/Input";
 import Button, { ButtonSize } from "@components/Button";
 import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
+import ProfileAvatarBlock from "@components/ProfileAvatarBlock";
 
 import renderDOM from "@utils/renderDom";
 import { profilePageValidationSchema } from "@utils/validation/validationSchems";
@@ -24,7 +25,6 @@ interface IProfilePageProps {
 	errors: {
 		[key: string]: string;
 	};
-	events?: Record<string, EventListener>;
 }
 
 export default class ProfilePage extends Block<IProfilePageProps> {
@@ -38,14 +38,6 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		super(props);
 	}
 
-	protected addEvents(): void {
-		const avatarBlock = this.element?.querySelector(".profile-avatar-block");
-
-		avatarBlock?.addEventListener("click", () => {
-			this.setProps({ isUploadAvatarModalVisible: true });
-		});
-	}
-
 	init() {
 		this.childrens.buttonBack = new Button({
 			contentValue: "Назад",
@@ -55,6 +47,14 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 			events: {
 				click: () => {
 					renderDOM("chats");
+				},
+			},
+		});
+
+		this.childrens.profileAvatarBlock = new ProfileAvatarBlock({
+			events: {
+				click: () => {
+					this.setProps({ isUploadAvatarModalVisible: true });
 				},
 			},
 		});
