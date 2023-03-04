@@ -27,6 +27,16 @@ export default class Input extends Block<InputProps> {
 		});
 	}
 
+	protected removeEvents(): void {
+		const { events = {} } = this.props as InputProps;
+
+		const input = this.element?.querySelector(`input#${this.props.name}`);
+
+		Object.keys(events).forEach((eventName) => {
+			input?.removeEventListener(eventName, events[eventName]);
+		});
+	}
+
 	get name(): string {
 		return this.props.name;
 	}

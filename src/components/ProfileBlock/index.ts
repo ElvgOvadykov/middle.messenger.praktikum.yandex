@@ -30,6 +30,16 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 		});
 	}
 
+	protected removeEvents(): void {
+		const { events = {} } = this.props as IProfileBlockProps;
+
+		const block = this.element?.querySelector(".profile-block__info");
+
+		Object.keys(events).forEach((eventName) => {
+			block?.removeEventListener(eventName, events[eventName]);
+		});
+	}
+
 	protected init(): void {
 		this.childrens.buttonLogout = new Button({
 			contentValue: "",
