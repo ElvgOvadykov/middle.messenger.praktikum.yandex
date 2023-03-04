@@ -22,9 +22,8 @@ function queryStringify(data = {}) {
 	return Object.entries(data).reduce((acc, [key, value], index, array) => {
 		if (index === array.length - 1) {
 			return acc.concat(`${key}=${value}`);
-		} else {
-			return acc.concat(`${key}=${value}&`);
 		}
+			return acc.concat(`${key}=${value}&`);
 	}, "?");
 }
 
@@ -39,35 +38,29 @@ export default class HTTPTransport {
 		return this.request(
 			currentUrl,
 			{ ...options, method: METHODS.GET },
-			options.timeout
+			options.timeout,
 		);
 	};
 
-	put = (url: string, options: TOptions) => {
-		return this.request(
+	put = (url: string, options: TOptions) => this.request(
 			url,
 			{ ...options, method: METHODS.PUT },
-			options.timeout
+			options.timeout,
 		);
-	};
 
-	post = (url: string, options: TOptions) => {
-		return this.request(
+	post = (url: string, options: TOptions) => this.request(
 			url,
 			{ ...options, method: METHODS.POST },
-			options.timeout
+			options.timeout,
 		);
-	};
 
-	delete = (url: string, options: TOptions) => {
-		return this.request(
+	delete = (url: string, options: TOptions) => this.request(
 			url,
 			{ ...options, method: METHODS.DELETE },
-			options.timeout
+			options.timeout,
 		);
-	};
 
-	request = (url: string, options: TOptions, timeout: number = 5000) => {
+	request = (url: string, options: TOptions, timeout = 5000) => {
 		const { method, data, headers } = options;
 
 		return new Promise((resolve, reject) => {

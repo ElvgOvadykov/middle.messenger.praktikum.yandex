@@ -1,5 +1,6 @@
-import EventBus from "./EventBus";
+// eslint-disable no-use-before-define
 import { v4 as uuidv4 } from "uuid";
+import EventBus from "./EventBus";
 import { deepEqual } from "./helpers";
 
 const enum BlockEvents {
@@ -11,9 +12,14 @@ const enum BlockEvents {
 
 abstract class Block<TProps extends Record<string, any> = any> {
 	private _element: HTMLElement | undefined = undefined;
+
 	protected props: TProps;
+
+	// eslint-disable-next-line no-use-before-define
 	childrens: Record<string, Block | Block[]>;
+
 	private eventBus: () => EventBus;
+
 	id = uuidv4();
 
 	constructor(propsWithChildrens: TProps) {
@@ -49,9 +55,9 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
 		Object.entries(childrensAndProps).forEach(([key, value]) => {
 			if (
-				Array.isArray(value) &&
-				value.length > 0 &&
-				value.every((v) => v instanceof Block)
+				Array.isArray(value)
+				&& value.length > 0
+				&& value.every((v) => v instanceof Block)
 			) {
 				childrens[key as string] = value;
 			} else if (value instanceof Block) {
@@ -77,13 +83,17 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		this.eventBus().emit(BlockEvents.FLOW_RENDER);
 	}
 
-	protected init() {}
+	protected init() {
+		return true;
+	}
 
 	private _componentDidMount() {
 		this.componentDidMount();
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		return true;
+	}
 
 	dispatchComponentDidMount() {
 		this.eventBus().emit(BlockEvents.FLOW_CDM);
@@ -124,18 +134,6 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	}
 
 	protected compile(template: (context: any) => string, context: any) {
-		function replaceStub(component: Block) {
-			const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-
-			if (!stub) {
-				return;
-			}
-
-			component.getContent()?.append(...Array.from(stub.childNodes));
-
-			stub.replaceWith(component.getContent()!);
-		}
-
 		function getClasses(classes: Array<string>) {
 			return classes.join(" ");
 		}
@@ -149,7 +147,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 			if (Array.isArray(component)) {
 				contextAndStubs[name] = component.reduce(
 					(acc, child) => acc.concat(`<div data-id="${child.id}"></div>`),
-					""
+					"",
 				);
 			} else {
 				contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
@@ -162,7 +160,19 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
 		temp.innerHTML = html;
 
-		Object.entries(this.childrens).forEach(([_, component]) => {
+		function replaceStub(component: Block) {
+			const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+
+			if (!stub) {
+				return;
+			}
+
+			component.getContent()?.append(...Array.from(stub.childNodes));
+
+			stub.replaceWith(component.getContent()!);
+		}
+
+		Object.entries(this.childrens).forEach(([, component]) => {
 			if (Array.isArray(component)) {
 				component.forEach(replaceStub);
 			} else {
@@ -196,23 +206,18 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	}
 
 	private _makePropsProxy(props: TProps) {
-		// Можно и так передать this
-		// Такой способ больше не применяется с приходом ES6+
-		const self = this;
-
 		return new Proxy(props, {
-			get(target, prop) {
+			get: (target, prop) => {
 				const value = target[prop as string];
 				return typeof value === "function" ? value.bind(target) : value;
 			},
-			set(target, prop, value) {
-				const oldTarget = Object.assign({}, target);
+			set: (target, prop, value) => {
+				const oldTarget = { ...target };
 
+				// eslint-disable-next-line no-param-reassign
 				target[prop as keyof TProps] = value;
 
-				// Запускаем обновление компоненты
-				// Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
-				self.eventBus().emit(BlockEvents.FLOW_CDU, oldTarget, target);
+				this.eventBus().emit(BlockEvents.FLOW_CDU, oldTarget, target);
 				return true;
 			},
 			deleteProperty() {

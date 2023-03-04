@@ -1,12 +1,13 @@
+// eslint-disable-next-line import/prefer-default-export
 export const deepEqual = (a: any, b: any) => {
 	if (a === b) {
 		return true;
 	}
 	if (
-		a === null ||
-		b === null ||
-		typeof a !== "object" ||
-		typeof b !== "object"
+		a === null
+		|| b === null
+		|| typeof a !== "object"
+		|| typeof b !== "object"
 	) {
 		return false;
 	}

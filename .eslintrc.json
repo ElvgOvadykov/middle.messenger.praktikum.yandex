@@ -24,7 +24,9 @@
 			{
 				"ts": "never"
 			}
-		]
+		],
+		"no-underscore-dangle": "off",
+		"class-methods-use-this": "off"
 	},
 	"settings": {
 		"import/parsers": {

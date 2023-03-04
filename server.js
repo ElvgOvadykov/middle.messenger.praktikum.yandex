@@ -1,6 +1,6 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"peerDependencies": true}] */
+// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-var-requires
 const express = require("express");
-require("dotenv").config({
+require("dotenv").config({ // eslint-disable-line @typescript-eslint/no-var-requires
 	path: "./.env",
 });
 
