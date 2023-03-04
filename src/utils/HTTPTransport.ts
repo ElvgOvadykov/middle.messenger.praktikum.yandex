@@ -12,6 +12,8 @@ type TOptions = {
 	headers: Record<string, string>;
 };
 
+type HTTPMethod = (url: string, options: TOptions) => Promise<unknown>;
+
 /**
  * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
  * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
@@ -23,12 +25,12 @@ function queryStringify(data = {}) {
 		if (index === array.length - 1) {
 			return acc.concat(`${key}=${value}`);
 		}
-			return acc.concat(`${key}=${value}&`);
+		return acc.concat(`${key}=${value}&`);
 	}, "?");
 }
 
 export default class HTTPTransport {
-	get = (url: string, options: TOptions) => {
+	get: HTTPMethod = (url, options) => {
 		let currentUrl = url;
 
 		if (options.data) {
@@ -42,23 +44,17 @@ export default class HTTPTransport {
 		);
 	};
 
-	put = (url: string, options: TOptions) => this.request(
-			url,
-			{ ...options, method: METHODS.PUT },
-			options.timeout,
-		);
+	put: HTTPMethod = (url, options) => (
+		this.request(url, { ...options, method: METHODS.PUT }, options.timeout)
+	);
 
-	post = (url: string, options: TOptions) => this.request(
-			url,
-			{ ...options, method: METHODS.POST },
-			options.timeout,
-		);
+	post: HTTPMethod = (url, options) => (
+		this.request(url, { ...options, method: METHODS.POST }, options.timeout)
+	);
 
-	delete = (url: string, options: TOptions) => this.request(
-			url,
-			{ ...options, method: METHODS.DELETE },
-			options.timeout,
-		);
+	delete: HTTPMethod = (url, options) => (
+		this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
+	);
 
 	request = (url: string, options: TOptions, timeout = 5000) => {
 		const { method, data, headers } = options;
