@@ -16,15 +16,3 @@ button#buttonBack {
 	align-items: center;
 	padding: calc($step * 3) calc($step * 5);
 }
-
-#uploadAvatarModal {
-	h2 {
-		margin-bottom: 32px;
-	}
-
-	a {
-		font-size: 24px;
-		text-decoration: underline;
-		margin-bottom: 68px;
-	}
-}

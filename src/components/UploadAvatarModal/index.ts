@@ -4,6 +4,8 @@ import Button from "@components/Button";
 
 import template from "./index.hbs";
 
+import "./style.scss";
+
 interface IUploadAvatarModalProps {
 	onCloseModal: () => void;
 	events?: Record<string, EventListener>;
