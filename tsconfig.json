@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    /** убрать как только переедем полностью на TS */
     "allowJs": true,
     "checkJs": false,
     "module": "commonjs",
@@ -16,8 +15,6 @@
       "@icons/*": ["./static/icons/*"],
       "@images/*": ["./static/image/*"],
     },
-    /** потом описать где будут типы */
-    // "typeRoots": ["./app/utils/types"],
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
