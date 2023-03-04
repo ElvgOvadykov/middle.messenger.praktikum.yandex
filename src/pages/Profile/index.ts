@@ -126,6 +126,15 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 		this.childrens.changePasswordModal = new ChangePasswordModal({
 			onCloseModal: () => this.setProps({ isChangePasswordModalVisible: false }),
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#changePasswordModal")) {
+						this.setProps({ isChangePasswordModalVisible: false });
+					}
+				},
+			},
 		});
 
 		this.childrens.uploadAvatarModal = new UploadAvatarModal({

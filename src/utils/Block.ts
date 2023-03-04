@@ -46,6 +46,20 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		});
 	}
 
+	protected removeEvents() {
+		const { events = {} } = this.props as TProps & {
+			events: Record<string, () => void>;
+		};
+
+		if (!events) {
+			return;
+		}
+
+		Object.entries(events).forEach(([event, listener]) => {
+			this._element?.removeEventListener(event, listener);
+		});
+	}
+
 	private _getChildrenAndProps(childrensAndProps: TProps): {
 		props: TProps;
 		childrens: Record<string, Block | Block[]>;
@@ -83,17 +97,15 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		this.eventBus().emit(BlockEvents.FLOW_RENDER);
 	}
 
-	protected init() {
-		return true;
-	}
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	protected init() {}
 
 	private _componentDidMount() {
 		this.componentDidMount();
 	}
 
-	componentDidMount() {
-		return true;
-	}
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	componentDidMount() {}
 
 	dispatchComponentDidMount() {
 		this.eventBus().emit(BlockEvents.FLOW_CDM);
@@ -186,6 +198,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	_render() {
 		const fragment = this.render();
 
+		this.removeEvents();
 		const newElement = fragment.firstElementChild as HTMLElement;
 
 		if (this._element && newElement) {

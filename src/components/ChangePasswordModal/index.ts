@@ -10,6 +10,7 @@ import template from "./index.hbs";
 
 interface IChangePasswordModalProps {
 	onCloseModal: () => void;
+	events?: Record<string, EventListener>;
 }
 
 type TChangePasswordModalExtendedProps = IChangePasswordModalProps & {
@@ -28,17 +29,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 		super(extendedProps);
 	}
 
-	protected addEvents(): void {
-		this.element?.addEventListener("click", (event: Event) => {
-			const { target } = event;
-
-			if ((target as HTMLDivElement).matches("#changePasswordModal")) {
-				this.props.onCloseModal();
-			}
-		});
-	}
-
-	protected init(): void {
+	protected init() {
 		this.childrens.oldPassword = new Input({
 			name: "oldPassword",
 			lableTitle: "Прежний пароль",
