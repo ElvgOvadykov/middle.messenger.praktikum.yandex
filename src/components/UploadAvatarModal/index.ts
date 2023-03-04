@@ -6,21 +6,12 @@ import template from "./index.hbs";
 
 interface IUploadAvatarModalProps {
 	onCloseModal: () => void;
+	events?: Record<string, EventListener>;
 }
 
 export default class UploadAvatarModal extends Block<IUploadAvatarModalProps> {
 	constructor(props: IUploadAvatarModalProps) {
 		super(props);
-	}
-
-	protected addEvents(): void {
-		this.element?.addEventListener("click", (event: Event) => {
-			const { target } = event;
-
-			if ((target as HTMLDivElement).matches("#uploadAvatarModal")) {
-				this.props.onCloseModal();
-			}
-		});
 	}
 
 	init() {

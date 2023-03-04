@@ -139,6 +139,15 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 		this.childrens.uploadAvatarModal = new UploadAvatarModal({
 			onCloseModal: () => this.setProps({ isUploadAvatarModalVisible: false }),
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#uploadAvatarModal")) {
+						this.setProps({ isUploadAvatarModalVisible: false });
+					}
+				},
+			},
 		});
 
 		this.childrens.toggleChangePasswordModuleButton = new Button({
