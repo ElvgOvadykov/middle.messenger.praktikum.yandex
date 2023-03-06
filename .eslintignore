@@ -1,0 +1,7 @@
+/dist
+**/*.min.js
+/node_modules
+/parcel-cache
+/static
+**/*.hbs
+**/*.scss

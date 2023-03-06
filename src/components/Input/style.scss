@@ -1,0 +1,27 @@
+@import "@styles/variables.scss";
+
+.input {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	input {
+		font-size: calc($step * 2);
+		padding: 6px;
+		border-radius: 4px;
+		border: solid 2px $light-blue;
+		outline: transparent solid 2px;
+		outline-offset: 2px;
+		appearance: none;
+	}
+
+	input:focus {
+		border-color: $green;
+		box-shadow: $green 0 0 0 1px;
+	}
+
+	&__error {
+		color: $red;
+		font-size: 12px;
+	}
+}

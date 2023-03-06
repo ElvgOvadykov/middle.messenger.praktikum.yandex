@@ -1,17 +1,7 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="stylesheet" href="../../styles/main.scss" />
-  </head>
-  <body>
-    <main>
-      <section class="error-section">
-        <div class="error-content">
-          <h1>500</h1>
-          <h2>Упс! Ошибка сервера </h2>
-          {{> aLink/a aLintHref="/" aLinkTitle="Вернуться к чатам" }}
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+<section class="error-section">
+	<div class="error-content">
+		<h1>500</h1>
+		<h2>Упс! Ошибка сервера </h2>
+		{{{goToChatLink}}}
+	</div>
+</section>

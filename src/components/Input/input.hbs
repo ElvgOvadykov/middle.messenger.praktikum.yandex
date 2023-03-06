@@ -1,0 +1,12 @@
+<div class="input">
+	{{#if lableTitle}}
+		<lable class="input__label" for="{{name}}">{{lableTitle}}</lable>
+	{{/if}}
+	<input
+		id="{{name}}"
+		name="{{name}}"
+		type="{{type}}"
+		placeholder="{{placeholder}}"
+	/>
+	<span class="input__error">{{error}}</span>
+</div>

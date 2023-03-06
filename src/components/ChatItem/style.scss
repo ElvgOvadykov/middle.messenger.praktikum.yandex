@@ -1,0 +1,62 @@
+@import "@styles/variables.scss";
+
+$chat_avatar_width: 60px;
+$unread-messages-count-width: 20px;
+
+.chat-item {
+	height: 80px;
+	padding: 10px 20px;
+	border-bottom: 1px solid $grey-blue;
+	display: grid;
+	grid-template-columns: min-content 1fr min-content;
+	align-items: center;
+	gap: 15px;
+
+	&__avatar {
+		width: $chat_avatar_width;
+		height: $chat_avatar_width;
+		border-radius: calc($chat_avatar_width * 0.5);
+		background-image: url("../../../static/image/test_avatar.png") !important;
+		background-position: center !important;
+		background-repeat: no-repeat !important;
+		background-size: 60px 60px;
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+
+		.chat-item__content__last-message {
+			color: $grey;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			height: 20px;
+			width: 205px;
+
+			b {
+				color: black;
+			}
+		}
+	}
+
+	&__info {
+		justify-self: end;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		align-items: center;
+
+		.unread-messages-count {
+			background-color: $green;
+			width: $unread-messages-count-width;
+			height: $unread-messages-count-width;
+			color: white;
+			text-align: center;
+			border-radius: calc($unread-messages-count-width * 0.5);
+		}
+	}
+}
