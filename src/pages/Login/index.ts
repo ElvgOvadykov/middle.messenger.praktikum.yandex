@@ -3,14 +3,14 @@ import Button from "@components/Button";
 import Input from "@components/Input";
 import Link from "@components/Link";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
 	passwordValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import renderDOM from "@utils/renderDom";
+import router from "@utils/routes/Router";
+import { Paths } from "@utils/routes/enums";
 
 import template from "./login.hbs";
 
@@ -60,11 +60,8 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		});
 
 		this.childrens.linkToSignUp = new Link({
-			linkHref: "",
+			linkHref: "/sign-up",
 			linkTitle: "Регистрация",
-			events: {
-				click: getGoToPageFunction("signUp"),
-			},
 		});
 	}
 
@@ -125,7 +122,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			renderDOM("chats");
+			router.go(Paths.chats);
 		}
 	}
 

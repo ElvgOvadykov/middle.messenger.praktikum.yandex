@@ -22,8 +22,8 @@
 		"skipLibCheck": true,
 		"lib": ["ESNext", "DOM"],
 		"noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true
+		"noUnusedParameters": true,
+		"strictNullChecks": true
 	},
 	"include": ["./src"],
 	"exclude": [

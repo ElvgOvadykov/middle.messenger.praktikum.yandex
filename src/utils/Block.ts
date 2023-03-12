@@ -10,6 +10,11 @@ const enum BlockEvents {
 	FLOW_RENDER = "flow:render",
 }
 
+export interface BlockConstructor {
+	// eslint-disable-next-line no-use-before-define
+	new (props?: Record<string, any>): Block;
+}
+
 abstract class Block<TProps extends Record<string, any> = any> {
 	private _element: HTMLElement | undefined = undefined;
 

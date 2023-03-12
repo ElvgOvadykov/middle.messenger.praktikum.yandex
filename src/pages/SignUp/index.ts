@@ -3,7 +3,6 @@ import Input from "@components/Input";
 import Link from "@components/Link";
 import Button from "@components/Button";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
 import { signUpPageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -13,7 +12,8 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import renderDOM from "@utils/renderDom";
+import { Paths } from "@utils/routes/enums";
+import router from "@utils/routes/Router";
 
 import template from "./signUp.hbs";
 
@@ -108,11 +108,8 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		});
 
 		this.childrens.linkToLogin = new Link({
-			linkHref: "",
+			linkHref: Paths.login,
 			linkTitle: "Уже есть профиль?",
-			events: {
-				click: getGoToPageFunction("login"),
-			},
 		});
 	}
 
@@ -173,7 +170,7 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			renderDOM("chats");
+			router.go(Paths.chats);
 		}
 	}
 

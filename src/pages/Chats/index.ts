@@ -9,7 +9,8 @@ import AttachPopup from "@components/AttachPopup";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
-import renderDOM from "@utils/renderDom";
+import router from "@utils/routes/Router";
+import { Paths } from "@utils/routes/enums";
 
 import template from "./chats.hbs";
 
@@ -79,7 +80,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			},
 			events: {
 				click: () => {
-					renderDOM("profile");
+					router.go(Paths.profile);
 				},
 			},
 		});

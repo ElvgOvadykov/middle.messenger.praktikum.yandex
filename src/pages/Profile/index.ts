@@ -5,7 +5,6 @@ import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 import ProfileAvatarBlock from "@components/ProfileAvatarBlock";
 
-import renderDOM from "@utils/renderDom";
 import { profilePageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -14,6 +13,8 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
+import router from "@utils/routes/Router";
+import { Paths } from "@utils/routes/enums";
 
 import template from "./profile.hbs";
 
@@ -46,7 +47,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 			size: ButtonSize.Medium,
 			events: {
 				click: () => {
-					renderDOM("chats");
+					router.back();
 				},
 			},
 		});
@@ -218,7 +219,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			renderDOM("chats");
+			router.go(Paths.chats);
 		}
 	}
 

@@ -1,7 +1,7 @@
 import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
-
-import getGoToPageFunction from "@utils/getGoToPageFunction";
+import router from "@utils/routes/Router";
+import { Paths } from "@utils/routes/enums";
 
 import template from "./profileBlock.hbs";
 
@@ -47,7 +47,9 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 			size: ButtonSize.Small,
 			color: ButtonColor.White,
 			events: {
-				click: getGoToPageFunction("login"),
+				click: () => {
+					router.go(Paths.login);
+				},
 			},
 		});
 	}
