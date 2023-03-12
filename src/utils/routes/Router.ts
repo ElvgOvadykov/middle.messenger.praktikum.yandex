@@ -4,42 +4,37 @@ import Route from "./Route";
 import { Paths } from "./enums";
 
 class Router {
-	// eslint-disable-next-line no-use-before-define
-	static __instance: Router;
+	private _routes: Array<Route>;
 
-	private _routes: Array<Route> = [];
-
-	private _history: History = window.history;
+	private _history: History;
 
 	private _currentRoute?: Route;
 
-	private _rootQuery = "";
+	private _rootQuery: string;
 
-	constructor(rootQuery?: string) {
-		if (Router.__instance) {
-			// eslint-disable-next-line no-constructor-return
-			return Router.__instance;
-		}
-
+	constructor() {
 		this._currentRoute = undefined;
-		this._rootQuery = rootQuery || "";
+		this._routes = [];
+		this._history = window.history;
+		this._rootQuery = "";
+	}
 
-		Router.__instance = this;
+	setRootQuery(rootQuery: string) {
+		this._rootQuery = rootQuery;
+		return this;
 	}
 
 	use(pathname: string, blockConstructor: BlockConstructor) {
-		const route = new Route(pathname, blockConstructor, { rootQuery: this._rootQuery });
+		const route = new Route(pathname, blockConstructor, {
+			rootQuery: this._rootQuery,
+		});
 		this._routes.push(route);
 		return this;
 	}
 
 	start() {
 		window.addEventListener("popstate", (event: PopStateEvent) => {
-			console.log(event);
-
 			const { currentTarget } = event;
-
-			console.log((currentTarget as Window).location);
 
 			this._onRoute((currentTarget as Window).location.pathname);
 		});
@@ -51,6 +46,11 @@ class Router {
 		const route = this.getRoute(pathname);
 
 		if (!route) {
+			const notFoundPage = this.getRoute("*");
+
+			if (notFoundPage) {
+				notFoundPage.render();
+			}
 			return;
 		}
 
@@ -80,4 +80,4 @@ class Router {
 	}
 }
 
-export default new Router("#app");
+export default new Router();
