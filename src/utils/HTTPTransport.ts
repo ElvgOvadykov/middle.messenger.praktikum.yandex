@@ -6,10 +6,10 @@ enum METHODS {
 }
 
 type TOptions = {
-	method: METHODS;
-	data: Record<string, any>;
-	timeout: number;
-	headers: Record<string, string>;
+	method?: METHODS;
+	data?: Record<string, any>;
+	timeout?: number;
+	headers?: Record<string, string>;
 };
 
 type HTTPMethod = (url: string, options: TOptions) => Promise<unknown>;
@@ -30,6 +30,12 @@ function queryStringify(data = {}) {
 }
 
 export default class HTTPTransport {
+	baseUrl: string;
+
+	constructor(rootUrl: string) {
+		this.baseUrl = `ya-praktikum.tech/api/v2${rootUrl}`;
+	}
+
 	get: HTTPMethod = (url, options) => {
 		let currentUrl = url;
 
@@ -61,7 +67,7 @@ export default class HTTPTransport {
 
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
-			xhr.open(method, url);
+			xhr.open(method!, this.baseUrl + url);
 
 			if (headers) {
 				Object.entries(headers).forEach(([key, value]) => {
@@ -71,7 +77,7 @@ export default class HTTPTransport {
 
 			xhr.timeout = timeout;
 
-			xhr.onload = function () {
+			xhr.onload = () => {
 				resolve(xhr);
 			};
 
