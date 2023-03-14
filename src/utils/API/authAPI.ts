@@ -1,30 +1,28 @@
-import HTTPTransport from "@utils/HTTPTransport";
+import BaseAPI from "./baseAPI";
 
-const httpTransport = new HTTPTransport("/auth");
-
-class AuthAPI {
+class AuthAPI extends BaseAPI {
 	signUp(payload: AuthAPINamespace.signUp.TRequest) {
-		return httpTransport.post("/signup", {
+		return this.http.post("/signup", {
 			data: payload,
 		}) as Promise<AuthAPINamespace.signUp.TResponse>;
 	}
 
 	signIn(payload: AuthAPINamespace.signIn.TRequest) {
-		return httpTransport.post("/signin", {
+		return this.http.post("/signin", {
 			data: payload,
 		});
 	}
 
 	getUser() {
-		return httpTransport.get(
+		return this.http.get(
 			"/user",
 			{},
 		) as Promise<AuthAPINamespace.getUser.TResponse>;
 	}
 
 	logout() {
-		return httpTransport.post("/logout", {});
+		return this.http.post("/logout", {});
 	}
 }
 
-export default new AuthAPI();
+export default new AuthAPI("/auth");

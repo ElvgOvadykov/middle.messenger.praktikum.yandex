@@ -1,17 +1,9 @@
+import HTTPTransport from "@utils/HTTPTransport";
+
 export default abstract class BaseAPI {
-	create() {
-		throw new Error("Not implemented");
-	}
+	protected http: HTTPTransport;
 
-	request() {
-		throw new Error("Not implemented");
-	}
-
-	update() {
-		throw new Error("Not implemented");
-	}
-
-	delete() {
-		throw new Error("Not implemented");
+	constructor(rootUrl: string) {
+		this.http = new HTTPTransport(rootUrl);
 	}
 }

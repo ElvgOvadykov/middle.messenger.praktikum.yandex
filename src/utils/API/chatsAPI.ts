@@ -1,33 +1,31 @@
-import HTTPTransport from "@utils/HTTPTransport";
+import BaseAPI from "./baseAPI";
 
-const httpTransport = new HTTPTransport("/chats");
-
-class ChatsAPI {
+class ChatsAPI extends BaseAPI {
 	getChats(payload: ChatsAPINamespace.getChats.TRequest) {
-		return httpTransport.get("", {
+		return this.http.get("", {
 			data: payload,
 		}) as Promise<ChatsAPINamespace.getChats.TResponse>;
 	}
 
 	createChat(payload: ChatsAPINamespace.createChat.TRequest) {
-		return httpTransport.post("", {
+		return this.http.post("", {
 			data: payload,
 		});
 	}
 
 	deleteChat(payload: ChatsAPINamespace.deleteChat.TRequest) {
-		return httpTransport.delete("", {
+		return this.http.delete("", {
 			data: payload,
 		}) as Promise<ChatsAPINamespace.deleteChat.TResponse>;
 	}
 
 	addUsersToChat(payload: ChatsAPINamespace.addUsersToChat.TRequest) {
-		return httpTransport.put("/users", { data: payload });
+		return this.http.put("/users", { data: payload });
 	}
 
 	deleteUsersFromChat(payload: ChatsAPINamespace.deleteUsersFromChat.TRequest) {
-		return httpTransport.delete("/users", { data: payload });
+		return this.http.delete("/users", { data: payload });
 	}
 }
 
-export default new ChatsAPI();
+export default new ChatsAPI("/chats");
