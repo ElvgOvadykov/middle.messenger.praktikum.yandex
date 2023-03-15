@@ -2,15 +2,15 @@ import BaseAPI from "./baseAPI";
 
 class UserAPI extends BaseAPI {
 	changeUserProfile(payload: UserAPINamespace.changeUserProfile.TRequest) {
-		return this.http.put("/profile", {
+		return this.http.put<UserAPINamespace.changeUserProfile.TResponse>("/profile", {
 			data: payload,
-		}) as Promise<UserAPINamespace.changeUserProfile.TResponse>;
+		});
 	}
 
 	changeUserAvatar(payload: UserAPINamespace.changeUserAvatar.TRequest) {
-		return this.http.put("/profile/avatar", {
+		return this.http.put<UserAPINamespace.changeUserAvatar.TResponse>("/profile/avatar", {
 			data: payload,
-		}) as Promise<UserAPINamespace.changeUserAvatar.TResponse>;
+		});
 	}
 
 	changeUserPassword(payload: UserAPINamespace.changeUserPassword.TRequest) {
@@ -20,16 +20,13 @@ class UserAPI extends BaseAPI {
 	}
 
 	getUserById(payload: UserAPINamespace.getUserById.TRequest) {
-		return this.http.get(
-			`/password/${payload.id}`,
-			{},
-		) as Promise<UserAPINamespace.getUserById.TResponse>;
+		return this.http.get<UserAPINamespace.getUserById.TResponse>(`/password/${payload.id}`, {});
 	}
 
 	getUserByLogin(payload: UserAPINamespace.getUserByLogin.TRequest) {
-		return this.http.post("/search", {
+		return this.http.post<UserAPINamespace.getUserByLogin.TResponse>("/search", {
 			data: payload,
-		}) as Promise<UserAPINamespace.getUserByLogin.TResponse>;
+		});
 	}
 }
 

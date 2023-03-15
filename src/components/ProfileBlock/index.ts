@@ -1,7 +1,7 @@
 import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
-import router from "@utils/routes/Router";
-import { Paths } from "@utils/routes/enums";
+import router from "@router/index";
+import { Paths } from "@router/index";
 
 import template from "./profileBlock.hbs";
 

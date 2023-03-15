@@ -13,8 +13,8 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import router from "@utils/routes/Router";
-import { Paths } from "@utils/routes/enums";
+import router from "@router/index";
+import { Paths } from "@router/index";
 
 import template from "./profile.hbs";
 
@@ -168,10 +168,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-			const error = validationFunction(
-				(target as HTMLInputElement).value,
-				name,
-			);
+			const error = validationFunction((target as HTMLInputElement).value, name);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
 

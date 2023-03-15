@@ -3,14 +3,11 @@ import Button from "@components/Button";
 import Input from "@components/Input";
 import Link from "@components/Link";
 
+import authController from "@controllers/AuthController";
+
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
-import {
-	loginValidation,
-	passwordValidation,
-} from "@utils/validation/validations";
+import { loginValidation, passwordValidation } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import router from "@utils/routes/Router";
-import { Paths } from "@utils/routes/enums";
 
 import template from "./login.hbs";
 
@@ -71,10 +68,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 
 			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-			const error = validationFunction(
-				(target as HTMLInputElement).value,
-				name,
-			);
+			const error = validationFunction((target as HTMLInputElement).value, name);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
 
@@ -122,7 +116,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			router.go(Paths.chats);
+			authController.signIn(data as AuthAPINamespace.signIn.TRequest);
 		}
 	}
 

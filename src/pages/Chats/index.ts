@@ -9,8 +9,8 @@ import AttachPopup from "@components/AttachPopup";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
-import router from "@utils/routes/Router";
-import { Paths } from "@utils/routes/enums";
+import router from "@router/index";
+import { Paths } from "@router/index";
 
 import template from "./chats.hbs";
 

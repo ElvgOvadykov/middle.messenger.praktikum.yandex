@@ -1,7 +1,7 @@
 import Block from "@utils/Block";
 import Link from "@components/Link";
 
-import { Paths } from "@utils/routes/enums";
+import { Paths } from "@router/index";
 
 import template from "./index.hbs";
 

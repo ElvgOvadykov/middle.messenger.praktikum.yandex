@@ -4,7 +4,7 @@ import ProfilePage from "@pages/Profile";
 import ChatsPage from "@pages/Chats";
 import NotFoundErrorPage from "@pages/404";
 
-import router from "@utils/routes/Router";
+import router from "@router/index";
 
 window.addEventListener("DOMContentLoaded", () => {
 	router

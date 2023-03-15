@@ -2,9 +2,9 @@ import BaseAPI from "./baseAPI";
 
 class ChatsAPI extends BaseAPI {
 	getChats(payload: ChatsAPINamespace.getChats.TRequest) {
-		return this.http.get("", {
+		return this.http.get<ChatsAPINamespace.getChats.TResponse>("", {
 			data: payload,
-		}) as Promise<ChatsAPINamespace.getChats.TResponse>;
+		});
 	}
 
 	createChat(payload: ChatsAPINamespace.createChat.TRequest) {
@@ -14,9 +14,9 @@ class ChatsAPI extends BaseAPI {
 	}
 
 	deleteChat(payload: ChatsAPINamespace.deleteChat.TRequest) {
-		return this.http.delete("", {
+		return this.http.delete<ChatsAPINamespace.deleteChat.TResponse>("", {
 			data: payload,
-		}) as Promise<ChatsAPINamespace.deleteChat.TResponse>;
+		});
 	}
 
 	addUsersToChat(payload: ChatsAPINamespace.addUsersToChat.TRequest) {

@@ -27,7 +27,12 @@
 		],
 		"no-underscore-dangle": "off",
 		"class-methods-use-this": "off",
-		"linebreak-style": "off"
+		"linebreak-style": "off",
+		"implicit-arrow-linebreak": "off",
+		"no-restricted-syntax": "off",
+		"no-prototype-builtins": "off",
+		"no-continue": "off",
+		"no-param-reassign": "off"
 	},
 	"settings": {
 		"import/parsers": {

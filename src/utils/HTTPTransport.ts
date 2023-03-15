@@ -12,7 +12,7 @@ type TOptions = {
 	headers?: Record<string, string>;
 };
 
-type HTTPMethod = (url: string, options: TOptions) => Promise<unknown>;
+type HTTPMethod = <Response>(url: string, options: TOptions) => Promise<Response>;
 
 /**
  * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
@@ -30,10 +30,12 @@ function queryStringify(data = {}) {
 }
 
 export default class HTTPTransport {
-	baseUrl: string;
+	protected baseUrl: string;
 
 	constructor(rootUrl: string) {
-		this.baseUrl = `ya-praktikum.tech/api/v2${rootUrl}`;
+		const { API_URL } = process.env;
+
+		this.baseUrl = `${API_URL}${rootUrl}`;
 	}
 
 	get: HTTPMethod = (url, options) => {
@@ -43,26 +45,19 @@ export default class HTTPTransport {
 			currentUrl = url.concat(queryStringify(options.data));
 		}
 
-		return this.request(
-			currentUrl,
-			{ ...options, method: METHODS.GET },
-			options.timeout,
-		);
+		return this.request(currentUrl, { ...options, method: METHODS.GET }, options.timeout);
 	};
 
-	put: HTTPMethod = (url, options) => (
-		this.request(url, { ...options, method: METHODS.PUT }, options.timeout)
-	);
+	put: HTTPMethod = (url, options) =>
+		this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-	post: HTTPMethod = (url, options) => (
-		this.request(url, { ...options, method: METHODS.POST }, options.timeout)
-	);
+	post: HTTPMethod = (url, options) =>
+		this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-	delete: HTTPMethod = (url, options) => (
-		this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
-	);
+	delete: HTTPMethod = (url, options) =>
+		this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-	request = (url: string, options: TOptions, timeout = 5000) => {
+	request = <Response>(url: string, options: TOptions, timeout = 5000): Promise<Response> => {
 		const { method, data, headers } = options;
 
 		return new Promise((resolve, reject) => {
@@ -76,9 +71,16 @@ export default class HTTPTransport {
 			}
 
 			xhr.timeout = timeout;
+			xhr.withCredentials = true;
 
-			xhr.onload = () => {
-				resolve(xhr);
+			xhr.onreadystatechange = () => {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status < 400) {
+						resolve(xhr.response);
+					} else {
+						reject(xhr.response);
+					}
+				}
 			};
 
 			xhr.onabort = reject;

@@ -1,23 +1,26 @@
 import BaseAPI from "./baseAPI";
 
-class AuthAPI extends BaseAPI {
+export class AuthAPI extends BaseAPI {
 	signUp(payload: AuthAPINamespace.signUp.TRequest) {
-		return this.http.post("/signup", {
+		return this.http.post<AuthAPINamespace.signUp.TResponse>("/signup", {
 			data: payload,
-		}) as Promise<AuthAPINamespace.signUp.TResponse>;
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
+		});
 	}
 
 	signIn(payload: AuthAPINamespace.signIn.TRequest) {
 		return this.http.post("/signin", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 
 	getUser() {
-		return this.http.get(
-			"/user",
-			{},
-		) as Promise<AuthAPINamespace.getUser.TResponse>;
+		return this.http.get<AuthAPINamespace.getUser.TResponse>("/user", {});
 	}
 
 	logout() {

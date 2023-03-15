@@ -3,6 +3,8 @@ import Input from "@components/Input";
 import Link from "@components/Link";
 import Button from "@components/Button";
 
+import authController from "@controllers/AuthController";
+
 import { signUpPageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -12,8 +14,7 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import { Paths } from "@utils/routes/enums";
-import router from "@utils/routes/Router";
+import { Paths } from "@router/index";
 
 import template from "./signUp.hbs";
 
@@ -119,10 +120,7 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 
 			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-			const error = validationFunction(
-				(target as HTMLInputElement).value,
-				name,
-			);
+			const error = validationFunction((target as HTMLInputElement).value, name);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
 
@@ -170,7 +168,7 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			router.go(Paths.chats);
+			authController.signUp(data as AuthAPINamespace.signUp.TRequest);
 		}
 	}
 
