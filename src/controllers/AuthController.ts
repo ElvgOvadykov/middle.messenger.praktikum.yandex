@@ -13,6 +13,8 @@ export class AuthController {
 		try {
 			await this.api.signIn(payload);
 
+			await this.getUser();
+
 			router.go(Paths.chats);
 		} catch (e: any) {
 			console.error(e);
@@ -32,14 +34,22 @@ export class AuthController {
 	}
 
 	async getUser() {
-		const user = await this.api.getUser();
+		try {
+			const user = await this.api.getUser();
 
-		store.set("user", user);
+			console.log("getUser", typeof user);
+
+			store.set("currentUser.data", user);
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	async logout() {
 		try {
 			await this.api.logout();
+
+			store.set("currentUser.data", undefined);
 
 			router.go(Paths.login);
 		} catch (e: any) {

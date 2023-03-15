@@ -1,7 +1,7 @@
 import { set } from "@utils/helpers";
 import EventBus from "@utils/EventBus";
 
-type TState = {
+export type TState = {
 	currentUser: {
 		data?: TUser;
 		error?: TAPIError;
@@ -11,7 +11,7 @@ type TState = {
 	selectedUserId?: number;
 };
 
-const initialState: TState = {
+export const initialState: TState = {
 	currentUser: {
 		isLoading: false,
 	},

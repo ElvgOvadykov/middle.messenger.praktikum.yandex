@@ -1,7 +1,7 @@
 // eslint-disable no-use-before-define
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
-import { deepEqual } from "./helpers";
+import { isEqual } from "./helpers";
 
 const enum BlockEvents {
 	INIT = "init",
@@ -74,9 +74,9 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
 		Object.entries(childrensAndProps).forEach(([key, value]) => {
 			if (
-				Array.isArray(value)
-				&& value.length > 0
-				&& value.every((v) => v instanceof Block)
+				Array.isArray(value) &&
+				value.length > 0 &&
+				value.every((v) => v instanceof Block)
 			) {
 				childrens[key as string] = value;
 			} else if (value instanceof Block) {
@@ -133,7 +133,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	}
 
 	componentDidUpdate(oldProps: TProps, newProps: TProps) {
-		const bool = deepEqual(oldProps, newProps);
+		const bool = isEqual(oldProps, newProps);
 
 		return !bool;
 	}

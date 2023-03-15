@@ -32,7 +32,8 @@
 		"no-restricted-syntax": "off",
 		"no-prototype-builtins": "off",
 		"no-continue": "off",
-		"no-param-reassign": "off"
+		"no-param-reassign": "off",
+		"operator-linebreak": ["error", "after"]
 	},
 	"settings": {
 		"import/parsers": {

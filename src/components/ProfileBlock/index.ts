@@ -1,7 +1,6 @@
 import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
-import router from "@router/index";
-import { Paths } from "@router/index";
+import authController from "@controllers/AuthController";
 
 import template from "./profileBlock.hbs";
 
@@ -48,7 +47,7 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 			color: ButtonColor.White,
 			events: {
 				click: () => {
-					router.go(Paths.login);
+					authController.logout();
 				},
 			},
 		});

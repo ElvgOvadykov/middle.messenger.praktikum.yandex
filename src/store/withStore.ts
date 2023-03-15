@@ -1,8 +1,8 @@
-import Block from "@utils/Block";
+import { BlockConstructor } from "@utils/Block";
 import store, { StoreEvents } from "./Store";
 
 export default function withStore(mapStateToProps: (state: any) => any) {
-	return function wrap(Component: typeof Block) {
+	return function wrap(Component: BlockConstructor) {
 		let previousState: any;
 
 		return class WithStore extends Component {

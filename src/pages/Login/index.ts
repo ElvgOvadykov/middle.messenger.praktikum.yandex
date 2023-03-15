@@ -8,6 +8,9 @@ import authController from "@controllers/AuthController";
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
 import { loginValidation, passwordValidation } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
+import { withStore } from "@store/index";
+import isUserAuthorized from "@utils/isUserAuthorized";
+import router, { Paths } from "@router/index";
 
 import template from "./login.hbs";
 
@@ -17,7 +20,7 @@ interface ILoginPageProps {
 	errors: { [key: string]: string };
 }
 
-export default class LoginPage extends Block<ILoginPageProps> {
+class LoginPage extends Block<ILoginPageProps> {
 	constructor() {
 		const props: ILoginPageProps = {
 			errors: {},
@@ -57,7 +60,7 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		});
 
 		this.childrens.linkToSignUp = new Link({
-			linkHref: "/sign-up",
+			linkHref: Paths.signUp,
 			linkTitle: "Регистрация",
 		});
 	}
@@ -120,7 +123,15 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		}
 	}
 
+	componentDidMount(): void {
+		if (isUserAuthorized()) {
+			router.go(Paths.chats);
+		}
+	}
+
 	protected render() {
 		return this.compile(template, this.props);
 	}
 }
+
+export default withStore((state) => state)(LoginPage);

@@ -9,8 +9,8 @@ import AttachPopup from "@components/AttachPopup";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
-import router from "@router/index";
-import { Paths } from "@router/index";
+import router, { Paths } from "@router/index";
+import { withStore, TState, initialState } from "@store/index";
 
 import template from "./chats.hbs";
 
@@ -20,6 +20,7 @@ interface IChatsPageProps {
 	isChatOptionsPopupVisible: boolean;
 	isAttachPopupVisible: boolean;
 	errors: { [key: string]: string };
+	currentUser: TState["currentUser"];
 }
 
 const chats: Array<{ chatItem: IChatItemProps }> = [
@@ -54,12 +55,13 @@ const messages = [
 	},
 ];
 
-export default class ChatsPage extends Block<IChatsPageProps> {
+class ChatsPage extends Block<IChatsPageProps> {
 	constructor() {
 		super({
 			isChatOptionsPopupVisible: false,
 			isAttachPopupVisible: false,
 			errors: {},
+			currentUser: initialState.currentUser,
 		});
 	}
 
@@ -75,8 +77,8 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 
 		this.childrens.profileBlock = new ProfileBlock({
 			profile: {
-				firstName: "Элвг",
-				secondName: "Овадыков",
+				firstName: this.props.currentUser.data?.first_name || "",
+				secondName: this.props.currentUser.data?.second_name || "",
 			},
 			events: {
 				click: () => {
@@ -162,6 +164,9 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 	}
 
 	render() {
+		console.log("Chats props", this.props);
 		return this.compile(template, { ...this.props });
 	}
 }
+
+export default withStore((state) => ({ ...state.currentUser }))(ChatsPage);

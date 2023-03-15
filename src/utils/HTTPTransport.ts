@@ -72,6 +72,7 @@ export default class HTTPTransport {
 
 			xhr.timeout = timeout;
 			xhr.withCredentials = true;
+			xhr.responseType = "json";
 
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === XMLHttpRequest.DONE) {
