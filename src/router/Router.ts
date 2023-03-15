@@ -1,4 +1,7 @@
 import { BlockConstructor } from "@utils/Block";
+
+import isUserAuthorized from "@utils/isUserAuthorized";
+
 import Route from "./Route";
 
 import { Paths } from "./enums";
@@ -24,10 +27,15 @@ class Router {
 		return this;
 	}
 
-	use(pathname: string, blockConstructor: BlockConstructor) {
-		const route = new Route(pathname, blockConstructor, {
-			rootQuery: this._rootQuery,
-		});
+	use(pathname: string, blockConstructor: BlockConstructor, isPrivateRoute = false) {
+		const route = new Route(
+			pathname,
+			blockConstructor,
+			{
+				rootQuery: this._rootQuery,
+			},
+			isPrivateRoute,
+		);
 		this._routes.push(route);
 		return this;
 	}
@@ -52,6 +60,13 @@ class Router {
 				notFoundPage.render();
 			}
 			return;
+		}
+
+		if (route.isPrivateRoute) {
+			if (!isUserAuthorized()) {
+				this.go(Paths.login);
+				return;
+			}
 		}
 
 		if (this._currentRoute) {

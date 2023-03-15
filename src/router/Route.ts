@@ -11,15 +11,23 @@ export default class Route {
 
 	private _props: Record<string, any>;
 
+	private _isPrivateRoute: boolean;
+
 	constructor(
 		pathname: string,
 		view: BlockConstructor,
 		props: Record<string, any>,
+		isPrivateRoute: boolean,
 	) {
 		this._pathname = pathname;
 		this._blockClass = view;
 		this._block = undefined;
 		this._props = props;
+		this._isPrivateRoute = isPrivateRoute;
+	}
+
+	get isPrivateRoute() {
+		return this._isPrivateRoute;
 	}
 
 	navigate(pathname: string) {

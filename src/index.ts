@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
 		.use("*", NotFoundErrorPage)
 		.use("/", LoginPage)
 		.use("/sign-up", SignUpPage)
-		.use("/settings", ProfilePage)
-		.use("/messenger", ChatsPage)
+		.use("/settings", ProfilePage, true)
+		.use("/messenger", ChatsPage, true)
 		.start();
 });
