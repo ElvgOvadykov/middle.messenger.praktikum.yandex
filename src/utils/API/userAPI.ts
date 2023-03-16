@@ -1,9 +1,12 @@
 import BaseAPI from "./baseAPI";
 
-class UserAPI extends BaseAPI {
+export class UserAPI extends BaseAPI {
 	changeUserProfile(payload: UserAPINamespace.changeUserProfile.TRequest) {
 		return this.http.put<UserAPINamespace.changeUserProfile.TResponse>("/profile", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 
@@ -16,6 +19,9 @@ class UserAPI extends BaseAPI {
 	changeUserPassword(payload: UserAPINamespace.changeUserPassword.TRequest) {
 		return this.http.put("/password", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 
@@ -26,6 +32,9 @@ class UserAPI extends BaseAPI {
 	getUserByLogin(payload: UserAPINamespace.getUserByLogin.TRequest) {
 		return this.http.post<UserAPINamespace.getUserByLogin.TResponse>("/search", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 }

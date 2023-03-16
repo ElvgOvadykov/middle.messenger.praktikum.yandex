@@ -2,6 +2,8 @@ import Block from "@utils/Block";
 import Input from "@components/Input";
 import Button from "@components/Button";
 
+import userController from "@controllers/UserController";
+
 import { passwordValidation } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
 import { changePasswordModalValidationSchema } from "@utils/validation/validationSchems";
@@ -117,7 +119,7 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 		if (!hasErrors) {
 			console.log(data);
 
-			this.props.onCloseModal();
+			userController.changeUserPassword(data as UserAPINamespace.changeUserPassword.TRequest);
 		}
 	}
 

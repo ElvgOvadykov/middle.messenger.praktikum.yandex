@@ -5,6 +5,8 @@ import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 import ProfileAvatarBlock from "@components/ProfileAvatarBlock";
 
+import userController from "@controllers/UserController";
+
 import { profilePageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -13,8 +15,9 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import router from "@router/index";
-import { Paths } from "@router/index";
+import router, { Paths } from "@router/index";
+
+import { withStore, TState, initialState } from "@store/index";
 
 import template from "./profile.hbs";
 
@@ -26,14 +29,16 @@ interface IProfilePageProps {
 	errors: {
 		[key: string]: string;
 	};
+	currentUser: TState["currentUser"];
 }
 
-export default class ProfilePage extends Block<IProfilePageProps> {
+class ProfilePage extends Block<IProfilePageProps> {
 	constructor() {
 		const props: IProfilePageProps = {
 			isChangePasswordModalVisible: false,
 			isUploadAvatarModalVisible: false,
 			errors: {},
+			currentUser: initialState.currentUser,
 		};
 
 		super(props);
@@ -206,6 +211,20 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		});
 	}
 
+	componentDidMount(): void {
+		const currentUser = this.props.currentUser.data;
+
+		if (currentUser) {
+			Object.entries(currentUser).forEach(([key, value]) => {
+				const input = this.childrens[key];
+
+				if (input && input instanceof Input) {
+					input.setValue(String(value));
+				}
+			});
+		}
+	}
+
 	submitHandler() {
 		const data = this.getInputsData();
 		const errors = getErrors(data, profilePageValidationSchema);
@@ -216,7 +235,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		if (!hasErrors) {
 			console.log(data);
 
-			router.go(Paths.chats);
+			userController.changeUserProfile(data as UserAPINamespace.changeUserProfile.TRequest);
 		}
 	}
 
@@ -224,3 +243,5 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		return this.compile(template, this.props);
 	}
 }
+
+export default withStore((state) => state.currentUser)(ProfilePage);

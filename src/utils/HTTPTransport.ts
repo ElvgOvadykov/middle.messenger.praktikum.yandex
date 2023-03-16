@@ -90,7 +90,9 @@ export default class HTTPTransport {
 
 			if (method === METHODS.GET || !data) {
 				xhr.send();
-			} else {
+			} else if (data instanceof FormData) {
+				xhr.send(data);
+			}	else {
 				xhr.send(JSON.stringify(data));
 			}
 		});
