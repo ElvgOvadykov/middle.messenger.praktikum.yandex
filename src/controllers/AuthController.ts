@@ -37,7 +37,7 @@ export class AuthController {
 		try {
 			const user = await this.api.getUser();
 
-			console.log("getUser", typeof user);
+			console.log("getUser", user);
 
 			store.set("currentUser.data", user);
 		} catch (e) {

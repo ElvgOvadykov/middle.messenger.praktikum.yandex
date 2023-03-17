@@ -1,6 +1,7 @@
 import API, { UserAPI } from "@utils/API/userAPI";
-import router, { Paths } from "@router/index";
 import store from "@store/index";
+
+import authController from "./AuthController";
 
 export class UserController {
 	private readonly api: UserAPI;
@@ -29,7 +30,8 @@ export class UserController {
 
 	async changeUserAvatar(payload: UserAPINamespace.changeUserAvatar.TRequest) {
 		try {
-			await this.api.changeUserAvatar(payload);
+			const newUserInfo = await this.api.changeUserAvatar(payload);
+			store.set("currentUser.data", newUserInfo);
 		} catch (e) {
 			console.log(e);
 		}

@@ -103,5 +103,9 @@ export function isEqual(lhs: Indexed, rhs: Indexed) {
 }
 
 export function getCurrentPathToImg(avatarValue: string) {
+	if (!avatarValue) {
+		return "";
+	}
+
 	return `${String(process.env.API_URL)}/resources${avatarValue}`;
 }

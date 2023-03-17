@@ -246,4 +246,4 @@ class ProfilePage extends Block<IProfilePageProps> {
 	}
 }
 
-export default withStore((state) => state.currentUser)(ProfilePage);
+export default withStore((state) => ({ currentUser: state.currentUser }))(ProfilePage);

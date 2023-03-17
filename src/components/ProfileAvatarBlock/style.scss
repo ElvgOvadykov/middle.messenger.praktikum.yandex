@@ -9,11 +9,14 @@ $profile-avatar-width: 100px;
 	background-color: $light-blue;
 	border-radius: calc($profile-avatar-width * 0.5);
 	overflow: hidden;
-	// background-image: url("../../../static/icons/user-circle.svg") !important;
-	// background-position: center !important;
-	// background-repeat: no-repeat !important;
-	// background-size: 60px 60px;
 	cursor: pointer;
+
+	&__no-avatar {
+		background-image: url("../../../static/icons/user-circle.svg") !important;
+		background-position: center !important;
+		background-repeat: no-repeat !important;
+		background-size: 60px 60px;
+	}
 
 	&__overlay {
 		position: absolute;
