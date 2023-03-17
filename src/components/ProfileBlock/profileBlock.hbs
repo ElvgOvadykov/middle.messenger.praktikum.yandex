@@ -1,9 +1,16 @@
 <div class="profile-block">
 	<div class="profile-block__info">
-		<div class="profile-block__avatar"></div>
+		<div class="profile-block__avatar {{#unless currentUser.avatar}} profile-block__avatar__no-avatar {{/unless }}">
+			{{#if currentUser.avatar}}<img
+					src="{{currentPathToAvatar}}"
+					alt="Аватар пользователя"
+					width="60"
+				/>
+			{{/if}}
+		</div>
 		<div class="profile-block__name">
-			<span>{{profile.firstName}}</span>
-			<span>{{profile.secondName}}</span>
+			<span>{{currentUser.first_name}}</span>
+			<span>{{currentUser.second_name}}</span>
 		</div>
 	</div>
 	{{{buttonLogout}}}

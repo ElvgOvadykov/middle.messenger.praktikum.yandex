@@ -76,10 +76,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 		this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
 
 		this.childrens.profileBlock = new ProfileBlock({
-			profile: {
-				firstName: this.props.currentUser.data?.first_name || "",
-				secondName: this.props.currentUser.data?.second_name || "",
-			},
+			currentUser: this.props.currentUser.data,
 			events: {
 				click: () => {
 					router.go(Paths.profile);

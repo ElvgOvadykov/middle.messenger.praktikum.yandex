@@ -2,21 +2,26 @@ import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
 import authController from "@controllers/AuthController";
 
+import { getCurrentPathToImg } from "@utils/helpers";
+
 import template from "./profileBlock.hbs";
 
 import "./style.scss";
 
 interface IProfileBlockProps {
-	profile: {
-		firstName: string;
-		secondName: string;
-	};
+	currentUser?: TUser;
 	events?: Record<string, (event: Event) => void>;
+	currentPathToAvatar?: string;
 }
 
 export default class ProfileBlock extends Block<IProfileBlockProps> {
 	constructor(props: IProfileBlockProps) {
-		super(props);
+		const editedProps = {
+			...props,
+			currentPathToAvatar: getCurrentPathToImg() + String(props.currentUser?.avatar),
+		};
+
+		super(editedProps);
 	}
 
 	protected addEvents(): void {
