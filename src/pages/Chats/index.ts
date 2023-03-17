@@ -161,7 +161,6 @@ class ChatsPage extends Block<IChatsPageProps> {
 	}
 
 	render() {
-		console.log("Chats props", this.props);
 		return this.compile(template, { ...this.props });
 	}
 }

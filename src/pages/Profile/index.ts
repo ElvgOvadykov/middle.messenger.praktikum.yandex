@@ -235,8 +235,6 @@ class ProfilePage extends Block<IProfilePageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
-
 			userController.changeUserProfile(data as UserAPINamespace.changeUserProfile.TRequest);
 		}
 	}

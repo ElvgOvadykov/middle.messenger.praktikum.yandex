@@ -135,9 +135,6 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	}
 
 	setProps = (nextProps: Partial<TProps>) => {
-		console.log("currentProps", this.props);
-		console.log("nextProps", nextProps);
-
 		if (!nextProps) {
 			return;
 		}
@@ -233,9 +230,6 @@ abstract class Block<TProps extends Record<string, any> = any> {
 
 				// eslint-disable-next-line no-param-reassign
 				target[prop as keyof TProps] = value;
-
-				console.log("oldTarget", oldTarget);
-				console.log("target", target);
 
 				this.eventBus().emit(BlockEvents.FLOW_CDU, oldTarget, target);
 				return true;

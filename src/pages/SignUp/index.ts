@@ -166,8 +166,6 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
-
 			authController.signUp(data as AuthAPINamespace.signUp.TRequest);
 		}
 	}

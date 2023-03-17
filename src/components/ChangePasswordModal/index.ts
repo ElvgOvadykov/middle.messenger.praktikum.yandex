@@ -117,8 +117,6 @@ export default class ChangePasswordModal extends Block<TChangePasswordModalExten
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
-
 			userController.changeUserPassword(data as UserAPINamespace.changeUserPassword.TRequest);
 		}
 	}

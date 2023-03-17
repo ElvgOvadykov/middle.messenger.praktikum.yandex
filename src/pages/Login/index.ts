@@ -117,8 +117,6 @@ class LoginPage extends Block<ILoginPageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
-
 			authController.signIn(data as AuthAPINamespace.signIn.TRequest);
 		}
 	}
