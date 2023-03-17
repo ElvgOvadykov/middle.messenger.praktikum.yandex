@@ -16,6 +16,7 @@ import {
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
 import router, { Paths } from "@router/index";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import { withStore, TState, initialState } from "@store/index";
 
@@ -58,6 +59,7 @@ class ProfilePage extends Block<IProfilePageProps> {
 		});
 
 		this.childrens.profileAvatarBlock = new ProfileAvatarBlock({
+			avatarUrl: getCurrentPathToImg(this.props.currentUser.data?.avatar || ""),
 			events: {
 				click: () => {
 					this.setProps({ isUploadAvatarModalVisible: true });

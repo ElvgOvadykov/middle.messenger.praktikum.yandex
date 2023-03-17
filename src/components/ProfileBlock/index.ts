@@ -18,7 +18,7 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 	constructor(props: IProfileBlockProps) {
 		const editedProps = {
 			...props,
-			currentPathToAvatar: getCurrentPathToImg() + String(props.currentUser?.avatar),
+			currentPathToAvatar: getCurrentPathToImg(props.currentUser?.avatar || ""),
 		};
 
 		super(editedProps);
