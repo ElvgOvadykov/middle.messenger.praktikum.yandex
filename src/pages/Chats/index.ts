@@ -14,6 +14,8 @@ import { messageValidation } from "@utils/validation/validations";
 import router, { Paths } from "@router/index";
 import { withStore } from "@store/index";
 import { getCurrentUser } from "@utils/userHelpers";
+import chatController from "@controllers/ChatController";
+import { isEqual } from "@utils/helpers";
 
 import template from "./chats.hbs";
 
@@ -25,28 +27,8 @@ interface IChatsPageProps {
 	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
 	currentUser: TUser;
+	chats: Array<TChat>;
 }
-
-const chats: Array<{ chatItem: IChatItemProps }> = [
-	{
-		chatItem: {
-			chatHeader: "Андрей",
-			isMyLastMessage: false,
-			lastMessage: "Привет как дела? Что делаешь?",
-			lastMessageDate: new Date(),
-			unreadMessagesCount: 0,
-		},
-	},
-	{
-		chatItem: {
-			chatHeader: "Василий",
-			isMyLastMessage: true,
-			lastMessage: "Отлично",
-			lastMessageDate: new Date(),
-			unreadMessagesCount: 2,
-		},
-	},
-];
 
 const messages = [
 	{
@@ -67,6 +49,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 			isCreateChatModalVisible: false,
 			errors: {},
 			currentUser: getCurrentUser(),
+			chats: [],
 		});
 	}
 
@@ -106,7 +89,16 @@ class ChatsPage extends Block<IChatsPageProps> {
 			},
 		});
 
-		this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
+		this.childrens.chats = this.props.chats.map(
+			(chat) =>
+				new ChatItem({
+					chatHeader: chat.title,
+					isMyLastMessage: false,
+					lastMessage: "",
+					lastMessageDate: new Date(),
+					unreadMessagesCount: 0,
+				}),
+		);
 
 		this.childrens.profileBlock = new ProfileBlock({
 			currentUser: this.props.currentUser,
@@ -193,6 +185,26 @@ class ChatsPage extends Block<IChatsPageProps> {
 		}
 
 		input.setProps({ error: errors.message });
+	}
+
+	componentDidMount(): void {
+		chatController.getChats({});
+	}
+
+	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps): boolean {
+		this.childrens.chats = newProps.chats.map(
+			(chat) =>
+				new ChatItem({
+					chatHeader: chat.title,
+					isMyLastMessage: false,
+					lastMessage: "",
+					lastMessageDate: new Date(),
+					unreadMessagesCount: 0,
+				}),
+		);
+
+		const bool = isEqual(oldProps, newProps);
+		return !bool;
 	}
 
 	render() {
