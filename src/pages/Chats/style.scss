@@ -33,6 +33,12 @@ $selected_chat_avatar-width: 40px;
 				background-image: url("../../../static/image/test_avatar.png") !important;
 			}
 		}
+
+		&__add-button-block {
+			height: 80px;
+			padding: 20px;
+			border-bottom: 1px solid $grey-blue;
+		}
 	}
 
 	.chats__messages {

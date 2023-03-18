@@ -1,6 +1,6 @@
 import BaseAPI from "./baseAPI";
 
-class ChatsAPI extends BaseAPI {
+export class ChatsAPI extends BaseAPI {
 	getChats(payload: ChatsAPINamespace.getChats.TRequest) {
 		return this.http.get<ChatsAPINamespace.getChats.TResponse>("", {
 			data: payload,
@@ -10,6 +10,9 @@ class ChatsAPI extends BaseAPI {
 	createChat(payload: ChatsAPINamespace.createChat.TRequest) {
 		return this.http.post("", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 

@@ -9,12 +9,16 @@ export type TState = {
 	};
 
 	selectedUserId?: number;
+
+	chats: Array<TChat>;
 };
 
 export const initialState: TState = {
 	currentUser: {
 		isLoading: false,
 	},
+
+	chats: [],
 };
 
 export enum StoreEvents {

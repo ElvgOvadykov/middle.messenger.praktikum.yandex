@@ -6,6 +6,7 @@ import ProfileBlock from "@components/ProfileBlock";
 import Message from "@components/Message";
 import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
+import CreateChatModal from "@components/CreateChatModal";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
@@ -19,6 +20,7 @@ import "./style.scss";
 interface IChatsPageProps {
 	isChatOptionsPopupVisible: boolean;
 	isAttachPopupVisible: boolean;
+	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
 	currentUser: TState["currentUser"];
 }
@@ -60,6 +62,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 		super({
 			isChatOptionsPopupVisible: false,
 			isAttachPopupVisible: false,
+			isCreateChatModalVisible: false,
 			errors: {},
 			currentUser: initialState.currentUser,
 		});
@@ -71,6 +74,34 @@ class ChatsPage extends Block<IChatsPageProps> {
 			name: "seatchChat",
 			type: "text",
 			placeholder: "Поиск...",
+		});
+
+		this.childrens.addChatButton = new Button({
+			contentValue: "Создать чат",
+			type: "button",
+			size: ButtonSize.FullWith,
+			events: {
+				click: () => {
+					const { isCreateChatModalVisible } = this.props;
+
+					this.setProps({
+						isCreateChatModalVisible: !isCreateChatModalVisible,
+					});
+				},
+			},
+		});
+
+		this.childrens.createChatModal = new CreateChatModal({
+			onCloseModal: () => this.setProps({ isCreateChatModalVisible: false }),
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#addChatModal")) {
+						this.setProps({ isCreateChatModalVisible: false });
+					}
+				},
+			},
 		});
 
 		this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
@@ -165,4 +196,4 @@ class ChatsPage extends Block<IChatsPageProps> {
 	}
 }
 
-export default withStore((state) => ({ ...state.currentUser }))(ChatsPage);
+export default withStore((state) => ({ currentUser: state.currentUser }))(ChatsPage);
