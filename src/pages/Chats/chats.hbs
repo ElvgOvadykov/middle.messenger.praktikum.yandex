@@ -1,42 +1,45 @@
-<section class="content-section">
-	<div class="chats">
-		<div class="chats__list">
-			<div class="chats__list__search">
-				{{{searchInput}}}
-			</div>
-			<div class="chats__list__add-button-block">
-				{{{addChatButton}}}
-			</div>
-			{{{chats}}}
-			{{{profileBlock}}}
-		</div>
-		<div class="chats__messages">
-			<div class="chat-header">
-				<div class="chat-header__info-block">
-					<div class="chat-header__avatar"></div>
-					<div class="chat-header__name">
-						Aндрей
-					</div>
+<div>
+	<section class="content-section">
+		<div class="chats">
+			<div class="chats__list">
+				<div class="chats__list__search">
+					{{{searchInput}}}
 				</div>
-				{{{chatOptionsButton}}}
-				{{#if isChatOptionsPopupVisible}}
-					{{{chatOptionsPopup}}}
-				{{/if}}
+				<div class="chats__list__add-button-block">
+					{{{addChatButton}}}
+				</div>
+				{{{chats}}}
+				{{{profileBlock}}}
 			</div>
-			<div class="chats__messages__list">
-				{{{messages}}}
-			</div>
-			<div class="chat-footer">
-				{{{attachButton}}}
-				{{#if isAttachPopupVisible}}
-					{{{attachPopup}}}
-				{{/if}}
-				{{{message}}}
-				{{{sendMessageButton}}}
+			<div class="chats__messages">
+				<div class="chat-header">
+					<div class="chat-header__info-block">
+						<div class="chat-header__avatar"></div>
+						<div class="chat-header__name">
+							Aндрей
+						</div>
+					</div>
+					{{{chatOptionsButton}}}
+					{{#if isChatOptionsPopupVisible}}
+						{{{chatOptionsPopup}}}
+					{{/if}}
+				</div>
+				<div class="chats__messages__list">
+					{{{messages}}}
+				</div>
+				<div class="chat-footer">
+					{{{attachButton}}}
+					{{#if isAttachPopupVisible}}
+						{{{attachPopup}}}
+					{{/if}}
+					{{{message}}}
+					{{{sendMessageButton}}}
+				</div>
 			</div>
 		</div>
-	</div>
-	{{#if isCreateChatModalVisible}}
-		{{{createChatModal}}}
-	{{/if}}
-</section>
+		{{#if isCreateChatModalVisible}}
+			{{{createChatModal}}}
+		{{/if}}
+	</section>
+	{{{errorMessage}}}
+</div>

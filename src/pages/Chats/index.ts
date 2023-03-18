@@ -7,6 +7,7 @@ import Message from "@components/Message";
 import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
 import CreateChatModal from "@components/CreateChatModal";
+import ErrorMessage from "@components/ErrorMessage";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
@@ -176,6 +177,8 @@ class ChatsPage extends Block<IChatsPageProps> {
 		this.childrens.chatOptionsPopup = new ChatOptionsPopup({});
 
 		this.childrens.attachPopup = new AttachPopup({});
+
+		this.childrens.errorMessage = new ErrorMessage({});
 	}
 
 	sendMessageHandler() {

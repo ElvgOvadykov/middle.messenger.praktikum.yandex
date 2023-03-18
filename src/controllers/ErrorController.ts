@@ -3,6 +3,11 @@ import router, { Paths } from "@router/index";
 
 export class ErrorController {
 	setError(error: TAPIError) {
+		if (!error) {
+			store.set("responseError", { reason: "Неизвестная ошибка" });
+			return;
+		}
+
 		switch (error.reason) {
 			case "Cookie is not valid":
 				router.go(Paths.login);
@@ -11,8 +16,6 @@ export class ErrorController {
 			default:
 				store.set("responseError", error);
 		}
-
-		console.log(store.getState());
 	}
 
 	deleteError() {

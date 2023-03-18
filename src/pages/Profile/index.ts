@@ -4,6 +4,7 @@ import Button, { ButtonSize } from "@components/Button";
 import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 import ProfileAvatarBlock from "@components/ProfileAvatarBlock";
+import ErrorMessage from "@components/ErrorMessage";
 
 import userController from "@controllers/UserController";
 
@@ -166,6 +167,8 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 				},
 			},
 		});
+
+		this.childrens.errorMessage = new ErrorMessage({});
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {

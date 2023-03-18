@@ -1,23 +1,26 @@
-<section class="content-section">
-  {{{buttonBack}}}
-  <div class="profile">
-    <h2>Профиль</h2>
-    <form id="profileForm">
-      {{{profileAvatarBlock}}}
-      {{{login}}}
-      {{{email}}}
-      {{{first_name}}}
-      {{{second_name}}}
-      {{{display_name}}}
-      {{{phone}}}
-      {{{submitButton}}}
-      {{{toggleChangePasswordModuleButton}}}
-    </form>
-  </div>
-  {{#if isChangePasswordModalVisible}}
-    {{{changePasswordModal}}}
-  {{/if}}
-  {{#if isUploadAvatarModalVisible}}
-    {{{uploadAvatarModal}}}
-  {{/if}}
-</section>
+<div>
+	<section class="content-section">
+		{{{buttonBack}}}
+		<div class="profile">
+			<h2>Профиль</h2>
+			<form id="profileForm">
+				{{{profileAvatarBlock}}}
+				{{{login}}}
+				{{{email}}}
+				{{{first_name}}}
+				{{{second_name}}}
+				{{{display_name}}}
+				{{{phone}}}
+				{{{submitButton}}}
+				{{{toggleChangePasswordModuleButton}}}
+			</form>
+		</div>
+		{{#if isChangePasswordModalVisible}}
+			{{{changePasswordModal}}}
+		{{/if}}
+		{{#if isUploadAvatarModalVisible}}
+			{{{uploadAvatarModal}}}
+		{{/if}}
+	</section>
+	{{{errorMessage}}}
+</div>

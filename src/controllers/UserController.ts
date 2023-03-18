@@ -1,6 +1,7 @@
 import API, { UserAPI } from "@utils/API/userAPI";
 
 import authController from "./AuthController";
+import errorController from "./ErrorController";
 
 export class UserController {
 	private readonly api: UserAPI;
@@ -13,16 +14,16 @@ export class UserController {
 		try {
 			await this.api.changeUserProfile(payload);
 			authController.getUser();
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 
 	async changeUserPassword(payload: UserAPINamespace.changeUserPassword.TRequest) {
 		try {
 			await this.api.changeUserPassword(payload);
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 
@@ -30,8 +31,8 @@ export class UserController {
 		try {
 			await this.api.changeUserAvatar(payload);
 			authController.getUser();
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 }

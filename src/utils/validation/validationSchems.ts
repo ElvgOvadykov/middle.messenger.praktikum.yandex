@@ -30,7 +30,6 @@ export const signUpPageValidationSchema: TValidationsSchema = {
 	email: emailValidation,
 	first_name: nameValidation,
 	second_name: nameValidation,
-	display_name: nameValidation,
 	phone: phoneValidation,
 	password: passwordValidation,
 };

@@ -19,6 +19,12 @@ export class AuthController {
 
 			router.go(Paths.chats);
 		} catch (e: any) {
+			if (e.reason === "User already in system") {
+				await this.getUser();
+
+				router.go(Paths.chats);
+			}
+
 			errorController.setError(e);
 		}
 	}

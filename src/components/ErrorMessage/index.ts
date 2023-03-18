@@ -32,7 +32,6 @@ class ErrorMessage extends Block<IErrorMessageProps> {
 	}
 
 	protected render(): DocumentFragment {
-		console.log("errormessage", this.props);
 		return this.compile(template, this.props);
 	}
 }

@@ -1,5 +1,6 @@
 import API, { ChatsAPI } from "@utils/API/chatsAPI";
 import store from "@store/index";
+import errorController from "./ErrorController";
 
 export class ChatController {
 	private readonly api: ChatsAPI;
@@ -13,16 +14,16 @@ export class ChatController {
 			const chats = await this.api.getChats(payload);
 
 			store.set("chats", chats);
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 
 	async createChat(payload: ChatsAPINamespace.createChat.TRequest) {
 		try {
 			await this.api.createChat(payload);
-		} catch (e) {
-			console.log(e);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 }
