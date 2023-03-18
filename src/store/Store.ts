@@ -2,22 +2,14 @@ import { set } from "@utils/helpers";
 import EventBus from "@utils/EventBus";
 
 export type TState = {
-	currentUser: {
-		data?: TUser;
-		error?: TAPIError;
-		isLoading: boolean;
-	};
-
 	selectedUserId?: number;
 
 	chats: Array<TChat>;
+
+	responseError?: TAPIError;
 };
 
 export const initialState: TState = {
-	currentUser: {
-		isLoading: false,
-	},
-
 	chats: [],
 };
 

@@ -15,10 +15,9 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import router, { Paths } from "@router/index";
+import router from "@router/index";
 import { getCurrentPathToImg } from "@utils/helpers";
-
-import { withStore, TState, initialState } from "@store/index";
+import { getCurrentUser } from "@utils/userHelpers";
 
 import template from "./profile.hbs";
 
@@ -30,16 +29,16 @@ interface IProfilePageProps {
 	errors: {
 		[key: string]: string;
 	};
-	currentUser: TState["currentUser"];
+	currentUser: TUser;
 }
 
-class ProfilePage extends Block<IProfilePageProps> {
+export default class ProfilePage extends Block<IProfilePageProps> {
 	constructor() {
 		const props: IProfilePageProps = {
 			isChangePasswordModalVisible: false,
 			isUploadAvatarModalVisible: false,
 			errors: {},
-			currentUser: initialState.currentUser,
+			currentUser: getCurrentUser(),
 		};
 
 		super(props);
@@ -59,7 +58,7 @@ class ProfilePage extends Block<IProfilePageProps> {
 		});
 
 		this.childrens.profileAvatarBlock = new ProfileAvatarBlock({
-			avatarUrl: getCurrentPathToImg(this.props.currentUser.data?.avatar || ""),
+			avatarUrl: getCurrentPathToImg(this.props.currentUser?.avatar || ""),
 			events: {
 				click: () => {
 					this.setProps({ isUploadAvatarModalVisible: true });
@@ -214,7 +213,7 @@ class ProfilePage extends Block<IProfilePageProps> {
 	}
 
 	componentDidMount(): void {
-		const currentUser = this.props.currentUser.data;
+		const { currentUser } = this.props;
 
 		if (currentUser) {
 			Object.entries(currentUser).forEach(([key, value]) => {
@@ -243,5 +242,3 @@ class ProfilePage extends Block<IProfilePageProps> {
 		return this.compile(template, this.props);
 	}
 }
-
-export default withStore((state) => ({ currentUser: state.currentUser }))(ProfilePage);

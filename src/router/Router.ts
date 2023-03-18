@@ -1,6 +1,6 @@
 import { BlockConstructor } from "@utils/Block";
 
-import isUserAuthorized from "@utils/isUserAuthorized";
+import { isUserAuthorized } from "@utils/userHelpers";
 
 import Route from "./Route";
 
@@ -77,7 +77,7 @@ class Router {
 		route.render();
 	}
 
-	go(pathname: Paths) {
+	go(pathname: string) {
 		this._history.pushState({}, "", pathname);
 		this._onRoute(pathname);
 	}

@@ -2,14 +2,14 @@ import Block from "@utils/Block";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Link from "@components/Link";
+import ErrorMessage from "@components/ErrorMessage";
 
 import authController from "@controllers/AuthController";
 
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
 import { loginValidation, passwordValidation } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import { withStore } from "@store/index";
-import isUserAuthorized from "@utils/isUserAuthorized";
+import { isUserAuthorized } from "@utils/userHelpers";
 import router, { Paths } from "@router/index";
 
 import template from "./login.hbs";
@@ -20,7 +20,7 @@ interface ILoginPageProps {
 	errors: { [key: string]: string };
 }
 
-class LoginPage extends Block<ILoginPageProps> {
+export default class LoginPage extends Block<ILoginPageProps> {
 	constructor() {
 		const props: ILoginPageProps = {
 			errors: {},
@@ -63,6 +63,8 @@ class LoginPage extends Block<ILoginPageProps> {
 			linkHref: Paths.signUp,
 			linkTitle: "Регистрация",
 		});
+
+		this.childrens.errorMessage = new ErrorMessage({});
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -117,7 +119,11 @@ class LoginPage extends Block<ILoginPageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			authController.signIn(data as AuthAPINamespace.signIn.TRequest);
+			authController.signIn(data as AuthAPINamespace.signIn.TRequest).then(() => {
+				if (isUserAuthorized()) {
+					router.go(Paths.chats);
+				}
+			});
 		}
 	}
 
@@ -131,5 +137,3 @@ class LoginPage extends Block<ILoginPageProps> {
 		return this.compile(template, this.props);
 	}
 }
-
-export default withStore((state) => state)(LoginPage);

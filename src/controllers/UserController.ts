@@ -1,5 +1,4 @@
 import API, { UserAPI } from "@utils/API/userAPI";
-import store from "@store/index";
 
 import authController from "./AuthController";
 
@@ -12,9 +11,8 @@ export class UserController {
 
 	async changeUserProfile(payload: UserAPINamespace.changeUserProfile.TRequest) {
 		try {
-			const newUserData = await this.api.changeUserProfile(payload);
-
-			store.set("currentUser.data", newUserData);
+			await this.api.changeUserProfile(payload);
+			authController.getUser();
 		} catch (e) {
 			console.log(e);
 		}
@@ -30,8 +28,8 @@ export class UserController {
 
 	async changeUserAvatar(payload: UserAPINamespace.changeUserAvatar.TRequest) {
 		try {
-			const newUserInfo = await this.api.changeUserAvatar(payload);
-			store.set("currentUser.data", newUserInfo);
+			await this.api.changeUserAvatar(payload);
+			authController.getUser();
 		} catch (e) {
 			console.log(e);
 		}

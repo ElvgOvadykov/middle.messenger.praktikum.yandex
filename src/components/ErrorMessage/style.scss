@@ -1,0 +1,27 @@
+.error-message {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 20px;
+	border: 3px solid red;
+	background-color: white;
+	padding: 20px;
+	display: none;
+
+	&__opened {
+		display: flex;
+	}
+
+	&__content {
+		font-size: 16px;
+		color: red;
+	}
+
+	button#closeErrorMessageButton {
+		background-image: url("../../../static/icons/x.svg") !important;
+		background-position: center !important;
+		background-repeat: no-repeat !important;
+		background-size: 35px 35px;
+	}
+}

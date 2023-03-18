@@ -4,13 +4,9 @@ import ProfilePage from "@pages/Profile";
 import ChatsPage from "@pages/Chats";
 import NotFoundErrorPage from "@pages/404";
 
-import authController from "@controllers/AuthController";
-
 import router from "@router/index";
 
 window.addEventListener("DOMContentLoaded", async () => {
-	await authController.getUser();
-
 	router
 		.setRootQuery("#app")
 		.use("*", NotFoundErrorPage)

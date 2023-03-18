@@ -11,7 +11,8 @@ import CreateChatModal from "@components/CreateChatModal";
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
 import router, { Paths } from "@router/index";
-import { withStore, TState, initialState } from "@store/index";
+import { withStore } from "@store/index";
+import { getCurrentUser } from "@utils/userHelpers";
 
 import template from "./chats.hbs";
 
@@ -22,7 +23,7 @@ interface IChatsPageProps {
 	isAttachPopupVisible: boolean;
 	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
-	currentUser: TState["currentUser"];
+	currentUser: TUser;
 }
 
 const chats: Array<{ chatItem: IChatItemProps }> = [
@@ -64,7 +65,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 			isAttachPopupVisible: false,
 			isCreateChatModalVisible: false,
 			errors: {},
-			currentUser: initialState.currentUser,
+			currentUser: getCurrentUser(),
 		});
 	}
 
@@ -107,7 +108,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 		this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
 
 		this.childrens.profileBlock = new ProfileBlock({
-			currentUser: this.props.currentUser.data,
+			currentUser: this.props.currentUser,
 			events: {
 				click: () => {
 					router.go(Paths.profile);
@@ -196,4 +197,4 @@ class ChatsPage extends Block<IChatsPageProps> {
 	}
 }
 
-export default withStore((state) => ({ currentUser: state.currentUser }))(ChatsPage);
+export default withStore((state) => ({ chats: state.chats }))(ChatsPage);

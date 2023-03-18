@@ -1,6 +1,8 @@
 import API, { AuthAPI } from "@utils/API/authAPI";
+import { setCurrentUser, deleteCurrentUser } from "@utils/userHelpers";
 import router, { Paths } from "@router/index";
-import store from "@store/index";
+
+import errorController from "./ErrorController";
 
 export class AuthController {
 	private readonly api: AuthAPI;
@@ -17,7 +19,7 @@ export class AuthController {
 
 			router.go(Paths.chats);
 		} catch (e: any) {
-			console.error(e);
+			errorController.setError(e);
 		}
 	}
 
@@ -29,7 +31,7 @@ export class AuthController {
 
 			router.go(Paths.chats);
 		} catch (e: any) {
-			console.error(e.message);
+			errorController.setError(e);
 		}
 	}
 
@@ -37,9 +39,9 @@ export class AuthController {
 		try {
 			const user = await this.api.getUser();
 
-			store.set("currentUser.data", user);
-		} catch (e) {
-			console.log(e);
+			setCurrentUser(user);
+		} catch (e: any) {
+			errorController.setError(e);
 		}
 	}
 
@@ -47,11 +49,11 @@ export class AuthController {
 		try {
 			await this.api.logout();
 
-			store.set("currentUser.data", undefined);
+			deleteCurrentUser();
 
 			router.go(Paths.login);
 		} catch (e: any) {
-			console.error(e.message);
+			errorController.setError(e);
 		}
 	}
 }
