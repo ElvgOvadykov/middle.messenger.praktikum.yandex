@@ -1,21 +1,24 @@
-<div class="chat-item">
-	<div class="chat-item__avatar">
+<div class="chat-item {{#if isSelected}} chat-item__is-selected {{/if}}">
+	<div class="chat-item__avatar {{#unless chat.avatar}} chat-item__avatar__no-avatar {{/unless}}">
+		{{#if chat.avatar}}
+			<img src="{{currentPathToAvatar}}" alt="Аватар чата" width="60" />
+		{{/if}}
 	</div>
 	<div class="chat-item__content">
 		<span class="chat-item__content__header">
-			{{chatHeader}}
+			{{chat.title}}
 		</span>
-		<span class="chat-item__content__last-message">
+		{{!-- <span class="chat-item__content__last-message">
 			{{#if isMyLastMessage}}
 				<b>Вы: </b>
 			{{/if}}
 			{{lastMessage}}
-		</span>
+		</span> --}}
 	</div>
 	<div class="chat-item__info">
 		{{{lastMessageDate}}}
-		{{#if unreadMessagesCount}}
-			<div class="unread-messages-count">{{unreadMessagesCount}}</div>
+		{{#if chat.unread_count}}
+			<div class="unread-messages-count">{{chat.unread_count}}</div>
 		{{/if}}
 	</div>
 </div>

@@ -1,27 +1,34 @@
 import Block from "@utils/Block";
-import LastMessageDate from "./components/LastMessageDate";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import template from "./chatItem.hbs";
 
 import "./style.scss";
 
 export interface IChatItemProps {
-	chatHeader: string;
-	lastMessage: string;
-	isMyLastMessage: boolean;
-	unreadMessagesCount: number;
-	lastMessageDate: Date;
+	chat: TChat;
+	isSelected?: boolean;
+	events?: Record<string, (event: Event) => void>;
 }
 
-export default class ChatItem extends Block<IChatItemProps> {
+type TChatItemExternalProps = IChatItemProps & {
+	currentPathToAvatar: string;
+};
+
+export default class ChatItem extends Block<TChatItemExternalProps> {
 	constructor(props: IChatItemProps) {
-		super(props);
+		const externalProps: TChatItemExternalProps = {
+			...props,
+			currentPathToAvatar: getCurrentPathToImg(props.chat.avatar),
+		};
+
+		super(externalProps);
 	}
 
 	protected init(): void {
-		this.childrens.lastMessageDate = new LastMessageDate({
-			date: this.props.lastMessageDate,
-		});
+		// this.childrens.lastMessageDate = new LastMessageDate({
+		// 	date: this.props.lastMessageDate,
+		// });
 	}
 
 	protected render(): DocumentFragment {

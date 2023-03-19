@@ -27,6 +27,14 @@ export class ChatController {
 			errorController.setError(e);
 		}
 	}
+
+	selectChat(chatId: number) {
+		try {
+			store.set("selectedChat", chatId);
+		} catch (e: any) {
+			errorController.setError(e);
+		}
+	}
 }
 
 export default new ChatController();

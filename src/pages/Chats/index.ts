@@ -27,6 +27,7 @@ interface IChatsPageProps {
 	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
 	currentUser: TUser;
+	selectedChat?: number;
 	chats: Array<TChat>;
 }
 
@@ -88,17 +89,6 @@ class ChatsPage extends Block<IChatsPageProps> {
 				},
 			},
 		});
-
-		this.childrens.chats = this.props.chats.map(
-			(chat) =>
-				new ChatItem({
-					chatHeader: chat.title,
-					isMyLastMessage: false,
-					lastMessage: "",
-					lastMessageDate: new Date(),
-					unreadMessagesCount: 0,
-				}),
-		);
 
 		this.childrens.profileBlock = new ProfileBlock({
 			currentUser: this.props.currentUser,
@@ -195,11 +185,13 @@ class ChatsPage extends Block<IChatsPageProps> {
 		this.childrens.chats = newProps.chats.map(
 			(chat) =>
 				new ChatItem({
-					chatHeader: chat.title,
-					isMyLastMessage: false,
-					lastMessage: "",
-					lastMessageDate: new Date(),
-					unreadMessagesCount: 0,
+					chat,
+					events: {
+						click: () => {
+							chatController.selectChat(chat.id);
+						},
+					},
+					isSelected: chat.id === newProps.selectedChat,
 				}),
 		);
 
@@ -212,4 +204,6 @@ class ChatsPage extends Block<IChatsPageProps> {
 	}
 }
 
-export default withStore((state) => ({ chats: state.chats }))(ChatsPage);
+export default withStore((state) => ({ chats: state.chats, selectedChat: state.selectedChat }))(
+	ChatsPage,
+);

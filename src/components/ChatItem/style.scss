@@ -12,14 +12,26 @@ $unread-messages-count-width: 20px;
 	align-items: center;
 	gap: 15px;
 
+	&__is-selected {
+		background-color: $light-blue;
+	}
+
+	&:hover {
+		background-color: #f0f8ff;
+	}
+
 	&__avatar {
 		width: $chat_avatar_width;
 		height: $chat_avatar_width;
 		border-radius: calc($chat_avatar_width * 0.5);
-		background-image: url("../../../static/image/test_avatar.png") !important;
-		background-position: center !important;
-		background-repeat: no-repeat !important;
-		background-size: 60px 60px;
+		overflow: hidden;
+
+		&__no-avatar {
+			background-image: url("../../../static/image/test_avatar.png") !important;
+			background-position: center !important;
+			background-repeat: no-repeat !important;
+			background-size: 60px 60px;
+		}
 	}
 
 	&__content {
