@@ -30,7 +30,7 @@ export class ChatController {
 
 	selectChat(chatId: number) {
 		try {
-			store.set("selectedChat", chatId);
+			store.set("selectedChatId", chatId);
 		} catch (e: any) {
 			errorController.setError(e);
 		}

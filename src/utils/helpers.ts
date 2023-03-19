@@ -32,7 +32,9 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 
 		try {
 			if (rhs[p].constructor === Object) {
-				rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+				lhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+			} else if (rhs[p].constructor === Array) {
+				lhs[p] = Array.from(rhs[p] as Array<any>);
 			} else {
 				lhs[p] = rhs[p];
 			}

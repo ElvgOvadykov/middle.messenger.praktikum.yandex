@@ -11,8 +11,8 @@ export default function withStore(mapStateToProps: (state: TState) => any) {
 
 				super({ ...props, ...previousState });
 
-				store.on(StoreEvents.Updated, () => {
-					const stateProps = mapStateToProps(store.getState());
+				store.on(StoreEvents.Updated, (state) => {
+					const stateProps = mapStateToProps(state);
 
 					previousState = stateProps;
 

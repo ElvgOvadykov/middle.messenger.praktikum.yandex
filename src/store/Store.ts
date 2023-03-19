@@ -6,7 +6,7 @@ export type TState = {
 
 	chats: Array<TChat>;
 
-	selectedChat?: number;
+	selectedChatId?: number;
 
 	responseError?: TAPIError;
 };
