@@ -22,6 +22,7 @@ export class ChatController {
 	async createChat(payload: ChatsAPINamespace.createChat.TRequest) {
 		try {
 			await this.api.createChat(payload);
+			await this.getChats({});
 		} catch (e: any) {
 			errorController.setError(e);
 		}
