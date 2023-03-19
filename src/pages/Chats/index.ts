@@ -27,7 +27,7 @@ interface IChatsPageProps {
 	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
 	currentUser: TUser;
-	selectedChat?: number;
+	selectedChatId?: number;
 	chats: Array<TChat>;
 }
 
@@ -191,7 +191,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 							chatController.selectChat(chat.id);
 						},
 					},
-					isSelected: chat.id === newProps.selectedChat,
+					isSelected: chat.id === newProps.selectedChatId,
 				}),
 		);
 
@@ -204,6 +204,6 @@ class ChatsPage extends Block<IChatsPageProps> {
 	}
 }
 
-export default withStore((state) => ({ chats: state.chats, selectedChat: state.selectedChat }))(
+export default withStore((state) => ({ chats: state.chats, selectedChatId: state.selectedChat }))(
 	ChatsPage,
 );

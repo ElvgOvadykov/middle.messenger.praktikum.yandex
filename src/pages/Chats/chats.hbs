@@ -12,29 +12,36 @@
 				{{{profileBlock}}}
 			</div>
 			<div class="chats__messages">
-				<div class="chat-header">
-					<div class="chat-header__info-block">
-						<div class="chat-header__avatar"></div>
-						<div class="chat-header__name">
-							Aндрей
+				{{#if selectedChatId}}
+					<div class="chat-header">
+						<div class="chat-header__info-block">
+							<div class="chat-header__avatar"></div>
+							<div class="chat-header__name">
+								Aндрей
+							</div>
 						</div>
+						{{{chatOptionsButton}}}
+						{{#if isChatOptionsPopupVisible}}
+							{{{chatOptionsPopup}}}
+						{{/if}}
 					</div>
-					{{{chatOptionsButton}}}
-					{{#if isChatOptionsPopupVisible}}
-						{{{chatOptionsPopup}}}
-					{{/if}}
-				</div>
-				<div class="chats__messages__list">
-					{{{messages}}}
-				</div>
-				<div class="chat-footer">
-					{{{attachButton}}}
-					{{#if isAttachPopupVisible}}
-						{{{attachPopup}}}
-					{{/if}}
-					{{{message}}}
-					{{{sendMessageButton}}}
-				</div>
+					<div class="chats__messages__list">
+						{{{messages}}}
+					</div>
+					<div class="chat-footer">
+						{{{attachButton}}}
+						{{#if isAttachPopupVisible}}
+							{{{attachPopup}}}
+						{{/if}}
+						{{{message}}}
+						{{{sendMessageButton}}}
+					</div>
+				{{else}}
+					<div class="select-chat-block">
+						<div class="select-chat-block__image"></div>
+						Выберите чат
+					</div>
+				{{/if}}
 			</div>
 		</div>
 		{{#if isCreateChatModalVisible}}
