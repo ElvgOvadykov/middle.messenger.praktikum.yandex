@@ -21,8 +21,8 @@ export class AuthController {
 		} catch (e: any) {
 			if (e.reason === "User already in system") {
 				await this.getUser();
-
 				router.go(Paths.chats);
+				return;
 			}
 
 			errorController.setError(e);
