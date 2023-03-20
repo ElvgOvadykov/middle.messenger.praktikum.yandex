@@ -19,6 +19,9 @@ export class ChatsAPI extends BaseAPI {
 	deleteChat(payload: ChatsAPINamespace.deleteChat.TRequest) {
 		return this.http.delete<ChatsAPINamespace.deleteChat.TResponse>("", {
 			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
 		});
 	}
 

@@ -39,11 +39,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			id: "toggleIsChatOptionsVisibleButton",
 			events: {
 				click: () => {
-					const { isChatOptionsPopupVisible } = this.props;
-
-					this.setProps({
-						isChatOptionsPopupVisible: !isChatOptionsPopupVisible,
-					});
+					this.toggleChatOptions();
 				},
 			},
 		});
@@ -88,9 +84,22 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 		// 	(message) => new Message({ content: message.content, isMine: message.isMine }),
 		// );
 
-		this.childrens.chatOptionsPopup = new ChatOptionsPopup({});
+		this.childrens.chatOptionsPopup = new ChatOptionsPopup({
+			chat: this.props.chat,
+			onClose: () => {
+				this.toggleChatOptions();
+			},
+		});
 
 		this.childrens.attachPopup = new AttachPopup({});
+	}
+
+	toggleChatOptions() {
+		const { isChatOptionsPopupVisible } = this.props;
+
+		this.setProps({
+			isChatOptionsPopupVisible: !isChatOptionsPopupVisible,
+		});
 	}
 
 	sendMessageHandler() {
@@ -105,6 +114,19 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 		}
 
 		input.setProps({ error: errors.message });
+	}
+
+	componentDidUpdate(
+		oldProps: IChatMessagesProps,
+		newProps: IChatMessagesProps,
+	): boolean {
+		if (newProps.chat) {
+			(this.childrens.chatOptionsPopup as ChatOptionsPopup).setProps({
+				chat: newProps.chat,
+			});
+		}
+
+		return true;
 	}
 
 	protected render(): DocumentFragment {

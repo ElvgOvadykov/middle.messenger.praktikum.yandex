@@ -59,6 +59,8 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 	}
 
 	protected render(): DocumentFragment {
-		return this.compile(template, this.props);
+		return this.compile(template, {
+			...this.props,
+		});
 	}
 }

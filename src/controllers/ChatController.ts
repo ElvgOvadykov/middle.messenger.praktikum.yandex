@@ -28,12 +28,19 @@ export class ChatController {
 		}
 	}
 
-	selectChat(chatId: number) {
+	selectChat(chatId?: number) {
 		try {
 			store.set("selectedChatId", chatId);
 		} catch (e: any) {
 			errorController.setError(e);
 		}
+	}
+
+	async deleteChat(chatId: number) {
+		this.api.deleteChat({ chatId }).then(() => {
+			this.selectChat(undefined);
+			this.getChats({});
+		});
 	}
 }
 
