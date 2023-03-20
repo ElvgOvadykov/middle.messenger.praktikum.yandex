@@ -42,6 +42,12 @@ export class ChatController {
 			this.getChats({});
 		});
 	}
+
+	async uploadChatAvatar(payload: FormData) {
+		this.api.uploadChatAvatar(payload).then(() => {
+			this.getChats({});
+		});
+	}
 }
 
 export default new ChatController();

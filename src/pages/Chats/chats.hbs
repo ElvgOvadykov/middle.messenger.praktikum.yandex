@@ -11,16 +11,14 @@
 				{{{chatList}}}
 				{{{profileBlock}}}
 			</div>
-			<div class="chats__messages">
-				{{#if selectedChatId}}
-					{{{chatMessages}}}
-				{{else}}
-					<div class="select-chat-block">
-						<div class="select-chat-block__image"></div>
-						Выберите чат
-					</div>
-				{{/if}}
-			</div>
+			{{#if selectedChatId}}
+				{{{chatMessages}}}
+			{{else}}
+				<div class="select-chat-block">
+					<div class="select-chat-block__image"></div>
+					Выберите чат
+				</div>
+			{{/if}}
 		</div>
 		{{#if isCreateChatModalVisible}}
 			{{{createChatModal}}}

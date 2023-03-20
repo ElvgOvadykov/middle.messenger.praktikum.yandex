@@ -1,23 +1,28 @@
-<div class="chat-header">
-	<div class="chat-header__info-block">
-		<div class="chat-header__avatar"></div>
-		<div class="chat-header__name">
-			{{chat.title}}
+<div class="chats__messages">
+	<div class="chat-header">
+		<div class="chat-header__info-block">
+			<div class="chat-header__avatar"></div>
+			<div class="chat-header__name">
+				{{chat.title}}
+			</div>
 		</div>
+		{{{chatOptionsButton}}}
+		{{#if isChatOptionsPopupVisible}}
+			{{{chatOptionsPopup}}}
+		{{/if}}
 	</div>
-	{{{chatOptionsButton}}}
-	{{#if isChatOptionsPopupVisible}}
-		{{{chatOptionsPopup}}}
+	<div class="chats__messages__list">
+		{{{messages}}}
+	</div>
+	<div class="chat-footer">
+		{{{attachButton}}}
+		{{#if isAttachPopupVisible}}
+			{{{attachPopup}}}
+		{{/if}}
+		{{{message}}}
+		{{{sendMessageButton}}}
+	</div>
+	{{#if isUploadChatAvatarModalVisible}}
+		{{{uploadChatAvatarModal}}}
 	{{/if}}
-</div>
-<div class="chats__messages__list">
-	{{{messages}}}
-</div>
-<div class="chat-footer">
-	{{{attachButton}}}
-	{{#if isAttachPopupVisible}}
-		{{{attachPopup}}}
-	{{/if}}
-	{{{message}}}
-	{{{sendMessageButton}}}
 </div>

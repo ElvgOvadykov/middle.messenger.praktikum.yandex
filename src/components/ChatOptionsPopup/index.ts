@@ -10,6 +10,7 @@ import "./style.scss";
 interface IChatOptionsPopupProps {
 	chat?: TChat;
 	onClose: () => void;
+	onUploadChatAvatarModalToggle: () => void;
 }
 
 export default class ChatOptionsPopup extends Block<IChatOptionsPopupProps> {
@@ -36,12 +37,22 @@ export default class ChatOptionsPopup extends Block<IChatOptionsPopupProps> {
 			color: ButtonColor.White,
 			events: {
 				click: () => {
-					console.log(this.props.chat);
 					if (this.props.chat) {
 						chatController
 							.deleteChat(this.props.chat.id)
 							.then(() => this.props.onClose());
 					}
+				},
+			},
+		});
+
+		this.childrens.uploadChatAvatar = new Button({
+			contentValue: "Загрузить аватар",
+			type: "button",
+			color: ButtonColor.White,
+			events: {
+				click: () => {
+					this.props.onUploadChatAvatarModalToggle();
 				},
 			},
 		});

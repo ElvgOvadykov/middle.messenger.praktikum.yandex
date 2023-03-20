@@ -32,6 +32,12 @@ export class ChatsAPI extends BaseAPI {
 	deleteUsersFromChat(payload: ChatsAPINamespace.deleteUsersFromChat.TRequest) {
 		return this.http.delete("/users", { data: payload });
 	}
+
+	uploadChatAvatar(payload: FormData) {
+		return this.http.put("/avatar", {
+			data: payload,
+		});
+	}
 }
 
 export default new ChatsAPI("/chats");

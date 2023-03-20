@@ -44,4 +44,11 @@ declare namespace ChatsAPINamespace {
 			chatId: number;
 		};
 	}
+
+	namespace uploadChatAvatar {
+		type TRequest = {
+			chatId: number;
+			formData: FormData;
+		};
+	}
 }
