@@ -1,7 +1,7 @@
 import Block from "@utils/Block";
-import ChatItem, { IChatItemProps } from "@components/ChatItem";
+import ChatItem from "@components/ChatItem";
 import Input from "@components/Input";
-import Button, { ButtonColor, ButtonSize } from "@components/Button";
+import Button, { ButtonSize } from "@components/Button";
 import ProfileBlock from "@components/ProfileBlock";
 import CreateChatModal from "@components/CreateChatModal";
 import ErrorMessage from "@components/ErrorMessage";
@@ -10,10 +10,9 @@ import ChatMessages from "@components/ChatMessages";
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
 import router, { Paths } from "@router/index";
-import store, { withStore } from "@store/index";
+import store, { StoreEvents } from "@store/index";
 import { getCurrentUser } from "@utils/userHelpers";
 import chatController from "@controllers/ChatController";
-import { isEqual } from "@utils/helpers";
 
 import template from "./chats.hbs";
 
@@ -27,24 +26,17 @@ interface IChatsPageProps {
 	chats: Array<TChat>;
 }
 
-const messages = [
-	{
-		content: "Привет как дела!",
-		isMine: false,
-	},
-	{
-		content: "Привет все норм!",
-		isMine: true,
-	},
-];
-
-class ChatsPage extends Block<IChatsPageProps> {
+export default class ChatsPage extends Block<IChatsPageProps> {
 	constructor() {
 		super({
 			isCreateChatModalVisible: false,
 			errors: {},
 			currentUser: getCurrentUser(),
 			chats: [],
+		});
+
+		store.on(StoreEvents.Updated, () => {
+			this.setProps(store.getState());
 		});
 	}
 
@@ -95,7 +87,7 @@ class ChatsPage extends Block<IChatsPageProps> {
 
 		this.childrens.chatMessages = new ChatMessages({});
 
-		this.childrens.errorMessage = new ErrorMessage({});
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	sendMessageHandler() {
@@ -116,38 +108,33 @@ class ChatsPage extends Block<IChatsPageProps> {
 		chatController.getChats({});
 	}
 
-	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps): boolean {
-		const bool = isEqual(oldProps, newProps);
+	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps) {
+		const newChats = Array.from(newProps.chats);
 
-		if (!bool) {
-			const newChats = Array.from(newProps.chats);
-
-			this.childrens.chatList = [];
-			this.childrens.chatList = newChats.map(
-				(chat) =>
-					new ChatItem({
-						chat,
-						events: {
-							click: () => {
-								chatController.selectChat(chat.id);
-							},
+		this.childrens.chatList = [];
+		this.childrens.chatList = newChats.map(
+			(chat) =>
+				new ChatItem({
+					chat,
+					events: {
+						click: () => {
+							chatController.selectChat(chat.id);
 						},
-						isSelected: chat.id === newProps.selectedChatId,
-					}),
-			);
+					},
+					isSelected: chat.id === newProps.selectedChatId,
+				}),
+		);
 
-			(this.childrens.chatMessages as ChatMessages).setProps({
-				// chat: newChats.find((item) => item.id === newProps.selectedChatId),
-				// chat: oldProps.chats.find((item) => item.id === newProps.selectedChatId),
-			});
-		}
+		(this.childrens.chatMessages as ChatMessages).setProps({
+			chat: newChats.find((item) => item.id === newProps.selectedChatId),
+		});
 
-		return !bool;
+		return true;
 	}
 
 	render() {
-		return this.compile(template, { ...this.props });
+		return this.compile(template, {
+			...this.props,
+		});
 	}
 }
-
-export default withStore((state) => state)(ChatsPage);

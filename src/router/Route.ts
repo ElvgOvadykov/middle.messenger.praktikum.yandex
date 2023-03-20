@@ -1,13 +1,32 @@
 import Block, { BlockConstructor } from "@utils/Block";
 
-import renderDom from "@utils/renderDom";
+const isEqual = (lhs: string, rhs: string) => lhs === rhs;
 
-export default class Route {
+const render = (component: Block) => {
+	const root = document.querySelector("#app") as HTMLElement;
+
+	root.innerHTML = "";
+
+	root.appendChild(component.getContent()!);
+
+	component.dispatchComponentDidMount();
+
+	return root;
+};
+
+export interface IRoute {
+	navigate(pathname: string): void;
+	leave(): void;
+	match(pathname: string): void;
+	render(): void;
+}
+
+class Route {
 	private _pathname: string;
 
 	private _blockClass: BlockConstructor;
 
-	private _block?: Block;
+	private _block: any;
 
 	private _props: Record<string, any>;
 
@@ -15,13 +34,13 @@ export default class Route {
 
 	constructor(
 		pathname: string,
-		view: BlockConstructor,
+		blockConstructor: BlockConstructor,
 		props: Record<string, any>,
 		isPrivateRoute: boolean,
 	) {
 		this._pathname = pathname;
-		this._blockClass = view;
-		this._block = undefined;
+		this._blockClass = blockConstructor;
+		this._block = null;
 		this._props = props;
 		this._isPrivateRoute = isPrivateRoute;
 	}
@@ -44,11 +63,17 @@ export default class Route {
 	}
 
 	match(pathname: string) {
-		return pathname === this._pathname;
+		return isEqual(pathname, this._pathname);
 	}
 
 	render() {
-		this._block = new this._blockClass({});
-		renderDom(this._props.rootQuery, this._block);
+		if (!this._block) {
+			this._block = new this._blockClass(this._props);
+		}
+
+		render(this._block);
+		this._block.show();
 	}
 }
+
+export default Route;

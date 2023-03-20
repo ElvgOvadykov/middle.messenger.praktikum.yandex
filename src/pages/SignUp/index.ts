@@ -106,7 +106,7 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 			linkTitle: "Уже есть профиль?",
 		});
 
-		this.childrens.errorMessage = new ErrorMessage({});
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -115,7 +115,10 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 
 			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-			const error = validationFunction((target as HTMLInputElement).value, name);
+			const error = validationFunction(
+				(target as HTMLInputElement).value,
+				name,
+			);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
 

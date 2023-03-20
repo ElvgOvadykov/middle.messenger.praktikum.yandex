@@ -1,7 +1,7 @@
 // eslint-disable no-use-before-define
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
-import { isEqual, merge } from "./helpers";
+import { isEqual } from "./helpers";
 
 const enum BlockEvents {
 	INIT = "init",
@@ -73,7 +73,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		const childrens: Record<string, Block | Block[]> = {};
 
 		Object.entries(childrensAndProps).forEach(([key, value]) => {
-			if (Array.isArray(value) && value.length > 0 && value.every((v) => v instanceof Block)) {
+			if (Array.isArray(value) && value.every((v) => v instanceof Block)) {
 				childrens[key as string] = value;
 			} else if (value instanceof Block) {
 				childrens[key as string] = value;
@@ -129,9 +129,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 	}
 
 	componentDidUpdate(oldProps: TProps, newProps: TProps) {
-		const bool = isEqual(oldProps, newProps);
-
-		return !bool;
+		return true;
 	}
 
 	setProps = (nextProps: Partial<TProps>) => {
@@ -139,7 +137,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 			return;
 		}
 
-		merge(this.props, nextProps);
+		Object.assign(this.props, nextProps);
 	};
 
 	get element() {
@@ -196,7 +194,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		return temp.content;
 	}
 
-	_render() {
+	private _render() {
 		const fragment = this.render();
 
 		this.removeEvents();
@@ -226,12 +224,10 @@ abstract class Block<TProps extends Record<string, any> = any> {
 				return typeof value === "function" ? value.bind(target) : value;
 			},
 			set: (target, prop, value) => {
-				const oldTarget = merge({}, target);
-
 				// eslint-disable-next-line no-param-reassign
 				target[prop as keyof TProps] = value;
 
-				this.eventBus().emit(BlockEvents.FLOW_CDU, oldTarget, target);
+				this.eventBus().emit(BlockEvents.FLOW_CDU, { ...target }, target);
 				return true;
 			},
 			deleteProperty() {

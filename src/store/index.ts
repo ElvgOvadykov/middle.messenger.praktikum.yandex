@@ -1,5 +1,4 @@
-import store, { TState, initialState } from "./Store";
-import withStore from "./withStore";
+import store, { StoreEvents } from "./Store";
 
-export { withStore, TState, initialState };
+export { StoreEvents };
 export default store;

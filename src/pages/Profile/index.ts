@@ -133,7 +133,8 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		});
 
 		this.childrens.changePasswordModal = new ChangePasswordModal({
-			onCloseModal: () => this.setProps({ isChangePasswordModalVisible: false }),
+			onCloseModal: () =>
+				this.setProps({ isChangePasswordModalVisible: false }),
 			events: {
 				click: (event: Event) => {
 					const { target } = event;
@@ -168,7 +169,7 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 			},
 		});
 
-		this.childrens.errorMessage = new ErrorMessage({});
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -177,7 +178,10 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 
 			const name = (target as HTMLInputElement).getAttribute("name") ?? "";
 
-			const error = validationFunction((target as HTMLInputElement).value, name);
+			const error = validationFunction(
+				(target as HTMLInputElement).value,
+				name,
+			);
 
 			this.setProps({ errors: Object.assign(this.props.errors, error) });
 
@@ -237,7 +241,9 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			userController.changeUserProfile(data as UserAPINamespace.changeUserProfile.TRequest);
+			userController.changeUserProfile(
+				data as UserAPINamespace.changeUserProfile.TRequest,
+			);
 		}
 	}
 

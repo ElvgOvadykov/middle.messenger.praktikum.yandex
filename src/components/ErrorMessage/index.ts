@@ -1,5 +1,5 @@
 import Button, { ButtonColor, ButtonSize } from "@components/Button";
-import withStore from "@store/withStore";
+import store, { StoreEvents } from "@store/index";
 import Block from "@utils/Block";
 import errorController from "@controllers/ErrorController";
 
@@ -11,9 +11,13 @@ interface IErrorMessageProps {
 	responseError?: TAPIError;
 }
 
-class ErrorMessage extends Block<IErrorMessageProps> {
+export default class ErrorMessage extends Block<IErrorMessageProps> {
 	constructor() {
 		super({});
+
+		store.on(StoreEvents.Updated, () => {
+			this.setProps(store.getState());
+		});
 	}
 
 	protected init(): void {
@@ -35,5 +39,3 @@ class ErrorMessage extends Block<IErrorMessageProps> {
 		return this.compile(template, this.props);
 	}
 }
-
-export default withStore((state) => ({ responseError: state.responseError }))(ErrorMessage);

@@ -1,24 +1,24 @@
-import { BlockConstructor } from "@utils/Block";
-import store, { StoreEvents, TState } from "./Store";
+// import { BlockConstructor } from "@utils/Block";
+// import store, { StoreEvents, TState } from "./Store";
 
-export default function withStore(mapStateToProps: (state: TState) => any) {
-	return function wrap(Component: BlockConstructor) {
-		let previousState: any;
+// export default function withStore(mapStateToProps: (state: TState) => any) {
+// 	return function wrap(Component: BlockConstructor) {
+// 		let previousState: any;
 
-		return class WithStore extends Component {
-			constructor(props: any) {
-				previousState = mapStateToProps(store.getState());
+// 		return class WithStore extends Component {
+// 			constructor(props: any) {
+// 				previousState = mapStateToProps(store.getState());
 
-				super({ ...props, ...previousState });
+// 				super({ ...props, ...previousState });
 
-				store.on(StoreEvents.Updated, (state) => {
-					const stateProps = mapStateToProps(state);
+// 				store.on(StoreEvents.Updated, (state) => {
+// 					const stateProps = mapStateToProps(state);
 
-					previousState = stateProps;
+// 					previousState = stateProps;
 
-					this.setProps({ ...stateProps });
-				});
-			}
-		};
-	};
-}
+// 					this.setProps({ ...stateProps });
+// 				});
+// 			}
+// 		};
+// 	};
+// }

@@ -1,38 +1,72 @@
-import { set } from "@utils/helpers";
 import EventBus from "@utils/EventBus";
-
-export type TState = {
-	selectedUserId?: number;
-
-	chats: Array<TChat>;
-
-	selectedChatId?: number;
-
-	responseError?: TAPIError;
-};
-
-export const initialState: TState = {
-	chats: [],
-};
 
 export enum StoreEvents {
 	Updated = "updated",
 }
 
-class Store extends EventBus {
-	private state: TState = initialState;
+type Indexed<T = any> = {
+	[key in string]: T;
+};
 
-	public set(keypath: string, data: unknown) {
-		set(this.state, keypath, data);
+const merge = (lhs: Indexed, rhs: Indexed): Indexed => {
+	for (const p in rhs) {
+		if (!rhs.hasOwnProperty(p)) {
+			continue;
+		}
 
-		this.emit(StoreEvents.Updated, this.getState());
+		try {
+			if (rhs[p].constructor === Object) {
+				rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
+			} else {
+				lhs[p] = rhs[p];
+			}
+		} catch (e) {
+			lhs[p] = rhs[p];
+		}
 	}
 
+	return lhs;
+};
+
+const set = (
+	object: Indexed | unknown,
+	path: string,
+	value: unknown,
+): Indexed | unknown => {
+	if (typeof object !== "object" || object === null) {
+		return object;
+	}
+
+	if (typeof path !== "string") {
+		throw new Error("path must be string");
+	}
+
+	const result = path.split(".").reduceRight<Indexed>(
+		(acc, key) => ({
+			[key]: acc,
+		}),
+		value as any,
+	);
+
+	return merge(object as Indexed, result);
+};
+
+class Store extends EventBus {
+	private _state: Indexed = {};
+
 	public getState() {
-		return this.state;
+		return this._state;
+	}
+
+	public set(path: string, value: unknown) {
+		set(this._state, path, value);
+
+		this.emit(StoreEvents.Updated);
+	}
+
+	public clearStore(): void {
+		this._state = {};
 	}
 }
 
-const store = new Store();
-
-export default store;
+export default new Store();
