@@ -8,8 +8,11 @@ import UploadChatAvatarModal from "@components/UploadChatAvatarModal";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import template from "./index.hbs";
+
+import "./style.scss";
 
 interface IChatMessagesProps {
 	chat?: TChat;
@@ -19,6 +22,7 @@ type TChatMessagesExtendedProps = IChatMessagesProps & {
 	isChatOptionsPopupVisible: boolean;
 	isAttachPopupVisible: boolean;
 	isUploadChatAvatarModalVisible: boolean;
+	pathToAvatar: string;
 };
 
 export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
@@ -28,6 +32,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			isAttachPopupVisible: false,
 			isChatOptionsPopupVisible: false,
 			isUploadChatAvatarModalVisible: false,
+			pathToAvatar: getCurrentPathToImg(props.chat?.avatar || ""),
 		};
 
 		super(extendedProps);
@@ -168,6 +173,9 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			return new DocumentFragment();
 		}
 
-		return this.compile(template, this.props);
+		return this.compile(template, {
+			...this.props,
+			pathToAvatar: getCurrentPathToImg(this.props.chat.avatar || ""),
+		});
 	}
 }

@@ -46,11 +46,7 @@ export default class UploadChatAvatarModal extends Block<IUploadChatAvatarModalP
 		if (input) {
 			const file = (input as HTMLInputElement).files![0];
 
-			console.log("saveAvatarHandler");
-
 			if (file && this.props.chatId) {
-				console.log(this.props.chatId);
-
 				formData.append("chatId", String(this.props.chatId));
 				formData.append("avatar", file, (input as HTMLInputElement).value);
 

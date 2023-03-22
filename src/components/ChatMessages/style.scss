@@ -21,6 +21,10 @@
 				height: $selected_chat_avatar-width;
 				width: $selected_chat_avatar-width;
 				border-radius: calc($selected_chat_avatar-width * 0.5);
+				overflow: hidden;
+			}
+
+			.chat-header__avatar__no-avatar {
 				background-image: url("../../../static/image/test_avatar.png") !important;
 				background-position: center !important;
 				background-repeat: no-repeat !important;
