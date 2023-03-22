@@ -1,0 +1,18 @@
+div#addUsersToChatModal {
+	& > .modal-content > h2 {
+		white-space: nowrap;
+	}
+
+	form#addUsersToChatForm {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+
+		& > .search-block {
+			display: flex;
+			gap: 15px;
+			align-items: end;
+		}
+	}
+}

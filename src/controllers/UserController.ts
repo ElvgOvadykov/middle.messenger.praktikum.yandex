@@ -1,4 +1,5 @@
 import API, { UserAPI } from "@utils/API/userAPI";
+import store from "@store/index";
 
 import authController from "./AuthController";
 import errorController from "./ErrorController";
@@ -10,7 +11,9 @@ export class UserController {
 		this.api = API;
 	}
 
-	async changeUserProfile(payload: UserAPINamespace.changeUserProfile.TRequest) {
+	async changeUserProfile(
+		payload: UserAPINamespace.changeUserProfile.TRequest,
+	) {
 		try {
 			await this.api.changeUserProfile(payload);
 			authController.getUser();
@@ -19,7 +22,9 @@ export class UserController {
 		}
 	}
 
-	async changeUserPassword(payload: UserAPINamespace.changeUserPassword.TRequest) {
+	async changeUserPassword(
+		payload: UserAPINamespace.changeUserPassword.TRequest,
+	) {
 		try {
 			await this.api.changeUserPassword(payload);
 		} catch (e: any) {
@@ -34,6 +39,13 @@ export class UserController {
 		} catch (e: any) {
 			errorController.setError(e);
 		}
+	}
+
+	async getUserByLogin(payload: UserAPINamespace.getUserByLogin.TRequest) {
+		this.api
+			.getUserByLogin(payload)
+			.then((users) => store.set("foundUsers", users))
+			.catch((e) => errorController.setError(e));
 	}
 }
 

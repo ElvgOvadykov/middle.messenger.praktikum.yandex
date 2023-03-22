@@ -5,6 +5,7 @@ import Input from "@components/Input";
 import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
 import UploadChatAvatarModal from "@components/UploadChatAvatarModal";
+import AddUsersToChatModal from "@components/AddUsersToChatModal";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
@@ -22,6 +23,7 @@ type TChatMessagesExtendedProps = IChatMessagesProps & {
 	isChatOptionsPopupVisible: boolean;
 	isAttachPopupVisible: boolean;
 	isUploadChatAvatarModalVisible: boolean;
+	isAddUsersToChatModalVisible: boolean;
 	pathToAvatar: string;
 };
 
@@ -32,6 +34,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			isAttachPopupVisible: false,
 			isChatOptionsPopupVisible: false,
 			isUploadChatAvatarModalVisible: false,
+			isAddUsersToChatModalVisible: false,
 			pathToAvatar: getCurrentPathToImg(props.chat?.avatar || ""),
 		};
 
@@ -100,6 +103,9 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			onUploadChatAvatarModalToggle: () => {
 				this.toggleUploadChatAvatar();
 			},
+			onAddUsersToChatModalToggle: () => {
+				this.toggleAddUsersToChatModal();
+			},
 		});
 
 		this.childrens.attachPopup = new AttachPopup({});
@@ -119,6 +125,13 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 				},
 			},
 		});
+
+		this.childrens.addUsersToChatModal = new AddUsersToChatModal({
+			chatId: this.props.chat?.id || 0,
+			onClose: () => {
+				this.toggleAddUsersToChatModal();
+			},
+		});
 	}
 
 	toggleChatOptions() {
@@ -134,6 +147,14 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 
 		this.setProps({
 			isUploadChatAvatarModalVisible: !isUploadChatAvatarModalVisible,
+		});
+	}
+
+	toggleAddUsersToChatModal() {
+		const { isAddUsersToChatModalVisible } = this.props;
+
+		this.setProps({
+			isAddUsersToChatModalVisible: !isAddUsersToChatModalVisible,
 		});
 	}
 
@@ -161,6 +182,10 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			});
 
 			(this.childrens.uploadChatAvatarModal as UploadChatAvatarModal).setProps({
+				chatId: newProps.chat.id,
+			});
+
+			(this.childrens.addUsersToChatModal as AddUsersToChatModal).setProps({
 				chatId: newProps.chat.id,
 			});
 		}

@@ -48,6 +48,10 @@ export class ChatController {
 			this.getChats({});
 		});
 	}
+
+	async addUsersToChat(payload: ChatsAPINamespace.addUsersToChat.TRequest) {
+		this.api.addUsersToChat(payload).catch((e) => errorController.setError(e));
+	}
 }
 
 export default new ChatController();

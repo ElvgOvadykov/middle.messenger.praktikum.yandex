@@ -26,7 +26,12 @@ export class ChatsAPI extends BaseAPI {
 	}
 
 	addUsersToChat(payload: ChatsAPINamespace.addUsersToChat.TRequest) {
-		return this.http.put("/users", { data: payload });
+		return this.http.put("/users", {
+			data: payload,
+			headers: {
+				"Content-Type": "application/json; charset=UTF-8",
+			},
+		});
 	}
 
 	deleteUsersFromChat(payload: ChatsAPINamespace.deleteUsersFromChat.TRequest) {

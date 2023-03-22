@@ -38,6 +38,6 @@ declare namespace UserAPINamespace {
 			login: string;
 		};
 
-		type TResponse = TUser;
+		type TResponse = Array<TUser>;
 	}
 }
