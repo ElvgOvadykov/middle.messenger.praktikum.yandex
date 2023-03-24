@@ -1,4 +1,4 @@
-import Button, { ButtonColor } from "@components/Button";
+import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import Block from "@utils/Block";
 
 import template from "./index.hbs";
@@ -20,11 +20,13 @@ export default class UserForAddToChat extends Block<IUserForAddToChatProps> {
 			contentValue: "Добавить",
 			type: "button",
 			color: ButtonColor.White,
+			size: ButtonSize.Medium,
 			events: {
 				click: () => {
 					this.props.addUserToChatHander();
 				},
 			},
+			withBorder: true,
 		});
 	}
 

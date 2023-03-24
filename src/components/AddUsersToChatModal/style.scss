@@ -5,14 +5,10 @@ div#addUsersToChatModal {
 
 	form#addUsersToChatForm {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		align-items: end;
 		gap: 20px;
 		width: 100%;
-
-		& > .search-block {
-			display: flex;
-			gap: 15px;
-			align-items: end;
-		}
+		margin-bottom: 15px;
 	}
 }

@@ -16,6 +16,9 @@
 
 	&__size-medium-width {
 		width: 100px;
+		height: 32px;
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 
 	&__size-small-width {
@@ -29,5 +32,9 @@
 	&__color-white {
 		background-color: white;
 		color: black;
+	}
+
+	&__with-border {
+		border: 1px solid black;
 	}
 }

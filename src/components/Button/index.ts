@@ -21,6 +21,7 @@ interface IButtonProps {
 	color?: ButtonColor;
 	events?: Record<string, (event: Event) => void>;
 	id?: string;
+	withBorder?: boolean;
 }
 
 type TButtonExtendedProps = IButtonProps & {
@@ -36,6 +37,10 @@ export default class Button extends Block<TButtonExtendedProps> {
 
 		extendedProps.classes.push(props.size ?? ButtonSize.FullWith);
 		extendedProps.classes.push(props.color ?? ButtonColor.Green);
+
+		if (props.withBorder) {
+			extendedProps.classes.push("button__with-border");
+		}
 
 		super(extendedProps);
 	}

@@ -1,4 +1,4 @@
-import Button, { ButtonColor } from "@components/Button";
+import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import Input from "@components/Input";
 import Block from "@utils/Block";
 
@@ -45,13 +45,16 @@ export default class AddUsersToChatModal extends Block<TAddUsersToChatModalExten
 
 		this.childrens.searchUsersButton = new Button({
 			contentValue: "Поиск",
-			type: "button",
+			type: "submit",
 			color: ButtonColor.White,
+			size: ButtonSize.Medium,
 			events: {
-				click: () => {
+				click: (event: Event) => {
+					event.preventDefault();
 					this.searchUsersHandler();
 				},
 			},
+			withBorder: true,
 		});
 	}
 
