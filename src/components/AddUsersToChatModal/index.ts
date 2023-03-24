@@ -15,6 +15,7 @@ import "./style.scss";
 interface IAddUsersToChatModalProps {
 	chatId: number;
 	onClose: () => void;
+	events?: Record<string, EventListener>;
 }
 
 type TAddUsersToChatModalExtendsProps = IAddUsersToChatModalProps & {

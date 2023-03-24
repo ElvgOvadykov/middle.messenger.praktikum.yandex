@@ -6,6 +6,7 @@ import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
 import UploadChatAvatarModal from "@components/UploadChatAvatarModal";
 import AddUsersToChatModal from "@components/AddUsersToChatModal";
+import DeleteUsersFromChatModal from "@components/DeleteUsersFromChatModal";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
@@ -24,6 +25,7 @@ type TChatMessagesExtendedProps = IChatMessagesProps & {
 	isAttachPopupVisible: boolean;
 	isUploadChatAvatarModalVisible: boolean;
 	isAddUsersToChatModalVisible: boolean;
+	isDeleteUsersFromChatModalVisible: boolean;
 	pathToAvatar: string;
 };
 
@@ -35,6 +37,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			isChatOptionsPopupVisible: false,
 			isUploadChatAvatarModalVisible: false,
 			isAddUsersToChatModalVisible: false,
+			isDeleteUsersFromChatModalVisible: false,
 			pathToAvatar: getCurrentPathToImg(props.chat?.avatar || ""),
 		};
 
@@ -106,6 +109,9 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			onAddUsersToChatModalToggle: () => {
 				this.toggleAddUsersToChatModal();
 			},
+			onDeleteUsersFromChatModalToggle: () => {
+				this.toggleDeleteUsersFromChatModal();
+			},
 		});
 
 		this.childrens.attachPopup = new AttachPopup({});
@@ -131,6 +137,28 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			onClose: () => {
 				this.toggleAddUsersToChatModal();
 			},
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#addUsersToChatModal")) {
+						this.toggleAddUsersToChatModal();
+					}
+				},
+			},
+		});
+
+		this.childrens.deleteUsersFromChatModal = new DeleteUsersFromChatModal({
+			chatId: this.props.chat?.id || 0,
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#deleteUsersFromChatModal")) {
+						this.toggleDeleteUsersFromChatModal();
+					}
+				},
+			},
 		});
 	}
 
@@ -155,6 +183,14 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 
 		this.setProps({
 			isAddUsersToChatModalVisible: !isAddUsersToChatModalVisible,
+		});
+	}
+
+	toggleDeleteUsersFromChatModal() {
+		const { isDeleteUsersFromChatModalVisible } = this.props;
+
+		this.setProps({
+			isDeleteUsersFromChatModalVisible: !isDeleteUsersFromChatModalVisible,
 		});
 	}
 
@@ -186,6 +222,12 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			});
 
 			(this.childrens.addUsersToChatModal as AddUsersToChatModal).setProps({
+				chatId: newProps.chat.id,
+			});
+
+			(
+				this.childrens.deleteUsersFromChatModal as DeleteUsersFromChatModal
+			).setProps({
 				chatId: newProps.chat.id,
 			});
 		}

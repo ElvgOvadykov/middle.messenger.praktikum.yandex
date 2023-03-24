@@ -51,4 +51,14 @@ declare namespace ChatsAPINamespace {
 			formData: FormData;
 		};
 	}
+
+	namespace getChatUsers {
+		type TRequest = {
+			id: number;
+			offset?: number;
+			limit?: number;
+			name?: string;
+			email?: string;
+		};
+	}
 }

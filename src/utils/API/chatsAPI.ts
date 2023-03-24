@@ -35,12 +35,21 @@ export class ChatsAPI extends BaseAPI {
 	}
 
 	deleteUsersFromChat(payload: ChatsAPINamespace.deleteUsersFromChat.TRequest) {
-		return this.http.delete("/users", { data: payload });
+		return this.http.delete("/users", {
+			data: payload,
+			headers: { "Content-Type": "application/json; charset=UTF-8" },
+		});
 	}
 
 	uploadChatAvatar(payload: FormData) {
 		return this.http.put("/avatar", {
 			data: payload,
+		});
+	}
+
+	getChatUsers(payload: ChatsAPINamespace.getChatUsers.TRequest) {
+		return this.http.get<Array<TUser>>(`/${payload.id}/users`, {
+			data: { ...payload, id: undefined },
 		});
 	}
 }

@@ -12,6 +12,7 @@ interface IChatOptionsPopupProps {
 	onClose: () => void;
 	onUploadChatAvatarModalToggle: () => void;
 	onAddUsersToChatModalToggle: () => void;
+	onDeleteUsersFromChatModalToggle: () => void;
 }
 
 export default class ChatOptionsPopup extends Block<IChatOptionsPopupProps> {
@@ -35,6 +36,11 @@ export default class ChatOptionsPopup extends Block<IChatOptionsPopupProps> {
 			contentValue: "Удалить пользователя",
 			type: "button",
 			color: ButtonColor.White,
+			events: {
+				click: () => {
+					this.props.onDeleteUsersFromChatModalToggle();
+				},
+			},
 		});
 
 		this.childrens.deleteChatButton = new Button({

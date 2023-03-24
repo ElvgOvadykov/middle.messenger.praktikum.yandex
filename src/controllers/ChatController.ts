@@ -50,7 +50,26 @@ export class ChatController {
 	}
 
 	async addUsersToChat(payload: ChatsAPINamespace.addUsersToChat.TRequest) {
-		this.api.addUsersToChat(payload).catch((e) => errorController.setError(e));
+		this.api
+			.addUsersToChat(payload)
+			.then(() => store.set("foundUsers", undefined))
+			.catch((e) => errorController.setError(e));
+	}
+
+	async getChatUsers(payload: ChatsAPINamespace.getChatUsers.TRequest) {
+		this.api
+			.getChatUsers(payload)
+			.then((users) => store.set("chatUsers", users))
+			.catch((e) => errorController.setError(e));
+	}
+
+	async deleteUserFromChat(
+		payload: ChatsAPINamespace.deleteUsersFromChat.TRequest,
+	) {
+		this.api
+			.deleteUsersFromChat(payload)
+			.then(() => store.set("chatUsers", []))
+			.catch((e) => errorController.setError(e));
 	}
 }
 
