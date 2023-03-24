@@ -48,6 +48,31 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			placeholder: "Поиск...",
 		});
 
+		this.childrens.searchButton = new Button({
+			contentValue: "Поиск",
+			type: "submit",
+			size: ButtonSize.FullWith,
+			events: {
+				click: (event: Event) => {
+					event.preventDefault();
+					const search = (this.childrens.searchInput as Input).value;
+					chatController.getChats({ title: search });
+				},
+			},
+		});
+
+		this.childrens.resetSearchButton = new Button({
+			contentValue: "Сброс",
+			type: "button",
+			size: ButtonSize.FullWith,
+			events: {
+				click: () => {
+					(this.childrens.searchInput as Input).setValue("");
+					chatController.getChats({});
+				},
+			},
+		});
+
 		this.childrens.addChatButton = new Button({
 			contentValue: "Создать чат",
 			type: "button",

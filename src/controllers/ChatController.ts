@@ -12,8 +12,14 @@ export class ChatController {
 	async getChats(payload: ChatsAPINamespace.getChats.TRequest) {
 		try {
 			const chats = await this.api.getChats(payload);
-
 			store.set("chats", chats);
+			const state = store.getState();
+			const selectedChat = (state.chats as Array<TChat>).find(
+				(chat) => chat.id === state.selectedChatId,
+			);
+			if (!selectedChat) {
+				this.selectChat(undefined);
+			}
 		} catch (e: any) {
 			errorController.setError(e);
 		}

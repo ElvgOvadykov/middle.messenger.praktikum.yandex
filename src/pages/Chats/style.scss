@@ -14,9 +14,12 @@ $profile_avatar_width: 60px;
 		width: 380px;
 
 		&__search {
+			width: 100%;
 			height: 80px;
 			padding: 20px 10px;
 			display: flex;
+			flex-direction: row;
+			gap: 15px;
 			border-bottom: 1px solid $grey-blue;
 		}
 
