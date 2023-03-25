@@ -30,7 +30,9 @@ export default class UploadAvatarModal extends Block<IUploadAvatarModalProps> {
 			contentValue: "Сохранить изменения",
 			type: "button",
 			events: {
-				click: this.saveAvatarHandler,
+				click: () => {
+					this.saveAvatarHandler();
+				},
 			},
 		});
 	}
@@ -46,7 +48,9 @@ export default class UploadAvatarModal extends Block<IUploadAvatarModalProps> {
 			if (file) {
 				formData.append("avatar", file, (input as HTMLInputElement).value);
 
-				userController.changeUserAvatar(formData);
+				userController
+					.changeUserAvatar(formData)
+					.then(() => this.props.onCloseModal());
 			}
 		}
 	}
