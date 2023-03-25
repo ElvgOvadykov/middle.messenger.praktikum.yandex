@@ -212,8 +212,8 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 
 		const errors = getErrors(data, { message: messageValidation });
 
-		if (!errors.message) {
-			messagesController.sendMessage(this.props.chat?.id, data.message);
+		if (!errors.message && this.props.chat) {
+			messagesController.sendMessage(this.props.chat.id, data.message);
 		}
 
 		input.setProps({ error: errors.message });

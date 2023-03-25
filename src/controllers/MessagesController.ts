@@ -59,7 +59,7 @@ class MessagesController {
 		if (Array.isArray(messages)) {
 			messagesToAdd = messages.reverse();
 		} else {
-			if (messages.content === "user connected") {
+			if (messages.type === "user connected") {
 				return;
 			}
 
