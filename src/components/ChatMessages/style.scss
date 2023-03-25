@@ -63,16 +63,22 @@
 			background-size: 35px 35px;
 		}
 
-		button#sendMessage {
-			$send-message-button-width: 40px;
+		form.chat-footer__message-form {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
 
-			width: $send-message-button-width;
-			height: calc($send-message-button-width - 4px);
-			border-radius: calc($send-message-button-width / 2);
-			background-image: url("../../../static/icons/right-arrow.svg") !important;
-			background-position: center !important;
-			background-repeat: no-repeat !important;
-			background-size: 30px 30px;
+			button#sendMessage {
+				$send-message-button-width: 40px;
+
+				width: $send-message-button-width;
+				height: calc($send-message-button-width - 4px);
+				border-radius: calc($send-message-button-width / 2);
+				background-image: url("../../../static/icons/right-arrow.svg") !important;
+				background-position: center !important;
+				background-repeat: no-repeat !important;
+				background-size: 30px 30px;
+			}
 		}
 	}
 }

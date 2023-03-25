@@ -23,8 +23,10 @@
 		{{#if isAttachPopupVisible}}
 			{{{attachPopup}}}
 		{{/if}}
-		{{{message}}}
-		{{{sendMessageButton}}}
+		<form class="chat-footer__message-form">
+			{{{message}}}
+			{{{sendMessageButton}}}
+		</form>
 	</div>
 	{{#if isUploadChatAvatarModalVisible}}
 		{{{uploadChatAvatarModal}}}

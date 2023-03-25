@@ -13,6 +13,8 @@ import { messageValidation } from "@utils/validation/validations";
 import { getCurrentPathToImg } from "@utils/helpers";
 import { getCurrentUser } from "@utils/userHelpers";
 
+import messagesController from "@controllers/MessagesController";
+
 import template from "./index.hbs";
 
 import "./style.scss";
@@ -87,12 +89,13 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 		});
 
 		this.childrens.sendMessageButton = new Button({
-			type: "button",
+			type: "submit",
 			contentValue: "",
 			size: ButtonSize.Small,
 			id: "sendMessage",
 			events: {
-				click: () => {
+				click: (event: Event) => {
+					event.preventDefault();
 					this.sendMessageHandler();
 				},
 			},
@@ -210,7 +213,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 		const errors = getErrors(data, { message: messageValidation });
 
 		if (!errors.message) {
-			console.log(data);
+			messagesController.sendMessage(this.props.chat?.id, data.message);
 		}
 
 		input.setProps({ error: errors.message });
