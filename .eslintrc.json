@@ -33,7 +33,7 @@
 		"no-prototype-builtins": "off",
 		"no-continue": "off",
 		"no-param-reassign": "off",
-		"operator-linebreak": ["error", "after"],
+		"operator-linebreak": "off",
 		"function-paren-newline": "off"
 	},
 	"settings": {

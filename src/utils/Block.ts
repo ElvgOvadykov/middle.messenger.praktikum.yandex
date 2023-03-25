@@ -1,7 +1,6 @@
 // eslint-disable no-use-before-define
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
-import { isEqual } from "./helpers";
 
 const enum BlockEvents {
 	INIT = "init",
@@ -128,6 +127,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		this.eventBus().emit(BlockEvents.FLOW_RENDER);
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	componentDidUpdate(oldProps: TProps, newProps: TProps) {
 		return true;
 	}
