@@ -1,6 +1,7 @@
 import API, { ChatsAPI } from "@utils/API/chatsAPI";
 import store from "@store/index";
 import errorController from "./ErrorController";
+import messagesController from "./MessagesController";
 
 export class ChatController {
 	private readonly api: ChatsAPI;
@@ -12,6 +13,13 @@ export class ChatController {
 	async getChats(payload: ChatsAPINamespace.getChats.TRequest) {
 		try {
 			const chats = await this.api.getChats(payload);
+
+			chats.map(async (chat) => {
+				const token = await await this.getToken(chat.id);
+
+				await messagesController.connect(chat.id, token);
+			});
+
 			store.set("chats", chats);
 			const state = store.getState();
 			const selectedChat = (state.chats as Array<TChat>).find(
@@ -76,6 +84,10 @@ export class ChatController {
 			.deleteUsersFromChat(payload)
 			.then(() => store.set("chatUsers", []))
 			.catch((e) => errorController.setError(e));
+	}
+
+	async getToken(chatId: number) {
+		return (await this.api.getChatToken({ id: chatId })).token;
 	}
 }
 

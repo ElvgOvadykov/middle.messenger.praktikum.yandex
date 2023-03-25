@@ -24,6 +24,7 @@ interface IChatsPageProps {
 	currentUser: TUser;
 	selectedChatId?: number;
 	chats: Array<TChat>;
+	messages: Record<string, Array<TMessage>>;
 }
 
 export default class ChatsPage extends Block<IChatsPageProps> {
@@ -33,6 +34,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			errors: {},
 			currentUser: getCurrentUser(),
 			chats: [],
+			messages: {},
 		});
 
 		store.on(StoreEvents.Updated, () => {
@@ -152,6 +154,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 
 		(this.childrens.chatMessages as ChatMessages).setProps({
 			chat: newChats.find((item) => item.id === newProps.selectedChatId),
+			messages: newProps.messages[newProps.selectedChatId!],
 		});
 
 		return true;

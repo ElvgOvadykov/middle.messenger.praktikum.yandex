@@ -1,16 +1,17 @@
 import Block from "@utils/Block";
 import Button, { ButtonColor, ButtonSize } from "@components/Button";
 import Input from "@components/Input";
-
 import ChatOptionsPopup from "@components/ChatOptionsPopup";
 import AttachPopup from "@components/AttachPopup";
 import UploadChatAvatarModal from "@components/UploadChatAvatarModal";
 import AddUsersToChatModal from "@components/AddUsersToChatModal";
 import DeleteUsersFromChatModal from "@components/DeleteUsersFromChatModal";
+import Message from "@components/Message";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
 import { getCurrentPathToImg } from "@utils/helpers";
+import { getCurrentUser } from "@utils/userHelpers";
 
 import template from "./index.hbs";
 
@@ -18,6 +19,7 @@ import "./style.scss";
 
 interface IChatMessagesProps {
 	chat?: TChat;
+	messages?: Array<TMessage>;
 }
 
 type TChatMessagesExtendedProps = IChatMessagesProps & {
@@ -27,6 +29,7 @@ type TChatMessagesExtendedProps = IChatMessagesProps & {
 	isAddUsersToChatModalVisible: boolean;
 	isDeleteUsersFromChatModalVisible: boolean;
 	pathToAvatar: string;
+	currentUserId: number;
 };
 
 export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
@@ -39,6 +42,7 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			isAddUsersToChatModalVisible: false,
 			isDeleteUsersFromChatModalVisible: false,
 			pathToAvatar: getCurrentPathToImg(props.chat?.avatar || ""),
+			currentUserId: getCurrentUser().id,
 		};
 
 		super(extendedProps);
@@ -94,9 +98,13 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			},
 		});
 
-		// this.childrens.messages = messages.map(
-		// 	(message) => new Message({ content: message.content, isMine: message.isMine }),
-		// );
+		this.childrens.messages = (this.props.messages || []).map(
+			(message) =>
+				new Message({
+					content: message.content,
+					isMine: this.props.currentUserId === message.user_id,
+				}),
+		);
 
 		this.childrens.chatOptionsPopup = new ChatOptionsPopup({
 			chat: this.props.chat,
@@ -230,6 +238,14 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 			).setProps({
 				chatId: newProps.chat.id,
 			});
+
+			this.childrens.messages = (newProps.messages || []).map(
+				(message) =>
+					new Message({
+						content: message.content,
+						isMine: this.props.currentUserId === message.user_id,
+					}),
+			);
 		}
 
 		return true;

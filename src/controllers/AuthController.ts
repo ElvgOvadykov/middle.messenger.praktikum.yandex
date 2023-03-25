@@ -3,6 +3,7 @@ import { setCurrentUser, deleteCurrentUser } from "@utils/userHelpers";
 import router, { Paths } from "@router/index";
 
 import errorController from "./ErrorController";
+import messagesController from "./MessagesController";
 
 export class AuthController {
 	private readonly api: AuthAPI;
@@ -54,9 +55,8 @@ export class AuthController {
 	async logout() {
 		try {
 			await this.api.logout();
-
 			deleteCurrentUser();
-
+			messagesController.closeAll();
 			router.go(Paths.login);
 		} catch (e: any) {
 			errorController.setError(e);

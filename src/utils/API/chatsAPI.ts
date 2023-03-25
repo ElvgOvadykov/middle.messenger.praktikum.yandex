@@ -52,6 +52,13 @@ export class ChatsAPI extends BaseAPI {
 			data: { ...payload, id: undefined },
 		});
 	}
+
+	getChatToken(payload: ChatsAPINamespace.getChatToken.TRequest) {
+		return this.http.post<ChatsAPINamespace.getChatToken.TResponse>(
+			`/token/${payload.id}`,
+			{},
+		);
+	}
 }
 
 export default new ChatsAPI("/chats");

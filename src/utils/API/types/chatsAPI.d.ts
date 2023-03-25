@@ -61,4 +61,14 @@ declare namespace ChatsAPINamespace {
 			email?: string;
 		};
 	}
+
+	namespace getChatToken {
+		type TRequest = {
+			id: number;
+		};
+
+		type TResponse = {
+			token: string;
+		};
+	}
 }

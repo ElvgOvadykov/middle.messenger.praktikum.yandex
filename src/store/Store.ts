@@ -69,4 +69,10 @@ class Store extends EventBus {
 	}
 }
 
-export default new Store();
+const store = new Store();
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+window.store = store;
+
+export default store;

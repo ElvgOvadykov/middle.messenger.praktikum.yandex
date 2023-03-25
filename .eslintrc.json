@@ -34,7 +34,7 @@
 		"no-continue": "off",
 		"no-param-reassign": "off",
 		"operator-linebreak": ["error", "after"],
-		"function-paren-newline": ["error", "consistent"]
+		"function-paren-newline": "off"
 	},
 	"settings": {
 		"import/parsers": {
