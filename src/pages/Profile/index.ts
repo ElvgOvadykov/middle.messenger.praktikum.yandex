@@ -4,8 +4,10 @@ import Button, { ButtonSize } from "@components/Button";
 import ChangePasswordModal from "@components/ChangePasswordModal";
 import UploadAvatarModal from "@components/UploadAvatarModal";
 import ProfileAvatarBlock from "@components/ProfileAvatarBlock";
+import ErrorMessage from "@components/ErrorMessage";
 
-import renderDOM from "@utils/renderDom";
+import userController from "@controllers/UserController";
+
 import { profilePageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -14,6 +16,10 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
+import router from "@router/index";
+import { getCurrentPathToImg } from "@utils/helpers";
+import { getCurrentUser } from "@utils/userHelpers";
+import store, { StoreEvents } from "@store/index";
 
 import template from "./profile.hbs";
 
@@ -25,6 +31,7 @@ interface IProfilePageProps {
 	errors: {
 		[key: string]: string;
 	};
+	currentUser: TUser;
 }
 
 export default class ProfilePage extends Block<IProfilePageProps> {
@@ -33,9 +40,14 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 			isChangePasswordModalVisible: false,
 			isUploadAvatarModalVisible: false,
 			errors: {},
+			currentUser: getCurrentUser(),
 		};
 
 		super(props);
+
+		store.on(StoreEvents.Updated, () => {
+			this.setProps(store.getState());
+		});
 	}
 
 	init() {
@@ -46,12 +58,13 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 			size: ButtonSize.Medium,
 			events: {
 				click: () => {
-					renderDOM("chats");
+					router.back();
 				},
 			},
 		});
 
 		this.childrens.profileAvatarBlock = new ProfileAvatarBlock({
+			avatarUrl: getCurrentPathToImg(this.props.currentUser?.avatar || ""),
 			events: {
 				click: () => {
 					this.setProps({ isUploadAvatarModalVisible: true });
@@ -125,7 +138,8 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		});
 
 		this.childrens.changePasswordModal = new ChangePasswordModal({
-			onCloseModal: () => this.setProps({ isChangePasswordModalVisible: false }),
+			onCloseModal: () =>
+				this.setProps({ isChangePasswordModalVisible: false }),
 			events: {
 				click: (event: Event) => {
 					const { target } = event;
@@ -159,6 +173,8 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 				},
 			},
 		});
+
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -208,6 +224,20 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		});
 	}
 
+	componentDidMount(): void {
+		const { currentUser } = this.props;
+
+		if (currentUser) {
+			Object.entries(currentUser).forEach(([key, value]) => {
+				const input = this.childrens[key];
+
+				if (input && input instanceof Input) {
+					input.setValue(String(value));
+				}
+			});
+		}
+	}
+
 	submitHandler() {
 		const data = this.getInputsData();
 		const errors = getErrors(data, profilePageValidationSchema);
@@ -216,10 +246,23 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
-
-			renderDOM("chats");
+			userController.changeUserProfile(
+				data as UserAPINamespace.changeUserProfile.TRequest,
+			);
 		}
+	}
+
+	componentDidUpdate(
+		oldProps: IProfilePageProps,
+		newProps: IProfilePageProps,
+	): boolean {
+		if (newProps.currentUser) {
+			(this.childrens.profileAvatarBlock as ProfileAvatarBlock).setProps({
+				avatarUrl: getCurrentPathToImg(newProps.currentUser.avatar),
+			});
+		}
+
+		return true;
 	}
 
 	render() {

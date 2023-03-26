@@ -26,7 +26,15 @@
 			}
 		],
 		"no-underscore-dangle": "off",
-		"class-methods-use-this": "off"
+		"class-methods-use-this": "off",
+		"linebreak-style": "off",
+		"implicit-arrow-linebreak": "off",
+		"no-restricted-syntax": "off",
+		"no-prototype-builtins": "off",
+		"no-continue": "off",
+		"no-param-reassign": "off",
+		"operator-linebreak": "off",
+		"function-paren-newline": "off"
 	},
 	"settings": {
 		"import/parsers": {

@@ -1,0 +1,13 @@
+div#deleteUsersFromChatModal {
+	& > .modal-content > h2 {
+		white-space: nowrap;
+	}
+
+	form#deleteUsersFromChatForm {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		width: 100%;
+		margin-bottom: 15px;
+	}
+}

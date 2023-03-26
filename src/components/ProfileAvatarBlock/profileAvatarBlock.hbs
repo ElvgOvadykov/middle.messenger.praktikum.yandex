@@ -1,4 +1,7 @@
-<div class="profile-avatar-block">
+<div class="profile-avatar-block {{#unless avatarUrl}} profile-avatar-block__no-avatar {{/unless}}">
+  {{#if avatarUrl}}
+    <img src="{{avatarUrl}}" width="100px">
+  {{/if}}
   <div class="profile-avatar-block__overlay">
     <span class="profile-avatar-block__overlay__text">Изменить</br>аватар</span>
   </div>

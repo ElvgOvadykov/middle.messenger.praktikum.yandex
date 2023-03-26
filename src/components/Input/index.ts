@@ -7,6 +7,7 @@ interface InputProps {
 	name: string;
 	lableTitle?: string;
 	type: string;
+	accept?: string;
 	placeholder?: string;
 	error?: string;
 	events?: Record<string, EventListener>;

@@ -2,15 +2,18 @@ import Block from "@utils/Block";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import Link from "@components/Link";
+import ErrorMessage from "@components/ErrorMessage";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
+import authController from "@controllers/AuthController";
+
 import { loginPageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
 	passwordValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import renderDOM from "@utils/renderDom";
+import { isUserAuthorized } from "@utils/userHelpers";
+import router, { Paths } from "@router/index";
 
 import template from "./login.hbs";
 
@@ -60,12 +63,11 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		});
 
 		this.childrens.linkToSignUp = new Link({
-			linkHref: "",
+			linkHref: Paths.signUp,
 			linkTitle: "Регистрация",
-			events: {
-				click: getGoToPageFunction("signUp"),
-			},
 		});
+
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -123,9 +125,19 @@ export default class LoginPage extends Block<ILoginPageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
+			authController
+				.signIn(data as AuthAPINamespace.signIn.TRequest)
+				.then(() => {
+					if (isUserAuthorized()) {
+						router.go(Paths.chats);
+					}
+				});
+		}
+	}
 
-			renderDOM("chats");
+	componentDidMount(): void {
+		if (isUserAuthorized()) {
+			router.go(Paths.chats);
 		}
 	}
 

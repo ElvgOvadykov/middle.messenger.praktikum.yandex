@@ -1,64 +1,45 @@
 import Block from "@utils/Block";
-import ChatItem, { IChatItemProps } from "@components/ChatItem";
+import ChatItem from "@components/ChatItem";
 import Input from "@components/Input";
-import Button, { ButtonColor, ButtonSize } from "@components/Button";
+import Button, { ButtonSize } from "@components/Button";
 import ProfileBlock from "@components/ProfileBlock";
-import Message from "@components/Message";
-import ChatOptionsPopup from "@components/ChatOptionsPopup";
-import AttachPopup from "@components/AttachPopup";
+import CreateChatModal from "@components/CreateChatModal";
+import ErrorMessage from "@components/ErrorMessage";
+import ChatMessages from "@components/ChatMessages";
 
 import getErrors from "@utils/validation";
 import { messageValidation } from "@utils/validation/validations";
-import renderDOM from "@utils/renderDom";
+import router, { Paths } from "@router/index";
+import store, { StoreEvents } from "@store/index";
+import { getCurrentUser } from "@utils/userHelpers";
+import chatController from "@controllers/ChatController";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import template from "./chats.hbs";
 
 import "./style.scss";
 
 interface IChatsPageProps {
-	isChatOptionsPopupVisible: boolean;
-	isAttachPopupVisible: boolean;
+	isCreateChatModalVisible: boolean;
 	errors: { [key: string]: string };
+	currentUser: TUser;
+	selectedChatId?: number;
+	chats: Array<TChat>;
+	messages: Record<string, Array<TMessage>>;
 }
-
-const chats: Array<{ chatItem: IChatItemProps }> = [
-	{
-		chatItem: {
-			chatHeader: "Андрей",
-			isMyLastMessage: false,
-			lastMessage: "Привет как дела? Что делаешь?",
-			lastMessageDate: new Date(),
-			unreadMessagesCount: 0,
-		},
-	},
-	{
-		chatItem: {
-			chatHeader: "Василий",
-			isMyLastMessage: true,
-			lastMessage: "Отлично",
-			lastMessageDate: new Date(),
-			unreadMessagesCount: 2,
-		},
-	},
-];
-
-const messages = [
-	{
-		content: "Привет как дела!",
-		isMine: false,
-	},
-	{
-		content: "Привет все норм!",
-		isMine: true,
-	},
-];
 
 export default class ChatsPage extends Block<IChatsPageProps> {
 	constructor() {
 		super({
-			isChatOptionsPopupVisible: false,
-			isAttachPopupVisible: false,
+			isCreateChatModalVisible: false,
 			errors: {},
+			currentUser: getCurrentUser(),
+			chats: [],
+			messages: {},
+		});
+
+		store.on(StoreEvents.Updated, () => {
+			this.setProps(store.getState());
 		});
 	}
 
@@ -70,80 +51,71 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 			placeholder: "Поиск...",
 		});
 
-		this.childrens.chats = chats.map(({ chatItem }) => new ChatItem(chatItem));
+		this.childrens.searchButton = new Button({
+			contentValue: "Поиск",
+			type: "submit",
+			size: ButtonSize.FullWith,
+			events: {
+				click: (event: Event) => {
+					event.preventDefault();
+					const search = (this.childrens.searchInput as Input).value;
+					chatController.getChats({ title: search });
+				},
+			},
+		});
+
+		this.childrens.resetSearchButton = new Button({
+			contentValue: "Сброс",
+			type: "button",
+			size: ButtonSize.FullWith,
+			events: {
+				click: () => {
+					(this.childrens.searchInput as Input).setValue("");
+					chatController.getChats({});
+				},
+			},
+		});
+
+		this.childrens.addChatButton = new Button({
+			contentValue: "Создать чат",
+			type: "button",
+			size: ButtonSize.FullWith,
+			events: {
+				click: () => {
+					const { isCreateChatModalVisible } = this.props;
+
+					this.setProps({
+						isCreateChatModalVisible: !isCreateChatModalVisible,
+					});
+				},
+			},
+		});
+
+		this.childrens.createChatModal = new CreateChatModal({
+			onCloseModal: () => this.setProps({ isCreateChatModalVisible: false }),
+			events: {
+				click: (event: Event) => {
+					const { target } = event;
+
+					if ((target as HTMLDivElement).matches("#addChatModal")) {
+						this.setProps({ isCreateChatModalVisible: false });
+					}
+				},
+			},
+		});
 
 		this.childrens.profileBlock = new ProfileBlock({
-			profile: {
-				firstName: "Элвг",
-				secondName: "Овадыков",
-			},
+			currentUser: this.props.currentUser,
 			events: {
 				click: () => {
-					renderDOM("profile");
+					router.go(Paths.profile);
 				},
 			},
 		});
 
-		this.childrens.chatOptionsButton = new Button({
-			type: "button",
-			contentValue: "",
-			color: ButtonColor.White,
-			size: ButtonSize.Small,
-			id: "toggleIsChatOptionsVisibleButton",
-			events: {
-				click: () => {
-					const { isChatOptionsPopupVisible } = this.props;
+		this.childrens.chatMessages = new ChatMessages({});
 
-					this.setProps({
-						isChatOptionsPopupVisible: !isChatOptionsPopupVisible,
-					});
-				},
-			},
-		});
-
-		this.childrens.attachButton = new Button({
-			type: "button",
-			contentValue: "",
-			color: ButtonColor.White,
-			size: ButtonSize.Small,
-			id: "attachButton",
-			events: {
-				click: () => {
-					const { isAttachPopupVisible } = this.props;
-
-					this.setProps({
-						isAttachPopupVisible: !isAttachPopupVisible,
-					});
-				},
-			},
-		});
-
-		this.childrens.message = new Input({
-			name: "message",
-			lableTitle: "",
-			type: "text",
-			placeholder: "Сообщение",
-		});
-
-		this.childrens.sendMessageButton = new Button({
-			type: "button",
-			contentValue: "",
-			size: ButtonSize.Small,
-			id: "sendMessage",
-			events: {
-				click: () => {
-					this.sendMessageHandler();
-				},
-			},
-		});
-
-		this.childrens.messages = messages.map(
-			(message) => new Message({ content: message.content, isMine: message.isMine }),
-		);
-
-		this.childrens.chatOptionsPopup = new ChatOptionsPopup({});
-
-		this.childrens.attachPopup = new AttachPopup({});
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	sendMessageHandler() {
@@ -160,7 +132,49 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 		input.setProps({ error: errors.message });
 	}
 
+	componentDidMount(): void {
+		chatController.getChats({});
+	}
+
+	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps) {
+		if (newProps.chats) {
+			const newChats = Array.from(newProps.chats);
+
+			this.childrens.chatList = [];
+			this.childrens.chatList = newChats.map(
+				(chat) =>
+					new ChatItem({
+						chat,
+						events: {
+							click: () => {
+								chatController.selectChat(chat.id);
+							},
+						},
+						isSelected: chat.id === newProps.selectedChatId,
+					}),
+			);
+
+			(this.childrens.chatMessages as ChatMessages).setProps({
+				chat: newChats.find((item) => item.id === newProps.selectedChatId),
+				messages: newProps.messages[newProps.selectedChatId!],
+			});
+		}
+
+		if (newProps.currentUser) {
+			(this.childrens.profileBlock as ProfileBlock).setProps({
+				currentUser: newProps.currentUser,
+				currentPathToAvatar: getCurrentPathToImg(
+					newProps.currentUser.avatar || "",
+				),
+			});
+		}
+
+		return true;
+	}
+
 	render() {
-		return this.compile(template, { ...this.props });
+		return this.compile(template, {
+			...this.props,
+		});
 	}
 }

@@ -1,0 +1,40 @@
+<div class="chats__messages">
+	<div class="chat-header">
+		<div class="chat-header__info-block">
+			<div class="chat-header__avatar {{#unless chat.avatar}} chat-header__avatar__no-avatar {{/unless}}">
+				{{#if chat.avatar}}
+					<img src="{{pathToAvatar}}" alt="Аватар чата" width="40" />
+				{{/if}}
+			</div>
+			<div class="chat-header__name">
+				{{chat.title}}
+			</div>
+		</div>
+		{{{chatOptionsButton}}}
+		{{#if isChatOptionsPopupVisible}}
+			{{{chatOptionsPopup}}}
+		{{/if}}
+	</div>
+	<div class="chats__messages__list">
+		{{{messages}}}
+	</div>
+	<div class="chat-footer">
+		{{{attachButton}}}
+		{{#if isAttachPopupVisible}}
+			{{{attachPopup}}}
+		{{/if}}
+		<form class="chat-footer__message-form">
+			{{{message}}}
+			{{{sendMessageButton}}}
+		</form>
+	</div>
+	{{#if isUploadChatAvatarModalVisible}}
+		{{{uploadChatAvatarModal}}}
+	{{/if}}
+	{{#if isAddUsersToChatModalVisible}}
+		{{{addUsersToChatModal}}}
+	{{/if}}
+	{{#if isDeleteUsersFromChatModalVisible}}
+		{{{deleteUsersFromChatModal}}}
+	{{/if}}
+</div>

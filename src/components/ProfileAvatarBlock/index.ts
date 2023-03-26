@@ -6,6 +6,7 @@ import "./style.scss";
 
 interface IProfileAvatarBlockProps {
 	events?: Record<string, () => void>;
+	avatarUrl: string;
 }
 
 export default class ProfileAvatarBlock extends Block<IProfileAvatarBlockProps> {

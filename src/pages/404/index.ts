@@ -1,12 +1,14 @@
 import Block from "@utils/Block";
 import Link from "@components/Link";
 
+import { Paths } from "@router/index";
+
 import template from "./index.hbs";
 
 export default class NotFoundErrorPage extends Block {
 	init() {
 		this.childrens.goToChatLink = new Link({
-			linkHref: "",
+			linkHref: Paths.chats,
 			linkTitle: "Вернуться к чатам",
 		});
 	}

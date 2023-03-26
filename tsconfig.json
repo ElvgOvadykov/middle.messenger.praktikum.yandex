@@ -13,7 +13,10 @@
 			"@utils/*": ["./src/utils/*"],
 			"@styles/*": ["./src/styles/*"],
 			"@icons/*": ["./static/icons/*"],
-			"@images/*": ["./static/image/*"]
+			"@images/*": ["./static/image/*"],
+			"@router/*": ["./src/router/*"],
+			"@store/*": ["./src/store/*"],
+			"@controllers/*": ["./src/controllers/*"]
 		},
 		"noImplicitAny": true,
 		"removeComments": true,
@@ -22,15 +25,10 @@
 		"skipLibCheck": true,
 		"lib": ["ESNext", "DOM"],
 		"noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true
+		"noUnusedParameters": true,
+		"strictNullChecks": true,
+		"typeRoots": ["./src/types", "./node_modules/@types"]
 	},
 	"include": ["./src"],
-	"exclude": [
-		"./node_modules",
-		"./dist",
-		"./parcel-cache",
-		"./.github",
-		"./static"
-	]
+	"exclude": ["./node_modules", "./dist", "./parcel-cache", "./.github", "./static"]
 }

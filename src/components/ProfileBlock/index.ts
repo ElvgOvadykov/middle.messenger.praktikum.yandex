@@ -1,23 +1,27 @@
 import Button, { ButtonSize, ButtonColor } from "@components/Button";
 import Block from "@utils/Block";
+import authController from "@controllers/AuthController";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import template from "./profileBlock.hbs";
 
 import "./style.scss";
 
 interface IProfileBlockProps {
-	profile: {
-		firstName: string;
-		secondName: string;
-	};
+	currentUser?: TUser;
 	events?: Record<string, (event: Event) => void>;
+	currentPathToAvatar?: string;
 }
 
 export default class ProfileBlock extends Block<IProfileBlockProps> {
 	constructor(props: IProfileBlockProps) {
-		super(props);
+		const editedProps = {
+			...props,
+			currentPathToAvatar: getCurrentPathToImg(props.currentUser?.avatar || ""),
+		};
+
+		super(editedProps);
 	}
 
 	protected addEvents(): void {
@@ -47,12 +51,16 @@ export default class ProfileBlock extends Block<IProfileBlockProps> {
 			size: ButtonSize.Small,
 			color: ButtonColor.White,
 			events: {
-				click: getGoToPageFunction("login"),
+				click: () => {
+					authController.logout();
+				},
 			},
 		});
 	}
 
 	protected render(): DocumentFragment {
-		return this.compile(template, this.props);
+		return this.compile(template, {
+			...this.props,
+		});
 	}
 }

@@ -1,50 +1,54 @@
 {
-  "name": "middle.messenger.praktikum.yandex",
-  "version": "1.0.0",
-  "description": "chat",
-  "scripts": {
-    "build": "parcel build ./static/index.html",
-    "start": "parcel ./static/index.html --no-cache --port 3000 --open"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex/issues"
-  },
-  "homepage": "https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex#readme",
-  "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "1.0.9",
-    "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
-    "@parcel/transformer-sass": "2.8.3",
-    "@typescript-eslint/eslint-plugin": "5.54.0",
-    "@typescript-eslint/parser": "5.54.0",
-    "eslint": "8.35.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-import-resolver-typescript": "3.5.3",
-    "eslint-plugin-import": "2.27.5",
-    "express": "4.18.2",
-    "parcel": "2.8.3",
-    "sass": "1.58.0",
-    "stylelint": "15.2.0",
-    "stylelint-config-standard": "30.0.1",
-    "stylelint-scss": "4.4.0",
-    "typescript": "4.9.5"
-  },
-  "dependencies": {
-    "dotenv": "16.0.3",
-    "handlebars": "4.7.7",
-    "uuid": "9.0.0"
-  },
-  "alias": {
-    "@components/*": "./src/components/$1",
-    "@pages/*": "./src/pages/$1",
-    "@utils/*": "./src/utils/$1",
-    "@styles/*": "./src/styles/$1",
-    "@icons/*": "./static/icons/$1",
-    "@images/*": "./static/image/$1"
-  }
+	"name": "middle.messenger.praktikum.yandex",
+	"version": "1.0.0",
+	"description": "chat",
+	"scripts": {
+		"build": "parcel build ./static/index.html",
+		"start": "parcel ./static/index.html --no-cache --port 3000 --open"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex/issues"
+	},
+	"homepage": "https://github.com/ElvgOvadykov/middle.messenger.praktikum.yandex#readme",
+	"devDependencies": {
+		"@anikin/parcel-transformer-handlebars": "1.0.9",
+		"@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
+		"@parcel/transformer-sass": "2.8.3",
+		"@types/node": "18.15.3",
+		"@typescript-eslint/eslint-plugin": "5.54.0",
+		"@typescript-eslint/parser": "5.54.0",
+		"eslint": "8.35.0",
+		"eslint-config-airbnb": "19.0.4",
+		"eslint-import-resolver-typescript": "3.5.3",
+		"eslint-plugin-import": "2.27.5",
+		"express": "4.18.2",
+		"parcel": "2.8.3",
+		"sass": "1.58.0",
+		"stylelint": "15.2.0",
+		"stylelint-config-standard": "30.0.1",
+		"stylelint-scss": "4.4.0",
+		"typescript": "4.9.5"
+	},
+	"dependencies": {
+		"dotenv": "16.0.3",
+		"handlebars": "4.7.7",
+		"uuid": "9.0.0"
+	},
+	"alias": {
+		"@components/*": "./src/components/$1",
+		"@pages/*": "./src/pages/$1",
+		"@utils/*": "./src/utils/$1",
+		"@styles/*": "./src/styles/$1",
+		"@icons/*": "./static/icons/$1",
+		"@images/*": "./static/image/$1",
+		"@router/*": "./src/router/$1",
+		"@controllers/*": "./src/controllers/$1",
+		"@store/*": "./src/store/$1"
+	}
 }

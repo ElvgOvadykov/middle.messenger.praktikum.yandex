@@ -2,8 +2,10 @@ import Block from "@utils/Block";
 import Input from "@components/Input";
 import Link from "@components/Link";
 import Button from "@components/Button";
+import ErrorMessage from "@components/ErrorMessage";
 
-import getGoToPageFunction from "@utils/getGoToPageFunction";
+import authController from "@controllers/AuthController";
+
 import { signUpPageValidationSchema } from "@utils/validation/validationSchems";
 import {
 	loginValidation,
@@ -13,7 +15,8 @@ import {
 	phoneValidation,
 } from "@utils/validation/validations";
 import getErrors from "@utils/validation";
-import renderDOM from "@utils/renderDom";
+import router, { Paths } from "@router/index";
+import { isUserAuthorized } from "@utils/userHelpers";
 
 import template from "./signUp.hbs";
 
@@ -69,15 +72,6 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 			},
 		});
 
-		this.childrens.display_name = new Input({
-			name: "display_name",
-			lableTitle: "Имя в чате",
-			type: "text",
-			events: {
-				blur: this.getCheckInputValidationFunction(nameValidation),
-			},
-		});
-
 		this.childrens.phone = new Input({
 			name: "phone",
 			lableTitle: "Телефон",
@@ -108,12 +102,11 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		});
 
 		this.childrens.linkToLogin = new Link({
-			linkHref: "",
+			linkHref: Paths.login,
 			linkTitle: "Уже есть профиль?",
-			events: {
-				click: getGoToPageFunction("login"),
-			},
 		});
+
+		this.childrens.errorMessage = new ErrorMessage();
 	}
 
 	getCheckInputValidationFunction(validationFunction: TValidationFunction) {
@@ -171,9 +164,13 @@ export default class SignUpPage extends Block<ISignUpPageProps> {
 		const hasErrors = Object.values(errors).some((error) => error.length);
 
 		if (!hasErrors) {
-			console.log(data);
+			authController.signUp(data as AuthAPINamespace.signUp.TRequest);
+		}
+	}
 
-			renderDOM("chats");
+	componentDidMount(): void {
+		if (isUserAuthorized()) {
+			router.go(Paths.chats);
 		}
 	}
 

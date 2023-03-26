@@ -1,4 +1,6 @@
 import Block from "@utils/Block";
+import router from "@router/index";
+
 import template from "./link.hbs";
 
 import "./style.scss";
@@ -12,7 +14,17 @@ interface LinkProps {
 
 export default class Link extends Block<LinkProps> {
 	constructor(props: LinkProps) {
+		props.events = {
+			click: () => {
+				this.navigateTo();
+			},
+		};
+
 		super(props);
+	}
+
+	navigateTo() {
+		router.go(this.props.linkHref || "");
 	}
 
 	protected render(): DocumentFragment {

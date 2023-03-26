@@ -1,31 +1,15 @@
-import LoginPage from "@pages/Login";
-import SignUpPage from "@pages/SignUp";
-import NotFoundErrorPage from "@pages/404";
-import ServerErrorPage from "@pages/500";
-import HomePage from "@pages/home";
-import ProfilePage from "@pages/Profile";
-import ChatsPage from "@pages/Chats";
+import Block from "@utils/Block";
 
-export const ROUTES = {
-	login: LoginPage,
-	signUp: SignUpPage,
-	notFound: NotFoundErrorPage,
-	serverError: ServerErrorPage,
-	home: HomePage,
-	profile: ProfilePage,
-	chats: ChatsPage,
-};
+export default function renderDom(query: string, block: Block) {
+	const root = document.querySelector(query);
 
-export default function renderDOM(route: keyof typeof ROUTES) {
-	const root = document.querySelector("#app");
+	if (!root) {
+		return;
+	}
 
-	const PageComponent = ROUTES[route];
+	root.innerHTML = "";
 
-	const page = new PageComponent({});
+	root.appendChild(block.getContent()!);
 
-	root!.innerHTML = "";
-
-	root!.appendChild(page.element!);
-
-	page.dispatchComponentDidMount();
+	block.dispatchComponentDidMount();
 }
