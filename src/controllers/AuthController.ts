@@ -1,6 +1,7 @@
 import API, { AuthAPI } from "@utils/API/authAPI";
 import { setCurrentUser, deleteCurrentUser } from "@utils/userHelpers";
 import router, { Paths } from "@router/index";
+import store from "@store/Store";
 
 import errorController from "./ErrorController";
 import messagesController from "./MessagesController";
@@ -15,9 +16,7 @@ export class AuthController {
 	async signIn(payload: AuthAPINamespace.signIn.TRequest) {
 		try {
 			await this.api.signIn(payload);
-
 			await this.getUser();
-
 			router.go(Paths.chats);
 		} catch (e: any) {
 			if (e.reason === "User already in system") {
@@ -45,8 +44,8 @@ export class AuthController {
 	async getUser() {
 		try {
 			const user = await this.api.getUser();
-
 			setCurrentUser(user);
+			store.set("currentUser", user);
 		} catch (e: any) {
 			errorController.setError(e);
 		}
@@ -56,6 +55,7 @@ export class AuthController {
 		try {
 			await this.api.logout();
 			deleteCurrentUser();
+			store.set("currentUser", undefined);
 			messagesController.closeAll();
 			router.go(Paths.login);
 		} catch (e: any) {

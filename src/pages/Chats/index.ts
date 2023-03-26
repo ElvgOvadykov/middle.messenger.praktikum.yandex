@@ -13,6 +13,7 @@ import router, { Paths } from "@router/index";
 import store, { StoreEvents } from "@store/index";
 import { getCurrentUser } from "@utils/userHelpers";
 import chatController from "@controllers/ChatController";
+import { getCurrentPathToImg } from "@utils/helpers";
 
 import template from "./chats.hbs";
 
@@ -136,26 +137,37 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 	}
 
 	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps) {
-		const newChats = Array.from(newProps.chats);
+		if (newProps.chats) {
+			const newChats = Array.from(newProps.chats);
 
-		this.childrens.chatList = [];
-		this.childrens.chatList = newChats.map(
-			(chat) =>
-				new ChatItem({
-					chat,
-					events: {
-						click: () => {
-							chatController.selectChat(chat.id);
+			this.childrens.chatList = [];
+			this.childrens.chatList = newChats.map(
+				(chat) =>
+					new ChatItem({
+						chat,
+						events: {
+							click: () => {
+								chatController.selectChat(chat.id);
+							},
 						},
-					},
-					isSelected: chat.id === newProps.selectedChatId,
-				}),
-		);
+						isSelected: chat.id === newProps.selectedChatId,
+					}),
+			);
 
-		(this.childrens.chatMessages as ChatMessages).setProps({
-			chat: newChats.find((item) => item.id === newProps.selectedChatId),
-			messages: newProps.messages[newProps.selectedChatId!],
-		});
+			(this.childrens.chatMessages as ChatMessages).setProps({
+				chat: newChats.find((item) => item.id === newProps.selectedChatId),
+				messages: newProps.messages[newProps.selectedChatId!],
+			});
+		}
+
+		if (newProps.currentUser) {
+			(this.childrens.profileBlock as ProfileBlock).setProps({
+				currentUser: newProps.currentUser,
+				currentPathToAvatar: getCurrentPathToImg(
+					newProps.currentUser.avatar || "",
+				),
+			});
+		}
 
 		return true;
 	}

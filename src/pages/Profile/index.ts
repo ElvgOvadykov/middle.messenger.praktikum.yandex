@@ -19,6 +19,7 @@ import getErrors from "@utils/validation";
 import router from "@router/index";
 import { getCurrentPathToImg } from "@utils/helpers";
 import { getCurrentUser } from "@utils/userHelpers";
+import store, { StoreEvents } from "@store/index";
 
 import template from "./profile.hbs";
 
@@ -43,6 +44,10 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 		};
 
 		super(props);
+
+		store.on(StoreEvents.Updated, () => {
+			this.setProps(store.getState());
+		});
 	}
 
 	init() {
@@ -245,6 +250,19 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 				data as UserAPINamespace.changeUserProfile.TRequest,
 			);
 		}
+	}
+
+	componentDidUpdate(
+		oldProps: IProfilePageProps,
+		newProps: IProfilePageProps,
+	): boolean {
+		if (newProps.currentUser) {
+			(this.childrens.profileAvatarBlock as ProfileAvatarBlock).setProps({
+				avatarUrl: getCurrentPathToImg(newProps.currentUser.avatar),
+			});
+		}
+
+		return true;
 	}
 
 	render() {
