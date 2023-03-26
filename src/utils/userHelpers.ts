@@ -7,7 +7,13 @@ export function setCurrentUser(user: TUser) {
 }
 
 export function getCurrentUser() {
-	return JSON.parse(window.sessionStorage.getItem("user") || "");
+	try {
+		return JSON.parse(window.sessionStorage.getItem("user") || "");
+	} catch (e) {
+		console.log(e);
+	}
+
+	return undefined;
 }
 
 export function deleteCurrentUser() {
