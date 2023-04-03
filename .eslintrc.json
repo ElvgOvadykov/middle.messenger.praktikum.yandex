@@ -34,7 +34,8 @@
 		"no-continue": "off",
 		"no-param-reassign": "off",
 		"operator-linebreak": "off",
-		"function-paren-newline": "off"
+		"function-paren-newline": "off",
+		"@typescript-eslint/ban-ts-comment": "off"
 	},
 	"settings": {
 		"import/parsers": {

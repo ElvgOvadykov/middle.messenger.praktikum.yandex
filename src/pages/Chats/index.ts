@@ -136,6 +136,7 @@ export default class ChatsPage extends Block<IChatsPageProps> {
 		chatController.getChats({});
 	}
 
+	// @ts-ignore
 	componentDidUpdate(oldProps: IChatsPageProps, newProps: IChatsPageProps) {
 		if (newProps.chats) {
 			const newChats = Array.from(newProps.chats);

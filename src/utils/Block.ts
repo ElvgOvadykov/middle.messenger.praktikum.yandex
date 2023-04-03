@@ -127,6 +127,7 @@ abstract class Block<TProps extends Record<string, any> = any> {
 		this.eventBus().emit(BlockEvents.FLOW_RENDER);
 	}
 
+	// @ts-ignore
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	componentDidUpdate(oldProps: TProps, newProps: TProps) {
 		return true;

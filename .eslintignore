@@ -5,3 +5,4 @@
 /static
 **/*.hbs
 **/*.scss
+webpack.config.js
