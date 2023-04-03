@@ -27,7 +27,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"strictNullChecks": true,
-		"typeRoots": ["./src/types", "./node_modules/@types"]
+		"typeRoots": ["./src/types", "./node_modules/@types"],
+		"esModuleInterop": true,
 	},
 	"include": ["./src"],
 	"exclude": ["./node_modules", "./dist", "./parcel-cache", "./.github", "./static"]

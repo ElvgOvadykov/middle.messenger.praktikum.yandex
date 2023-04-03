@@ -9,7 +9,7 @@ module.exports = {
 		path: path.resolve(__dirname, "src", "index.ts"),
 	},
 	output: {
-		path: path.resolve(__dirname, "dist"),
+		path: path.resolve(__dirname, "./dist"),
 		filename: "main.[contenthash:8].js",
 		clean: true,
 	},
@@ -31,7 +31,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.hbs$/,
-				loader: "handlebars-loader",
+				use: ["handlebars-loader"],
 			},
 			{
 				test: /\.scss$/,
@@ -43,6 +43,7 @@ module.exports = {
 						},
 					},
 					"css-loader",
+					"sass-loader",
 				],
 			},
 			{
