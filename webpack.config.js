@@ -1,5 +1,6 @@
 const path = require("path");
 
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -29,6 +30,10 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.hbs$/,
+				loader: "handlebars-loader",
+			},
+			{
 				test: /\.scss$/,
 				use: [
 					{
@@ -53,14 +58,6 @@ module.exports = {
 					},
 				],
 			},
-			{
-				test: /\.hbs$/,
-				use: [
-					{
-						loader: "handlebars-loader",
-					},
-				],
-			},
 		],
 	},
 	plugins: [
@@ -69,6 +66,9 @@ module.exports = {
 		}),
 		new MiniCssExtractPlugin({
 			filename: "style.[contenthash:8].css",
+		}),
+		new webpack.ProvidePlugin({
+			process: "process/browser",
 		}),
 	],
 	cache: {
