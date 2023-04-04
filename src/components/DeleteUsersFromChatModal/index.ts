@@ -46,7 +46,6 @@ class DeleteUsersFromChatModal extends Block<TDeleteUsersFromChatModalExtendedPr
 	}
 
 	componentDidUpdate(
-		// @ts-ignore
 		oldProps: TDeleteUsersFromChatModalExtendedProps,
 		newProps: TDeleteUsersFromChatModalExtendedProps,
 	) {

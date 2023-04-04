@@ -5,6 +5,8 @@
 		"checkJs": false,
 		"module": "commonjs",
 		"outDir": "./dist",
+		"rootDir": "./src",
+		"moduleResolution": "node",
 		"strict": true,
 		"baseUrl": ".",
 		"paths": {
@@ -25,7 +27,7 @@
 		"skipLibCheck": true,
 		"lib": ["ESNext", "DOM"],
 		"noUnusedLocals": true,
-		"noUnusedParameters": true,
+		"noUnusedParameters": false,
 		"strictNullChecks": true,
 		"typeRoots": ["./src/types", "./node_modules/@types"],
 		"esModuleInterop": true,

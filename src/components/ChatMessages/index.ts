@@ -220,7 +220,6 @@ export default class ChatMessages extends Block<TChatMessagesExtendedProps> {
 	}
 
 	componentDidUpdate(
-		// @ts-ignore
 		oldProps: IChatMessagesProps,
 		newProps: IChatMessagesProps,
 	): boolean {

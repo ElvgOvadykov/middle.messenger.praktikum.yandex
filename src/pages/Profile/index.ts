@@ -253,7 +253,6 @@ export default class ProfilePage extends Block<IProfilePageProps> {
 	}
 
 	componentDidUpdate(
-		// @ts-ignore
 		oldProps: IProfilePageProps,
 		newProps: IProfilePageProps,
 	): boolean {

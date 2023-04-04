@@ -65,7 +65,6 @@ export default class AddUsersToChatModal extends Block<TAddUsersToChatModalExten
 	}
 
 	componentDidUpdate(
-		// @ts-ignore
 		oldProps: TAddUsersToChatModalExtendsProps,
 		newProps: TAddUsersToChatModalExtendsProps,
 	) {
