@@ -35,7 +35,11 @@
 		"no-param-reassign": "off",
 		"operator-linebreak": "off",
 		"function-paren-newline": "off",
-		"@typescript-eslint/ban-ts-comment": "off"
+		"@typescript-eslint/ban-ts-comment": "off",
+		"import/no-extraneous-dependencies": [
+			"error",
+			{ "devDependencies": ["**/*.test.ts"] }
+		]
 	},
 	"settings": {
 		"import/parsers": {

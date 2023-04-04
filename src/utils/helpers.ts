@@ -51,7 +51,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 
 export function set(
 	object: Indexed | unknown,
-	path: string,
+	path: string | unknown,
 	value: unknown,
 ): Indexed | unknown {
 	if (typeof object !== "object" || object === null) {
