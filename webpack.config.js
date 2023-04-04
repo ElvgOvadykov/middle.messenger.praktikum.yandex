@@ -3,6 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	entry: {
@@ -71,6 +72,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			process: "process/browser",
 		}),
+		new Dotenv(),
 	],
 	cache: {
 		type: "filesystem",

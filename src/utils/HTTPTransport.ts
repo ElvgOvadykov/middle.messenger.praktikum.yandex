@@ -12,7 +12,10 @@ type TOptions = {
 	headers?: Record<string, string>;
 };
 
-type HTTPMethod = <Response>(url: string, options: TOptions) => Promise<Response>;
+type HTTPMethod = <Response>(
+	url: string,
+	options: TOptions,
+) => Promise<Response>;
 
 /**
  * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
@@ -33,9 +36,7 @@ export default class HTTPTransport {
 	protected baseUrl: string;
 
 	constructor(rootUrl: string) {
-		const { API_URL } = process.env;
-
-		this.baseUrl = `${API_URL}${rootUrl}`;
+		this.baseUrl = `${process.env.API_URL}${rootUrl}`;
 	}
 
 	get: HTTPMethod = (url, options) => {
@@ -45,7 +46,11 @@ export default class HTTPTransport {
 			currentUrl = url.concat(queryStringify(options.data));
 		}
 
-		return this.request(currentUrl, { ...options, method: METHODS.GET }, options.timeout);
+		return this.request(
+			currentUrl,
+			{ ...options, method: METHODS.GET },
+			options.timeout,
+		);
 	};
 
 	put: HTTPMethod = (url, options) =>
@@ -57,7 +62,11 @@ export default class HTTPTransport {
 	delete: HTTPMethod = (url, options) =>
 		this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-	request = <Response>(url: string, options: TOptions, timeout = 5000): Promise<Response> => {
+	request = <Response>(
+		url: string,
+		options: TOptions,
+		timeout = 5000,
+	): Promise<Response> => {
 		const { method, data, headers } = options;
 
 		return new Promise((resolve, reject) => {
@@ -92,7 +101,7 @@ export default class HTTPTransport {
 				xhr.send();
 			} else if (data instanceof FormData) {
 				xhr.send(data);
-			}	else {
+			} else {
 				xhr.send(JSON.stringify(data));
 			}
 		});
