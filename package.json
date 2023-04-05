@@ -6,6 +6,8 @@
 		"start": "webpack serve --mode=development",
 		"build": "webpack --mode=development",
 		"test": "mocha --require ts-node/register --require ./mochaSetup.js src/**/*.test.ts",
+		"eslint": "npx eslint . --quiet",
+		"stylelint": "npx stylelint ./src/**/*.scss",
 		"prepare": "husky install"
 	},
 	"repository": {
