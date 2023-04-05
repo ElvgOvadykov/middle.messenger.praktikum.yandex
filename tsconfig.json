@@ -30,8 +30,18 @@
 		"noUnusedParameters": false,
 		"strictNullChecks": true,
 		"typeRoots": ["./src/types", "./node_modules/@types"],
-		"esModuleInterop": true,
+		"esModuleInterop": true
 	},
 	"include": ["./src"],
-	"exclude": ["./node_modules", "./dist", "./parcel-cache", "./.github", "./static"]
+	"exclude": [
+		"./node_modules",
+		"./dist",
+		"./parcel-cache",
+		"./.github",
+		"./static"
+	],
+	"ts-node": {
+		"files": true,
+		"require": ["tsconfig-paths/register"]
+	}
 }
