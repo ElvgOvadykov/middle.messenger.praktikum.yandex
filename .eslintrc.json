@@ -40,7 +40,8 @@
 			"error",
 			{ "devDependencies": ["**/*.test.ts"] }
 		],
-		"no-new": "off"
+		"no-new": "off",
+		"max-classes-per-file": "off"
 	},
 	"settings": {
 		"import/parsers": {
