@@ -7,3 +7,4 @@
 **/*.scss
 webpack.config.js
 mochaSetup.js
+server.js
