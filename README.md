@@ -15,6 +15,12 @@ UPD 25032023:
 Работа с текущим пользователем была реализована с помощью sessionStorage.
 Добавлени маршрутизация.
 
+UPD 06042023:
+Сборка производится с помощью Webpack.
+Реализованы тесты на Mocha и Chai. Добавлен pre-commit.
+Проведен аудит пакетов npm audit. Добавлен Dockerfile.
+Докер образ был залит на Яндекс облако.
+
 Функции:
 
 1. Отправка сообщений, фото, видео и файлов.
@@ -25,7 +31,7 @@ UPD 25032023:
 
 Язык: Typescript
 Шаблонизатор: Handlebars
-Сборщик: Parcel
+Сборщик: Webpack
 
 Дизайн проекта в Figma
 https://www.figma.com/file/BDn8n7bqsQQ1ASyNmtTpp6/chat_maket?node-id=0%3A1&t=I7pqnMK5JvuuiazF-1
@@ -33,10 +39,19 @@ https://www.figma.com/file/BDn8n7bqsQQ1ASyNmtTpp6/chat_maket?node-id=0%3A1&t=I7p
 Ссылка на Netlify
 https://stellular-belekoy-def70f.netlify.app/
 
+Ссылка на Яндекс.Облако
+http://158.160.41.44:3000
+
 Команды:
 
 npm install - установка зависимостей,
 
 npm run build - сборка проекта,
 
-npm run start - локальное развертываение проекта.
+npm run start - локальное развертываение проекта,
+
+npm run test - запуск тестов,
+
+npm run eslint - проверка линтером,
+
+npm run stylelint - проверка стилей линтером.
