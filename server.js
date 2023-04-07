@@ -1,14 +1,14 @@
-// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-var-requires
 const express = require("express");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 require("dotenv").config({
 	path: "./.env",
 });
+const history = require('express-history-api-fallback');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static("./dist"));
+app.use(history('index.html', { root: './dist' }));
 
 app.use((req, res, next) => {
 	res.setHeader(

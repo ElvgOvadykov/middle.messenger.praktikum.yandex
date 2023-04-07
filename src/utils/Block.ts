@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 import EventBus from "./EventBus";
 
-const enum BlockEvents {
+export const enum BlockEvents {
 	INIT = "init",
 	FLOW_CDM = "flow:component-did-mount",
 	FLOW_CDU = "flow:component-did-update",

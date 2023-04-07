@@ -5,3 +5,6 @@
 /static
 **/*.hbs
 **/*.scss
+webpack.config.js
+mochaSetup.js
+server.js

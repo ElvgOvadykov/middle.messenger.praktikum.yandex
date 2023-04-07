@@ -3,7 +3,12 @@ export const deepEqual = (a: any, b: any) => {
 	if (a === b) {
 		return true;
 	}
-	if (a === null || b === null || typeof a !== "object" || typeof b !== "object") {
+	if (
+		a === null ||
+		b === null ||
+		typeof a !== "object" ||
+		typeof b !== "object"
+	) {
 		return false;
 	}
 	const aKeys = Object.keys(a);
@@ -32,9 +37,7 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 
 		try {
 			if (rhs[p].constructor === Object) {
-				lhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
-			} else if (rhs[p].constructor === Array) {
-				lhs[p] = Array.from(rhs[p] as Array<any>);
+				rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
 			} else {
 				lhs[p] = rhs[p];
 			}
@@ -46,7 +49,11 @@ export function merge(lhs: Indexed, rhs: Indexed): Indexed {
 	return lhs;
 }
 
-export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+export function set(
+	object: Indexed | unknown,
+	path: string | unknown,
+	value: unknown,
+): Indexed | unknown {
 	if (typeof object !== "object" || object === null) {
 		return object;
 	}

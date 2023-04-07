@@ -5,6 +5,8 @@
 		"checkJs": false,
 		"module": "commonjs",
 		"outDir": "./dist",
+		"rootDir": "./src",
+		"moduleResolution": "node",
 		"strict": true,
 		"baseUrl": ".",
 		"paths": {
@@ -25,10 +27,21 @@
 		"skipLibCheck": true,
 		"lib": ["ESNext", "DOM"],
 		"noUnusedLocals": true,
-		"noUnusedParameters": true,
+		"noUnusedParameters": false,
 		"strictNullChecks": true,
-		"typeRoots": ["./src/types", "./node_modules/@types"]
+		"typeRoots": ["./src/types", "./node_modules/@types"],
+		"esModuleInterop": true
 	},
 	"include": ["./src"],
-	"exclude": ["./node_modules", "./dist", "./parcel-cache", "./.github", "./static"]
+	"exclude": [
+		"./node_modules",
+		"./dist",
+		"./parcel-cache",
+		"./.github",
+		"./static"
+	],
+	"ts-node": {
+		"files": true,
+		"require": ["tsconfig-paths/register"]
+	}
 }

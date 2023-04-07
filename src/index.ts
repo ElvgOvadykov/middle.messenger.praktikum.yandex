@@ -6,6 +6,8 @@ import NotFoundErrorPage from "@pages/404";
 
 import router from "@router/index";
 
+import "@styles/main.scss";
+
 window.addEventListener("DOMContentLoaded", async () => {
 	router
 		.setRootQuery("#app")
